@@ -1,0 +1,801 @@
+Title: Data-driven approximation of regions of attraction via an LP-based selection of PWA Lyapunov functions
+
+URL Source: https://arxiv.org/pdf/2605.19961v2
+
+Published Time: Thu, 21 May 2026 01:22:25 GMT
+
+Number of Pages: 15
+
+Markdown Content:
+# Data-driven approximation of regions of attraction via an LP-based selection of PWA Lyapunov functions 
+
+## Oumayma Khattabi, Matteo Tacchi-B´ enard, Martin Gulan, Sorin Olaru May 21, 2026 
+
+Abstract 
+
+This paper presents a method to approximate regions of attraction of unknown nonlinear dynamical systems from data. Assuming point-wise evaluations of the vector field and known Lipschitz bounds, a polyhedral uncertainty set of admissible dynamics is constructed. This uncertainty description enables the synthesis of a continuous piecewise affine (PWA) Lyapunov candidate via a linear program (LP), enforcing a robust decrease condition for all admissible vector fields. The approach allows certification of a region of attraction (RoA) consistent with the available data. Numerical examples illustrate the effectiveness of the proposed method in extracting certified RoAs from sparse data. 
+
+Keywords : Data-driven, PWA Lyapunov functions, Region of attraction, Lipschitz continuity, Un-certainty modeling. 
+
+# 1 Introduction 
+
+In control theory, stability analysis is the theoretical foundation for system analysis and the construction of stability certificates. It is typically carried out using a mathematical model of the system dynamics, which is often unavailable or difficult to obtain for nonlinear systems. This limitation can be mitigated through data-driven methods, which have seen a significant increase in use as data and computational power have become widely available. Data-driven stability analysis is carried out through different approaches, among which the construction of Lyapunov functions [1] or the verification of barrier certificates [2] are common. These rely on a range of computational tools, including neural networks and convex optimization frameworks, but certifying stability properties such as regions of attraction from data remains challenging. Neural network-based methods have attracted increasing attention due to their learning and approxima-tion capabilities. For instance, in [3], a Lyapunov candidate is learned jointly with the dynamics to certify stability, whereas in [4] it is learned jointly with the controller to ensure convergence. In [5], the approx-imation of a Lyapunov candidate is used to counteract the curse of dimensionality typically encountered in neural network-based approaches. Neural networks can also be used to learn invariant sets via learned Lyapunov functions for general reference-tracking control laws [6]. Despite their flexibility, these approaches often lack explicit robustness guarantees and rely on sampled data, which can limit their ability to provide reliable certification. Other approaches rely on convex optimization and polynomial methods. Sum-of-Squares programming is used in [7] to compute polynomial representations of the system and certify stability through dissipativity constraints, and in [8] to develop super-stabilizing controllers to counter measurement corruption and noise. Polynomial optimization is also used in [9], where, coupled with Koopman operators, dynamical system properties are certified, and in [10], where a data-driven safe controller is developed with barrier constraints to guarantee stability and safety. Such methods rely on function approximations and structural assumptions, which may limit their applicability in fully data-driven settings. Some early model-based works related to this paper include [11, 12], which proposed systematic procedures for constructing a Lyapunov function for nonlinear systems, and [13], which introduced computer-aided methods for the automatic generation of Lyapunov candidates. Other works, such as [14, 15, 16], rely on vector norms as Lyapunov functions to derive stability conditions for linear systems, while stability margin evaluation for uncertain linear systems is studied in [17, 18], highlighting robustness under bounded uncertainties. The above approaches provide strong theoretical guarantees but rely on explicit system models. 1
+
+> arXiv:2605.19961v2 [math.OC] 20 May 2026
+
+This paper uses an uncertainty set derived from data to induce a differential inclusion framework and construct a PWA Lyapunov candidate. Related approaches using differential inclusions include [19], which employs a set-valued map of the model for stability certification, and [20], which develops a data-driven control barrier function using uncertainty estimation. Works constructing PWA Lyapunov candidates include [21], which proposes an LP that builds PWA Lyapunov function over a polyhedral partition for a known nonlinear system, and [22], which formulates a second-order cone program for bounded unknown system with data. While approaches based on differential inclusions and polyhedral uncertainty bounds, as well as approaches constructing Lyapunov functions from data sets, have been explored in the literature, the proposed approach combines explicit uncertainty sets derived from data with PWA Lyapunov functions in a fully data-driven setting, resulting in a tractable LP-based formulation for stability certification. The remainder of this paper is organized as follows: problem formulation and assumptions are presented in Section 2, followed by formulation of the uncertainty set in Section 3. Section 4 introduces the Lyapunov candidate, which, together with the uncertainty set, define the LP in Section 5. Numerical results illustrating certified RoAs are given in Section 6, followed by conclusions in Section 7. 
+
+Notation: Let n ∈ N, [ n] ≜ {1, · · · , n }. In denotes the n × n identity matrix, and 1n the vector of ones in 
+
+Rn. For any k ∈ [n], ek denotes the k-th canonical basis vector in Rn. Rn>0 is the set of n-dimentional vectors of positive real components. The symbol · denotes matrix product, while × denotes the Cartesian product of sets. Let X be a set in Rn; int( X ) denotes its interior. If X is a polyhedron, then |X | denotes the number of its vertices. The symbol ∇ denotes the gradient operator. | · | denotes the componentwise absolute value, and || · || p is the vector p-norm for p ∈ { 1, 2, ∞} . || · || denotes the Euclidian norm || · || 2
+
+# 2 Preliminaries and problem formulation 
+
+Throughout this paper, we consider the dynamical system ˙x = f (x), (1) where f : Rn −→ Rn, n ∈ N, is an unknown vector field. We seek to approximate the region of attraction (RoA) of a stable equilibrium of the system within a convex, compact ( i.e. , bounded and closed) polyhedral set X ⊂ Rn.
+
+## 2.1 Assumptions 
+
+The following assumptions are adopted to formulate the problem and develop the proposed approach: 
+
+Assumption 1. The system admits a unique locally asymptotically stable equilibrium in X , which, without loss of generality, is taken to be the origin. 
+
+Assumption 2. The function f is Lipschitz continuous on X , and a componentwise upper bound M ∈ Rn>0
+
+on its Lipschitz constant is known. Specifically, Lipschitz continuity is interpreted with respect to the L∞-norm: 
+
+|f (x) − f (y)| ≤ M || x − y|| ∞, ∀x, y ∈ X .
+
+Assumption 3. f (.) is accessible for point-wise evaluation, either through simulation or measurements. This implies the availability of a data set DNd = {(xi, f i)}i∈[Nd], where xi ∈ X , fi = f (xi) and Nd ∈ N.
+
+Assumption 4. An arbitrarily small polyhedral set A ⊂ X containing the equilibrium is available, and the behavior of the system in this set is safe. 
+
+## 2.2 Problem formulation 
+
+This work aims to certify the system’s stability in a region around the equilibrium using data. The proposed method consists of constructing a PWA Lyapunov function and sub-sequently extracting a certified RoA from its level set. 2The approximation of the RoA is carried out in three main steps. The first step consists of identifying the uncertainty set, i.e. , the set of all admissible pairs ( x, f (x)) over X consistent with the available data and the Lipschitz bound. The second step consists of partitioning the state space into a tessellation and, using the uncertainty set, constructing a PWA Lyapunov candidate. The third step is to extract a valid RoA with stability certificates. The remainder of the paper details these three steps in the following sections. 
+
+# 3 Characterizing uncertainty in the dynamics from data informa-tion 
+
+Based on Assumptions 2 and 3, the uncertainty set consistent with the data is defined as: 
+
+FDNd = {(x, z ) ∈ X × Rn| ∀ i ∈ [Nd], |z − fi| ≤ M || x − xi|| ∞}. (2) This basic characterization can be refined to exploit locally active restrictions and obtain a global repre-sentation more suitable for analysis; a reformulation of the Lipschitz inequalities is in order. In particular, for a data point ( xi, f i), i ∈ [Nd], and x ∈ X ⊂ Rn, the Lipschitz inequality in the L∞-norm can be written in vector form: 
+
+
+
+f1(x)...
+
+fn(x)
+
+ −
+
+
+
+f1,i 
+
+...
+
+fn,i 
+
+ ≤ M
+
+
+
+x1
+
+...
+
+xn
+
+ −
+
+
+
+x1,i 
+
+...
+
+xn,i 
+
+
+
+> ∞
+
+. (3) On the one hand, the component-wise constraints suggest the possibility of treating the admissible un-certainties for each component of f (x) independently. On the other hand, the absolute values of the relative displacement between the evaluation point and the data point introduce a number of alternatives that must be handled efficiently. Since the objective is to determine bounds on each component of f (x), we focus on a generic component indexed by κ. At this stage, the Lipschitz constant can be specified componentwise. Hence, we associate to the component fκ(x) its Lipschitz constant Mκ:
+
+|fκ(x) − fκ,i | ≤ Mκ max  
+
+> k∈[n]
+
+(|xk − xk,i |) . (4) Let κ′ ∈ [n] be an index attaining the maximum in the right-hand side of (4), i.e. ,
+
+|xκ′ − xκ′,i | = max  
+
+> k∈[n]
+
+|xk − xk,i |.
+
+Then the following inequalities hold: 
+
+|fκ(x) − fκ,i | ≤ Mκ |xκ′ − xκ′,i | ,
+
+|xk − xk,i | ≤ | xκ′ − xκ′,i | ∀k ∈ [n].
+
+For each selection of indices ( κ, κ ′), two alternatives for the admissible uncertainty in the component 
+
+fκ(x) arise naturally depending on the sign of ( xκ′ − xκ′,i ): 
+
+P (+)  
+
+> i,κ,κ ′
+
+=
+
+
+
+(x, z ) ∈ X × R : x − xi
+
+z − fκ,i 
+
+≤
+
+ 1n
+
+Mκ
+
+
+
+(xκ′ − xκ′,i )
+
+
+
+, (5) 
+
+P (−) 
+
+> i,κ,κ ′
+
+=
+
+
+
+(x, z ) ∈ X × R : x − xi
+
+z − fκ,i 
+
+≤ − 
+
+ 1n
+
+Mκ
+
+
+
+(xκ′ − xκ′,i )
+
+
+
+. (6) The uncertainty in each element of the right-hand side of the ordinary differential equation (1) is rep-resented by a scalar variable z ≜ fκ(x); the admissible pairs ( x, z ) are implicitly characterized through the inequality constraints. Each of the sets (5) and (6) defines the inequalities of a polyhedral cone in Rn+1 induced by the L∞-norm Lipschitz constraint, and will henceforth be referred to simply as a cone. Moreover, these cones are symmetric 3with respect to the axis xκ′ , sharing the same vertex and direction. A formal definition of this set is a double cone 1, of vertex ( xi, f κ,i ), of axis along xκ′ , and of opening angle in L∞-norm ηκ ∈ Rn+1 :
+
+ηκ ≜
+
+ 1n
+
+Mκ
+
+
+
+.
+
+Remark 1. The projection of each cone is the same for all elements of f (·). This projection is obtained by deleting the {n + 1 }-th inequality for both (5) and (6), which is the only inequality dependent on fκ(·) and 
+
+Mκ.A polyhedral representation of the cones (5) and (6) is given by: 
+
+P (+)  
+
+> i,κ,κ ′
+
+=
+
+
+
+(x, z ) ∈ X × R | A+ ·
+
+xz
+
+
+
+≤ b+
+
+
+
+, (7) 
+
+P (−) 
+
+> i,κ,κ ′
+
+=
+
+
+
+(x, z ) ∈ X × R | A− ·
+
+xz
+
+
+
+≤ b−
+
+
+
+, (8) with 
+
+A+ =
+
+ In+1 
+
+−In+1 
+
+
+
+−
+
+ηκ · eT
+
+> κ′
+
+ηκ · eT
+
+> κ′
+
+
+
+, A − =
+
+ In+1 
+
+−In+1 
+
+
+
++
+
+ηκ · eT
+
+> κ′
+
+ηκ · eT
+
+> κ′
+
+
+
+,b+ =
+
+
+
+x1,i − xκ′,i 
+
+...
+
+xn,i − xκ′,i 
+
+fκ,i − Mκxκ′,i 
+
+−x1,i − xκ′,i 
+
+...
+
+−xn,i − xκ′,i 
+
+−fκ,i − Mκxκ′,i 
+
+
+
+, b − =
+
+
+
+x1,i + xκ′,i 
+
+...
+
+xn,i + xκ′,i 
+
+fκ,i + Mκxκ′,i 
+
+−x1,i + xκ′,i 
+
+...
+
+−xn,i + xκ′,i 
+
+−fκ,i + Mκxκ′,i ,
+
+
+
+,
+
+where eκ′ = [0 , · · · , 1
+
+> κ′-th position
+
+, 0, · · · , 0] T ∈ Rn+1 .At this stage, the uncertainty sets of fκ(x) induced by the data set DNd have been characterized by considering a single maximizer in the right-hand side of inequality (4). To obtain the set of all admissible values of fκ(x), i.e. , the uncertainty set of fκ(x) over X given ( xi, f i), one must consider all indices attaining the maximum in the right-hand side of (4). This set is given by the union of 2 n disjoint cones: 
+
+Pi,κ = [
+
+> l∈[n]
+
+P (+)  
+
+> i,κ,l
+
+∪ P (−)
+
+> i,κ,l
+
+. (9) Figure 1 illustrates the union of polyhedra Pi,κ defined in (9) for n = 2. Using the full data set DNd , the uncertainty set of fκ(x) over X is obtained as: 
+
+Qκ = \
+
+> i∈[Nd]
+
+Pi,κ . (10) Figure 2 illustrates Qκ for n = 2. We now analyze the geometric structure of the sets Qκ and their projections. 
+
+Lemma 1. For any κ ∈ [n], the set Qκ defined in (10) is a finite union of polyhedral sets. Moreover, if X
+
+is bounded, then Qκ is bounded. Proof. For each i ∈ [Nd] and κ ∈ [n], the set Pi,κ is defined as a union of 2 n sets of the form P (+)  
+
+> i,κ,l
+
+and P (−)
+
+> i,κ,l
+
+,with l ∈ [n]. By their polyhedral representation, each of these sets is a polyhedron in Rn+1 . Therefore, Pi,κ 
+
+is a finite union of polyhedral sets. 
+
+> 1Two cones of the same vertex and direction, and an opposing sense.
+
+41-0.5 010.5 0.5 0.5 1001.5 -0.5 -0.5 -1 -1 Figure 1: Illustration of Pi,κ with K ∈ { 1, 2} (in green, yellow, orange and red are P (+) 
+
+i,κ, 1, P (−)
+
+i,κ, 1, P (+) 
+
+i,κ, 2 and P (−)
+
+i,κ, 2
+
+respectively). -1 1-0.5 10.5 00.5 00.5 01-0.5 -0.5 -1 -1 
+
+Figure 2: Illustration of Qκ with 4 data points. 
+
+5Since Qκ is obtained as the intersection over i ∈ [Nd] of the sets Pi,κ , and each Pi,κ is a finite union of polyhedral sets, the distributivity of finite intersections over finite unions of sets implies that Qκ is itself a finite union of polyhedral sets. If X is bounded, then the x-component of every ( x, z ) ∈ Qκ is bounded. The inequalities defining the sets P (+)  
+
+> i,κ,l
+
+and P (−) 
+
+> i,κ,l
+
+then imply a bound on the scalar variable z, since 
+
+|z − fκ,i | ≤ Mκ∥x − xi∥∞.
+
+Hence Qκ is bounded. 
+
+Lemma 2. For any κ ∈ [n], the projections onto the state space of the regions associated with the construction of Qκ admit a common refinement that defines a finite polyhedral partition of X . Moreover, this partition is independent of κ.Proof. For each i ∈ [Nd], the sets P (+)  
+
+> i,κ,l
+
+and P (−) 
+
+> i,κ,l
+
+are obtained by enumerating the possible indices attaining the maximum in 
+
+∥x − xi∥∞ = max  
+
+> k∈[n]
+
+|xk − xk,i |.
+
+For each i ∈ [Nd], this enumeration induces a finite collection of polyhedral regions {Ri,l }l∈Li in Rn whose union is Rn and whose interiors are pairwise disjoint. Consider the common refinement of these collections over all i ∈ [Nd], i.e. , the family of nonempty sets 
+
+Rl1,...,l Nd = X ∩ \
+
+> i∈[Nd]
+
+Ri,l i , li ∈ Li.
+
+Each such set is polyhedral, being the intersection of finitely many polyhedral sets. Moreover, the union of all nonempty sets Rl1,...,l Nd is X , and their interiors are pairwise disjoint. Hence, this refinement defines a finite polyhedral partition of X . Since the inequalities constraining x do not depend on κ, the resulting partition of X is independent of κ.
+
+Lemma 3. For any κ ∈ [n] and any x ∈ X , define 
+
+Qκ(x) ≜ {z ∈ R | (x, z ) ∈ Qκ}.
+
+Then Qκ(x) is a polyhedral set in R; in particular, it is a bounded interval. Proof. For any fixed x ∈ X and any data point ( xi, f i), the Lipschitz inequality gives |z−fκ,i | ≤ Mκ∥x−xi∥∞,which is equivalent to 
+
+fκ,i − Mκ∥x − xi∥∞ ≤ z ≤ fκ,i + Mκ∥x − xi∥∞.
+
+Thus, for fixed x, each data point defines a bounded interval of admissible values for z. Since Qκ is obtained by enforcing these inequalities for all i ∈ [Nd], Qκ(x) is the intersection of finitely many bounded intervals. Therefore, Qκ(x) is itself a bounded interval in R.As a consequence of Lemma 3, for any κ ∈ [n] and any x ∈ X , there exist scalars f min  
+
+> κ
+
+(x) and f max  
+
+> κ
+
+(x)such that 
+
+Qκ(x) = [ f min  
+
+> κ
+
+(x), f max  
+
+> κ
+
+(x)] .
+
+Therefore, the uncertainty induced by the data set can be described by the set-valued map 
+
+F : X ⇒ Rn, F(x) = Q1(x) × · · · × Qn(x),
+
+that is, 
+
+F(x) = [ f min 1 (x), f max 1 (x)] × · · · × [f min  
+
+> n
+
+(x), f max  
+
+> n
+
+(x)] .
+
+From the componentwise characterization above, the global uncertainty set (2) can equivalently be written as 
+
+FDNd = {(x, z ) ∈ X × Rn | z ∈ F(x)}, (11) 
+
+i.e. , the graph of all vector fields consistent with the data set DNd over X .6Proposition 1. Given the data set DNd and Assumptions 2–3, the uncertainty in the vector field induced by the data set can be characterized by the differential inclusion 
+
+˙x ∈ F(x), x ∈ X ,
+
+where F : X ⇒ Rn is the set-valued map defined by F(x) = Q1(x) × · · · × Qn(x). Moreover, the graph of F
+
+is represented by a finite union of polyhedral sets. Proof. First, by Lemma 1, each set Qκ is a finite union of polyhedra in Rn+1 . By Lemma 3, the set Qκ(x)is a bounded interval for every x ∈ X . Hence, for each x ∈ X , the set F(x) = Q1(x) × · · · × Qn(x) is a hyperbox in Rn containing all admissible values of the vector field at x. Therefore, the uncertainty induced by the data set is described by the differential inclusion ˙ x ∈ F(x). Moreover, by (11), the graph of F coincides with the global uncertainty set FDNd , i.e. graph( F) = FDNd .Since each Qκ is a finite union of polyhedra and the projections onto the state space coincide for all κ by Lemma 2, the graph of F is represented by a finite union of polyhedral sets. The set-valued map F(x) provides, for each x ∈ X , a hyperbox in Rn containing all admissible values of the vector field consistent with the data. In view of subsequent stability analysis, it is convenient to exploit this polyhedral structure through its extreme points. In particular, the hyperbox F(x) is fully characterized by its set of vertices, defined as follows: 
+
+Fv (x) = z ∈ Rn | zk ∈ { f min  
+
+> k
+
+(x), f max  
+
+> k
+
+(x)}, ∀k ∈ [n] . (12) 
+
+# 4 PWA Lyapunov candidate 
+
+This section presents the method used to derive a Lyapunov candidate function for the uncertainty set consistent with a data set DNd . When defining a Lyapunov candidate, the parametrization must satisfy at least two basic principles: 
+
+• be a universal approximator of a generic nonlinear con-tinuous Lyapunov function; 
+
+• have manageable complexity in the number of degrees of freedom for the approximation. While several alternatives exist, we focus here on PWA functions: 
+
+Definition 1. Given a polyhedral partition of X ⊂ Rn, a function g : X → R is called a PWA function if 
+
+X = [
+
+> j∈[Nc]
+
+Yj , int( Yj ) ∩ int( Yj′ ) = ∅, ∀j̸ = j′,g(x) = aT 
+
+> j
+
+x + bj , ∀x ∈ Yj ,
+
+where aj ∈ Rn, bj ∈ R, and Nc ∈ N.These functions are continuous and inherit the polyhedral geometry of the sets Yj , while satisfying the two desiderata stated above. Moreover, PWA functions involve a partition whose structure is closely related to the polyhedral partition induced by the differential inclusion describing the uncertainty in Section 3. 
+
+## 4.1 State-space tessellation as a design parameter 
+
+A PWA function, according to Definition 1, relies on a partition and associated coefficients ( aj , b j ). In this work, we restrict attention to polyhedral tessellations of the state space, which provide a structured class of partitions suitable for our construction. For Lyapunov-based certification, we treat the tessellation as a design degree of freedom and enforce Lyapunov-related properties by optimizing the coefficients ( aj , b j ). Accordingly, we propose to construct the tessellation by selecting, in an initial phase of the procedure, its vertices {vu}u∈[Nv ]. The rationale for this choice is the availability of points obtained as projections of the vertices of graph( F) onto the state space. This choice serves two purposes. First, it adapts the tessellation complexity to the complexity of the dynamics using information encoded in the uncertainty set. Second, it 7ensures consistency between the state-space partition and the uncertainty set, which can be exploited in the certification procedure. The tessellation is constructed from geometric features of graph( F). In particular, the vertices {vu}u∈[Nv ]
+
+are obtained by projecting the vertices of graph( F) onto the state space. This ensures that {vu}u∈[Nv ]
+
+capture the extreme points of the uncertainty set. Ideally, the resulting tessellation forms a subpartition of the partition induced by the projection of graph( F)2.
+
+## 4.2 Lyapunov candidate 
+
+Once the tessellation {Yj }j∈[Nc] is imposed, the PWA Lyapunov candidate V : X ⊂ Rn → R is defined as: 
+
+V (x) = aT 
+
+> j
+
+x + bj , ∀j ∈ [Nc], ∀x ∈ Yj ⊂ X , (13) where the coefficients are constrained to verify that: 
+
+• V is positive: 
+
+V (x) > 0, ∀x ∈ X \ { 0}, (14) 
+
+• V is continuous: 
+
+aT 
+
+> j
+
+x + bj = aT 
+
+> j′
+
+x + bj′ , ∀j, j ′ ∈ [Nc], ∀x ∈ Yj ∩ Yj′ , (15) 
+
+• and for each cell Yj , the gradient of V satisfies: 
+
+∇V (x)Tf (x) = aT 
+
+> j
+
+f (x) < 0, ∀j ∈ [Nc], ∀x ∈ int( Yj ) \ { 0}. (16) For α ∈ R, we define the sublevel set LVα of V as: 
+
+LVα ≜ {x ∈ X | V (x) ≤ α}.
+
+Lemma 4. If there exists V (·) satisfying (14) –(16) for all admissible f (·) ∈ F(·), then, for any α ∈ R with 
+
+LVα ⊆ X and any x0 ∈ L Vα , either x(t, x 0) ∈ L Vα for all t ≥ 0, or there exists te < ∞ such that x(te, x 0) /∈ X .Proof. By Proposition 1, admissible dynamics satisfy ˙ x ∈ F(x). Since V satisfies (14)–(16) for all admissible 
+
+f (·) ∈ F(·), it is a Lyapunov function for this inclusion on X . Thus, for any x0 ∈ L Vα , as long as x(t, x 0) ∈ X ,one has V (x(t, x 0)) ≤ V (x0) ≤ α, and therefore x(t, x 0) ∈ L Vα . Hence, trajectories cannot leave LVα while remaining in X . Consequently, either x(t, x 0) ∈ L Vα for all t ≥ 0, or the trajectory exits X . In the latter case, continuity of x(·, x 0) implies the existence of a finite exit time te < ∞ such that x(te, x 0) /∈ X .
+
+Proposition 2. Let V (·) satisfy (14) –(16) for all admissible f (·) ∈ F(·), and let LVα be a sublevel set for some α ∈ R, with LVα ⊆ X . If R ⊂ X is such that R ∩ L Vα is a non-empty connected set containing the equilibrium, then R ∩ L Vα defines a certified RoA consistent with the data. Proof. By Proposition 1, admissible dynamics satisfy ˙x ∈ F(x), and V is a Lyapunov function for this inclusion on X . By Lemma 4, every trajectory starting in LVα remains in LVα , since LVα ⊆ X excludes its escape in finite time from X . Hence, trajectories starting in R ∩ L Vα remain in LVα . Since R ∩ L Vα is connected and contains the equilibrium, standard Lyapunov arguments imply convergence toward the equilibrium. Therefore, R ∩ L Vα defines a certified RoA. 
+
+Proposition 3. Let x ∈ X \ { 0}. If 
+
+∇V Tz < 0 ∀z ∈ F v (x) (16*) 
+
+is verified, then (16) holds. 
+
+> 2In the numerical section, this structural constraint is relaxed.
+
+8Proof. Since F(x) is a convex polyhedral set (a hyperbox), any f (x) ∈ F(x) can be expressed as a convex combination of its vertices Fv (x). The mapping z 7 → ∇ V Tz is linear, and thus its maximum over F(x) is attained at the vertices, i.e. max  
+
+> z∈F(x)
+
+∇V Tz = max   
+
+> z∈F v(x)
+
+∇V Tz. 
+
+If ∇V Tz < 0 for all z ∈ F v (x), then ∇V Tz < 0 for all z ∈ F(x), and since f (x) ∈ F(x), it follows that 
+
+∇V Tf (x) < 0. The preceding results show that stability can be certified directly from data by constructing a Lyapunov function V (.) that decreases along all admissible dynamics consistent with the available information. In par-ticular, Proposition 2 shows that the connected component of the sublevel set LVα containing the equilibrium defines a certified RoA. To make this condition practically verifiable, the key idea behind Proposition 3 is to replace the unknown vector field f (·) in (16) by a finite set of constraints evaluated at the vertices of the uncertainty set. Given the hyperbox structure of F(x), these vertices fully characterize the admissible values of the vector field, so the decrease condition can be enforced through a finite number of inequalities. 
+
+# 5 An algorithmic construction of certificates 
+
+In this section, the uncertainty set, the state-space tessellation, and the Lyapunov conditions derived previ-ously are assembled into an optimization-based procedure. In particular, the finite characterization of the Lyapunov decrease condition provided by Proposition 3 enables a tractable formulation. A feasible solution yields a valid PWA Lyapunov candidate and an associated region of attraction. The resulting formulation admits an implementable algorithm proposed in this section. 
+
+## 5.1 LP-based PWA candidate selection 
+
+To construct the PWA Lyapunov function (13), we formulate an optimization problem using the con-straints (14)–(16), evaluated at the vertices {vu}u∈[Nv ] of the tessellation. The decrease condition (16) is replaced by its vertex-based counterpart (16*) using Proposition 3, by enforcing it at the vertices of the uncertainty set Fv (vu). To allow for feasibility, decrease condition (16*) is relaxed using slack variables {su}u∈[Nv ], lower-bounded by −μ with μ ∈ R>0. The slack variables are minimized in the objective to enforce negativity of the Lyapunov decrease condition. The resulting linear program (LP) optimizes over variables {aj }j∈[Nc], {bj }j∈[Nc] and {su}u∈[Nv ], and is formulated as: min   
+
+> {aj,b j,s u}
+
+X
+
+> u
+
+su (17a) s.t. su ≥ − μ ∀u, (17b) 
+
+aT 
+
+> j
+
+vu + bj ≥ 0 ∀u, ∀j : vu ∈ Yj , (17c) 
+
+aT 
+
+> j
+
+vu + bj = aT 
+
+> j′
+
+vu + bj′ ∀u, ∀j, j ′ : vu ∈ Yj ∩ Yj′ , (17d) 
+
+aT 
+
+> j
+
+z ≤ su ∀u, ∀j : vu ∈ Yj , ∀z ∈ F v (vu), (17e) where u ∈ [Nv ] indexes the tessellation vertices {vu} and j, j ′ ∈ [Nc] index the cells {Yj }.For α ∈ R>0, the connected component of the sublevel set LVα containing the origin, associated with the obtained Lyapunov function V ∗(x) = a∗T 
+
+> j
+
+x + b∗ 
+
+> j
+
+, defines a certified region of attraction provided that all slack variables associated with vertices vu ∈ L Vα are strictly negative. 
+
+## 5.2 Iterative procedure 
+
+Before solving the optimization problem (17), several feasibility issues must be addressed. 9A main obstacle to feasibility of constraint (17e) arises when the set F(vu) contains zero. Such a vector implies that vu is a potential equilibrium point, and the corresponding data set can be considered not sufficiently informative. In this case, (17e) must hold for z = 0: 
+
+aT 
+
+> j
+
+0 ≤ su ⇒ 0 ≤ su,
+
+meaning that the slack variable cannot be negative. Accordingly, the proposed solution is to add a data point at vu to reduce the uncertainty. The second issue arises from the equilibrium point itself and the points in its neighborhood, for the same reason as the infeasibility of constraint (17e) for negative slack variables. This is where Assumption 4 comes in place: the existence of a neighborhood A of the equilibrium point, understood as a target region, allows relaxing (17e) for points in A.The third issue stems from numerical sensitivity of polyhedral intersection in the construction of FDNd .This propagates when computing the sets Fv (vu) at the tessellation vertices {vu}u∈[Nv ], potentially leading to inaccuracies that affect the feasibility of (17). To address this, 2 n auxiliary local LPs are solved at each vertex vu to compute the bounds defining Fv (vu) accurately. We now introduce the main algorithm implementing the proposed framework. The iterative procedure increases in tesselation density in direct relation to the selection of the new data points. Due to space limitations, we do not detail here the specific subroutines handling the double representation of polyhedral sets. These can employ off-the-shelf techniques or, in turn, employ optimization-based techniques to compute extreme realizations of the uncertainties as mentioned above. Also, further numerical refinements may also be considered regarding the tessellation size and its relation to the Lipschitz constants. 
+
+Algorithm 1: Input: X , A, M , μ
+
+Output: LVα
+
+Generate initial data set DNd
+
+while the iteration limit is not reached do 
+
+Construct the uncertainty set FDNd
+
+Extract its vertices {vu}u∈[Nv ]
+
+Compute Fv (vu) for all u ∈ [Nv ]
+
+if 0 ∈ F v (vu) for some u ∈ [Nv ] then 
+
+Add data point at such vertices vu
+
+else 
+
+Construct the tessellation {Yj }j∈[Nc]
+
+Solve the optimization problem (17) Extract the sublevel set LVα
+
+if all su for vu ∈ L Vα are negative then 
+
+Terminate 
+
+else 
+
+Add data points at vertices vu with su ≥ 0
+
+end end end 
+
+## 5.3 Alternative PWA Lyapunov constructions 
+
+The approach proposed in the previous subsection explicitly describes the uncertainty bounds before con-structing the Lyapunov function, thereby decoupling the computational burden into two separate stages— uncertainty characterization and LP-based certification. As an alternative, in [22, 23], implicit bounds on the admissible values of f (·) are defined indirectly via Lyapunov decrease conditions. We recall here the convex 10 optimization framework in [23], which builds on a data set {xi, f i}i∈[Nd] and a given tessellation {Yj }j∈[Nc]:min     
+
+> {γi,j ,a j,b j,s k,j }
+
+X
+
+> j
+
+X
+
+> k
+
+sk,j (18a) s.t. sk,j ≥ − μ ∀j, ∀k, (18b) (aj − aj′ )⊤vk,j = bj′ − bj ∀j, j ′, ∀k s.t. vk,j ∈ Yj′ , (18c) 
+
+X
+
+> i
+
+γi,j = aj ∀j, (18d) 
+
+X
+
+> i
+
+(γ⊤ 
+
+> i,j
+
+fi + ∥γi,j ∥ M ∥vk,j − xi∥) ≤ sk,j ∀j, ∀k, (18e) where i ∈ [Nd] indexes the data points, j, j ′ ∈ [Nc] index the cells {Yj }, and k ∈ [|Yj |] indexes the vertices 
+
+{vk,j } of the cell Yj .It is important to note that the parametrization of the PWA Lyapunov function candidates is constrained through the auxiliary variables γi,j in (18d), which introduce additional optimization variables. As a result, the problem (18) becomes a second-order cone program (SOCP), with its compactness coming at the expense of higher computational complexity due to the nonlinear constraints (18e). In terms of comparison, the two approaches can be summarized by the following features: 
+
+• A two-stage (separable and thus interpretable) certification for the LP-based construction in Section 5.1; 
+
+• a one-shot PWA certificate in Section 5.3 based on a monolithic SOCP formulation. As commonalities, both approaches depend on the choice of tessellation and can be iteratively updated by enriching the seed of data points. The interested reader is referred to [23] for convergence results and computational complexity of the SOCP approach. In the remainder of the paper, we focus on illustrating the LP-based approach. 
+
+# 6 Numerical examples 
+
+In this section, we apply Algorithm 1 to two numerical examples: a simple damped pendulum and an inverted-time Van der Pol oscillator. To avoid lifting issues and simplify the enforcement of constraints, triangular cells are adopted, and the tessellation is obtained via Delaunay triangulation. For the chosen initial data set, we take Nd = 3 with two random data points, the third being the equilibrium in the origin. The simulations 3 were performed on a laptop with an AMD Ryzen 7 7735U CPU and 32GB of RAM; MATLAB-based Multi-Parametric Toolbox (MPT3) [24], YALMIP [25], and MOSEK 11.1 [26] were used for the polyhedral operations, problem formulation, and optimization, respectively. 
+
+## 6.1 Simple damped pendulum 
+
+We consider the following system dynamics corresponding to a damped pendulum (see Fig. 3): ˙x = f (x) = 
+
+ x2
+
+− sin( x1) − 2x2
+
+
+
+,
+
+with x ∈ X = [ −1, 1] 2, A = [ −0.1, 0.1] 2, and an upper bound on the Lipschitz constant M = [1 .15 , 3.15] T.The resulting Lyapunov candidate, shown in Figure 4, was obtained in 4 iterations with a total compu-tation time of 472 s. The certified RoA is delimited by the red boundary and corresponds to the sublevel set LV 
+
+> 217 .08
+
+of the Lyapunov candidate. The contour curves match the shape of the true RoA of the system dynamics. The dashed black lines depict the boundary of X .For a clearer analysis of the algorithm, selected performance metrics are reported in Table 1. Here, Nd
+
+is the number of data points, Nc the number of tessellation cells, Nv the number of vertices, Tdata the data processing time, Tcon the constraint construction time, and Topt the optimization time.  
+
+> 3Code is available at: github.com/OumaymaK/LP PWA Lyapunov
+
+11 x1    
+
+> -1 -0.5 00.5 1
+> x2
+> -1
+> -0.5
+> 0
+> 0.5
+> 1
+
+Figure 3: Dynamics of a simple damped pendulum. 
+
+Figure 4: Lyapunov candidate and RoA for the damped pendulum. Table 1: Performance metrics for the damped pendulum example. Iteration Nd Nc Nv Tdata [s] Tcon [s] Topt [s] 1 3 78 41 19.3 – –2 33 600 262 122.1 11.5 2.1 3 87 619 271 128.7 11.0 2.0 4 147 735 321 158.1 15.1 2.1 12 According to Table 1, the optimization is first called at iteration 2 (after satisfying the necessary condition on the informativity of the data) and ensures negative slack variables over the entire set by iteration 4. The number of data points is capped at 147. The most time-consuming step is data processing to extract Fv (vu)(2 n auxiliary LPs are solved for each vu), while the time to solve the LP (17) is negligible. 
+
+## 6.2 Inverted-time Van der Pol oscillator 
+
+The inverted-time Van der Pol oscillator under study is described by the system dynamics (see Fig. 5): ˙x = f (x) = 
+
+ −2x2
+
+−10 x2(0 .21 − x21) + 0 .25 x22
+
+
+
+,
+
+with x ∈ X = [ −0.5, 0.5] 2, A = [ −0.05 , 0.05] 2, and an upper bound on the Lipschitz constant M =[2 .15 , 6.35] T.x1      
+
+> -0.6 -0.4 -0.2 00.2 0.4 0.6
+> x2
+> -0.6
+> -0.4
+> -0.2
+> 0
+> 0.2
+> 0.4
+> 0.6
+
+Figure 5: Dynamics of an inverted-time Van der Pol oscillator. The simulation took 937.4 s to converge. Figure 6 shows the obtained Lyapunov candidate. In this case, the sublevel set LV
+
+> 63 .16
+
+, depicted in red, is one connected set containing the equilibrium, and it defines the certified RoA. As seen in Table 2, only three iterations were required to obtain a result for the inverse-time Van der Pol oscillator, albeit with more time and data. However, non-negative slack variables persist outside the certified RoA, indicating that the Lyapunov decrease condition is not satisfied globally, in contrast to the previous example, where all slack variables are negative over the entire domain. Table 2: Performance metrics for the Van der Pol example. Iteration Nd Nc Nv Tdata [s] Tcon [s] Topt [s] 1 3 104 57 25.4 – –2 41 1560 788 296.5 33.4 7.4 3 370 1684 852 303.3 35.8 6.9 
+
+# 7 Conclusion 
+
+This paper proposes a data-driven framework for constructing PWA Lyapunov functions and approximating the region of attraction for nonlinear systems with unknown dynamics. The approach relies on the explicit 13 0  
+
+> 0.5
+> 50
+> 0.5
+> 100
+> 00
+> 150
+> -0.5 -0.5
+
+x1
+
+x2
+
+> V (x)
+> 050 100 150
+
+Figure 6: Lyapunov candidate and RoA for the Van der Pol oscillator. construction of a polyhedral uncertainty set from data, which induces a differential inclusion describing all admissible dynamics. This representation enables a tractable LP formulation for enforcing Lyapunov conditions over the uncertainty set. A key feature of the proposed method is the separation of uncertainty characterization from Lyapunov certification, thereby improving interpretability and enabling iterative refinement via data enrichment. The resulting PWA Lyapunov candidates provide certified regions of attraction, even when the available data is sparse. The comparison with an alternative SOCP formulation highlights the trade-off between computational complexity and structural transparency. Future work includes improving scalability and refining the state-space tessellation to derive sufficient conditions for its construction. 
+
+# References 
+
+[1] A. M. Lyapunov, “The general problem of the stability of motion,” Int. J. Control , vol. 55, no. 3, pp. 531–534, 1992. [2] M. Nagumo, “ ¨Uber die Lage der Integralkurven gew¨ ohnlicher Differentialgleichungen,” 1942. [3] J. Z. Kolter and G. Manek, “Learning stable deep dynamics models,” Adv. Neural Inf. Process. Syst. ,2019. [4] J. Wang and M. Fazlyab, “Actor–Critic Physics-Informed Neural Lyapunov Control,” IEEE Control Syst. Lett. , vol. 8, pp. 1751–1756, 2024. [5] L. Gr¨ une, “Computing Lyapunov functions using deep neural networks,” J. Comput. Dyn. , vol. 8, no. 2, pp. 131–152, 2021. [6] D. Kim and H. J. Kim, “Estimation of constraint admissible invariant set with neural Lyapunov func-tion,” in Proc. IEEE CDC , (Milan, Italy), pp. 5032–5039, 2024. [7] T. Martin and F. Allg¨ ower, “Data-driven system analysis of nonlinear systems using polynomial approx-imation,” IEEE Trans. Autom. Control , vol. 69, no. 7, pp. 4261–4274, 2024. [8] J. Miller, T. Dai, and M. Sznaier, “Data-driven superstabilizing control under quadratically-bounded errors-in-variables noise,” IEEE Control Syst. Lett. , vol. 8, pp. 1655–1660, 2024. 14 [9] J. J. Bramburger and G. Fantuzzi, “Auxiliary functions as Koopman observables: Data-driven analysis of dynamical systems via polynomial optimization,” J. Nonlinear Sci. , vol. 34, Feb. 2024. [10] J. Zheng, J. Miller, and M. Sznaier, “Data-driven safe control of discrete-time non-linear systems,” IEEE Control Syst. Lett. , vol. 8, pp. 1553–1558, 2024. [11] R. Brayton and C. Tong, “Stability of dynamical systems: A constructive approach,” IEEE Trans. Circuits Syst. , vol. 26, no. 4, pp. 224–234, 1979. [12] R. Brayton and C. Tong, “Constructive stability and asymptotic stability of dynamical systems,” IEEE Trans. Circuits Syst. , vol. 27, no. 11, pp. 1121–1130, 1980. [13] Y. Ohta, H. Imanishi, L. Gong, and H. Haneda, “Computer generated Lyapunov functions for a class of nonlinear systems,” IEEE Trans. Circuits Syst. I , vol. 40, no. 5, pp. 343–354, 1993. [14] H. Kiendl, J. Adamy, and P. Stelzner, “Vector norms as Lyapunov functions for linear systems,” IEEE Trans. Autom. Control , vol. 37, no. 6, pp. 839–842, 1992. [15] A. Hmamed, H. Kiendl, J. Adamy, and P. Stelzner, “Comments on ”Vector norms as Lyapunov functions for linear systems” [with reply],” IEEE Trans. Autom. Control , vol. 39, no. 12, pp. 2522–2523, 1994. [16] K. Loskot, A. Polanski, and R. Rudnicki, “Further comments on ”Vector norms as Lyapunov functions for linear systems”,” IEEE Trans. Autom. Control , vol. 43, no. 2, pp. 289–291, 1998. [17] C. Gong and S. Thompson, “Stability margin evaluation for uncertain linear systems,” IEEE Trans. Autom. Control , vol. 39, no. 3, pp. 548–550, 1994. [18] J.-H. Su, “Comments on ”Stability margin evaluation for uncertain linear systems”,” IEEE Trans. Autom. Control , vol. 39, no. 12, pp. 2523–2524, 1994. [19] R. Kamalapurkar, W. E. Dixon, and A. R. Teel, “On reduction of differential inclusions and Lyapunov stability,” ESAIM Control Op. Ca. Va. , vol. 26, p. 24, 2020. [20] E. Da¸ s, S. X. Wei, and J. W. Burdick, “Robust control barrier functions with uncertainty estimation,” 
+
+arXiv:2304.08538 , 2023. [21] P. Julian, J. Guivant, and A. Desages, “A parametrization of piecewise linear Lyapunov functions via linear programming,” Int. J. Control , vol. 72, no. 7-8, pp. 702–715, 1999. [22] M. Tacchi, Y. Lian, and C. N. Jones, “Robustly learning regions of attraction from fixed data,” IEEE Trans. Autom. Control , vol. 70, no. 3, pp. 1576–1591, 2025. [23] O. Khattabi, M. Tacchi, and S. Olaru, “Sequentially learning regions of attraction from data,” in Proc. IEEE Mediterr. Control Autom. , pp. 589–594, 2025. [24] M. Herceg, M. Kvasnica, C. N. Jones, and M. Morari, “Multi-Parametric Toolbox 3.0,” in Proc. Eur. Control Conf. , pp. 502–510, 2013. [25] J. L¨ ofberg, “YALMIP: A toolbox for modeling and optimization in MATLAB,” in Proc. CACSD , (Taipei, Taiwan), 2004. [26] M. ApS, “The MOSEK optimization toolbox for MATLAB manual. Version 11.1.10.,” 2026. 15

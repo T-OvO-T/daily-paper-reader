@@ -1,0 +1,679 @@
+Title: Stability Analysis of Pantograph Delay Differential Equations
+
+URL Source: https://arxiv.org/pdf/2605.22019v1
+
+Published Time: Fri, 22 May 2026 00:36:47 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+# Stability Analysis of Pantograph Delay Differential Equations 
+
+Sachin Bhalekar School of Mathematics and Statistics, University of Hyderabad, Hyderabad, India sachinbhalekar@uohyd.ac.in 
+
+Abstract 
+
+This article investigates the stability of pantograph delay differential equations, in which the delayed argument is proportional to the present time. We derive analytic criteria that partition the parameter plane into unstable, asymptotically stable, and delay-dependent stability regions. The theoretical results are supported by numerical simulations that illustrate the sharpness of the stability boundaries. We also formulate a proportional-delay analogue of the Mackey–Glass chaotic delay differential equation and examine the resulting dynamical behaviour. 
+
+Keywords. Proportional delay; Stability analysis; Chaos. 
+
+2020 Mathematics Subject Classification. Primary 34K20; Secondary 34K06, 37C75, 37D45. 
+
+# 1 Introduction 
+
+Pantograph differential equations arise naturally in engineering and applied science, especially in problems where the delay is proportional to the present time. In this article, we consider the scalar proportional-delay equation 
+
+˙x(t) = ax (t) + bx (qt ), 0 < q < 1, (1.1) where the term x(qt ) = x(t − (1 − q)t) represents a time-dependent delay. As shown in [ 1 ], equation (1.1) admits the power-series representation 
+
+x(t) = x(0) 
+
+> ∞
+
+∑
+
+> n=0
+
+tn
+
+n!
+
+> n−1
+
+∏
+
+> j=0
+
+(
+
+a + bq j )
+
+. (1.2) In particular, when a > 0 and b > 0, the corresponding solution satisfies suitable exponential bounds. As noted in the monograph of Bellen and Zennaro [ 2], pantograph-type equations occur in a surprisingly wide range of pure and applied contexts. Besides their original engineering motivation, such equations and closely related dilation functional equations appear in number theory [ 3 ], stochastic models and probability-inspired problems [ 4 , 5], nonlinear dynamics, quantum mechanics, and electrodynamics [ 5 , 6]. They also arise in biological cell-growth models [ 7] and astrophysical modelling [ 8 ], illustrating that proportional delay is not merely a technical variation of constant delay but a structure shared by several independent modelling problems. The name “pantograph equation” is closely connected with the modelling of current collection systems in electric locomotives [ 9]. A rigorous early analysis of the scalar functional differen-tial equation (1.1) was given by Kato and McLeod [ 10 ], who established foundational existence, uniqueness, and asymptotic properties. Subsequent work extended the theory to more general 1
+
+> arXiv:2605.22019v1 [math.DS] 21 May 2026
+
+proportional-delay and pantograph-type equations, including generalized pantograph functional differential equations [ 11 ]. Numerical aspects have also received substantial attention because proportional delay prevents the direct use of many standard methods for ordinary and constant-delay differential equations; important contributions include studies of evolutionary delay equations [12 ], pantograph integro-differential equations [ 13 ], and general numerical frameworks for delay differential equations [2]. Equations of the form (1.1) are difficult to analyse by classical techniques. Unlike constant-delay differential equations, they do not lead to a simple characteristic equation, and the Laplace transform is not directly applicable for stability analysis. Standard numerical methods for ordinary differential equations, such as predictor-corrector and Runge-Kutta schemes, also require suitable modifications to handle the proportional delay. Although (1.1) admits an exact series solution, this solution is generally not expressible in terms of familiar special functions. Consequently, stability analysis based only on the solution series has significant limitations. These difficulties motivate the present study of the stability behaviour of (1.1). The paper is organized as follows. Section 2 provides sufficient conditions for instability and stability by using the series solution, Lyapunov–Krasovskii theory, and Lyapunov–Chetaev theory. Numerical observations are also presented in this section. The q-analogue of the Mackey–Glass equation is studied in Section 3, where chaos and bifurcations are investigated. The conclusions are summarized in Section 4. The details of the numerical method are given in the appendix. The datasets related to this work are available in the GitHub repository [14]. 
+
+# 2 Stability analysis 
+
+2.1 Challenges in applying classical theory 
+
+For constant-delay equations, stability is often studied by substituting an exponential trial solution and deriving a characteristic quasi-polynomial. In the proportional-delay equation (1.1), however, the substitution x(t) = eλt gives 
+
+λe λt = ae λt + be λqt .
+
+The two exponential terms have different time scalings, so the factor eλt cannot be eliminated to obtain an equation depending only on λ. More generally, the explicit dependence on both t and qt 
+
+prevents a direct reduction to a characteristic equation. This is the main obstruction to applying the standard spectral stability theory used for ordinary or constant-delay differential equations. 
+
+2.2 Some sufficient conditions for instability 
+
+We first use the series representation (1.2) to obtain elementary sufficient conditions for instability. Since equation (1.1) is linear, it is enough to exhibit one nonzero initial value that produces an unbounded solution; for convenience, we take x(0) = 1 .
+
+Theorem 2.1. If a > 0 and b > 0 then the system (1.1) is unstable for all q ∈ (0 , 1) .
+
+Proof : We have 
+
+0 < a < a + bq j , j = 0 , 1, 2, · · · . (2.1) It follows that 
+
+0 < a n <
+
+> n−1∏
+> j=0
+> (
+
+a + bq j )
+
+. (2.2) 2Consequently, by (1.2), 
+
+eat < x (t). (2.3) Since a > 0, the lower bound eat grows without bound as t → ∞ . Hence the solution of (1.1) with 
+
+x(0) = 1 is unbounded, and the zero solution is unstable. 
+
+Theorem 2.2. If a > −b > 0 then the system (1.1) is unstable for all q ∈ (0 , 1) .
+
+Proof : We have b < 0 and 0 < q < 1.Hence, b < bq j for j = 0 , 1, 2, · · · .
+
+It follows that 0 < a + b < a + bq j for j = 0 , 1, 2, · · · .
+
+Thus, 0 < (a + b)n < ∏n−1
+
+> j=0
+> (
+
+a + bq j ) .
+
+Hence, e(a+b)t < x (t), where a + b > 0. Thus the solution with x(0) = 1 is unbounded, which proves instability under the assumption a > −b > 0.
+
+2.3 Lyapunov–Krasovskii theory for the stability 
+
+In this section, we use Lyapunov–Krasovskii theory [ 15 ] to provide a sufficient condition for stability of the system (1.1). 
+
+Theorem 2.3. The system (1.1) is asymptotically stable if a < 0, a < b < −a and b2 
+
+> a2
+
+< q < 1.
+
+Proof : A Lyapunov–Krasovskii functional can be constructed as follows: 
+
+V (x(t)) = x(t)2 + μ 
+
+> ∫tqt
+
+x(s)2 ds, 
+
+where μ > 0 is a constant to be determined. Using Leibniz’s rule, 
+
+ddt  
+
+> ∫tqt
+
+x(s)2 ds = x(t)2 − q x (qt )2.
+
+Along the solution trajectories, 
+
+˙V (x(t)) = 2 x(t) ˙ x(t) + μ(x(t)2 − q x (qt )2).
+
+Using (1.1), ˙V (x(t)) = (2 a + μ)x(t)2 + 2 b x (t)x(qt ) − μq x (qt )2.
+
+We represent this in a quadratic form by defining 
+
+z(t) =  
+
+> [
+
+x(t)
+
+x(qt )
+
+> ]
+
+.
+
+Then ˙V (z(t)) = z(t)T M z (t),
+
+where 
+
+M =
+
+> [
+
+2a + μ bb −μq 
+
+> ]
+
+.
+
+If M is negative definite, then ˙V (z(t)) < 0 for all nonzero z(t), implying asymptotic stability of the trivial solution of (1.1). 3The symmetric matrix M is negative definite if there exists μ > 0 satisfying 2a + μ < 0, and 
+
+det( M ) > 0.That is, 
+
+a < −μ/ 2 < 0 and (2 a + μ)( −μq ) > b 2
+
+Then V is a strict Lyapunov functional and the zero solution of (1.1) is asymptotically stable. The quadratic function −μq (2 a + μ) attains its maximum at μ = −a, giving the sufficient condition 
+
+a < 0, b2 < a 2q. 
+
+Equivalently, a < 0, a < b < −a and b2 
+
+> a2
+
+< q < 1 gives asymptotic stability of the system (1.1). 
+
+Note : This result is a sufficient but not a necessary condition for stability. In fact, the numerical computations show that the system is asymptotically stable for all 0 < q < 1 in the region 
+
+a < 0, a < b < −a. We provide more details in Section 2.5. 
+
+2.4 Lyapunov–Chetaev theory for the instability 
+
+In this section, we use Lyapunov–Chetaev theory (see [ 16 ] and Section 9.8 in [ 17 ]) to provide a sufficient condition for instability of the system (1.1). 
+
+Theorem 2.4. The system (1.1) is unstable for all q ∈ (0 , 1) if a + b > 0.
+
+Proof: We define the Lyapunov–Chetaev function as 
+
+V (x) = x2.
+
+Then V (0) = 0 and V (x0) > 0, for x0̸ = 0 .Now, ˙V (x(t)) = 2 x(t) ˙ x(t) = 2 ax (t)2 + 2 bx (t)x(qt ).
+
+Now, ˙V (x0) = ˙V (x(t)) |t=0 = 2( a + b)x20 > 0.
+
+Let us denote the solution of (1.1) with x(0) = x0 by x(t). Hence, there exists ϵ > 0 such that 
+
+˙V (x(t)) > 0, for 0 < t < ϵ. 
+
+Thus, V increases along the solution trajectories of (1.1) for sufficiently small values of t. Con-sequently, trajectories starting arbitrarily close to the origin move away from the origin and the system is unstable. 
+
+2.5 Numerical observations 
+
+2.5.1 Validation of results 
+
+In this section, we use the predictor-corrector method described in the appendix to validate the results provided in the previous sections. 
+
+• For a > 0 and a + b > 0, we observe that the solution is monotonically increasing (respectively, decreasing) for x(0) > 0 (respectively, x(0) < 0) and becomes unbounded quickly. Figures 1a and 1b show the diverging trajectories for a = 2 .5, b = 1 , q = 0 .2, x (0) = 1 and 
+
+a = 2 .5, b = −2, q = 0 .7, x (0) = −1, respectively. 4• For a < 0 and a + b > 0,(i) q = −a/b produces a solution trajectory resembling a straight line with slope 1 (see Figure 1c). (ii) 0 < q < −a/b produces a solution trajectory that diverges very slowly, with logarithmic-like growth (see Figure 1d). (iii) −a/b < q < 1 gives a monotonically diverging trajectory (see Figure 1e). 
+
+• For a < 0, a < b < −a, and b2 
+
+> a2
+
+< q < 1 the solution trajectory converges monotonically to 0
+
+(see Figure 1f). 
+
+2.5.2 Remaining regions in the parameter plane 
+
+In this section, we consider the regions in the ab -plane for which no theoretical result was provided above. 
+
+Region 1: We consider a < 0, a < b < −a, and 0 < q ≤ b2 
+
+> a2
+
+. We observe that the system is asymptotically stable in this region as well. However, the convergence is ultra-slow for smaller values of q. For b ∈ (a, 0) , the solution exhibits damped oscillations and converges to 0 (see Figure 2a). On the other hand, for b ∈ (0 , −a), the solution converges monotonically to 0 (see Figure 2b). 
+
+Region 2: We consider b < 0 and b < a < −b. We observe that, for each a < 0, there exists 
+
+b∗ < a such that, when b ∈ (b∗, a ), the system is stable for larger values of q ∈ (0 , 1) (see Figure 2c) and unstable for smaller values of q (see Figure 2d). In the unstable case, the trajectory oscillates and diverges ultra-slowly. If b < b ∗, then the system is unstable for all q ∈ (0 , 1) (see Figure 2e). The trajectory oscillates, and the divergence is faster for q near 1.We list a few values of the pairs (a, b ∗) in Table 1. The data are well approximated by b∗ =0.014455 a2 + 1 .391065 a − 0.03994898 . If a > 0 in this region, then the solution is unstable for any q ∈ (0 , 1) (see Figure 2f). The trajectory tends to −sgn (x(0)) ∞ very quickly. We get faster divergence as q tends to 0.
+
+a b∗ a b∗ a b∗ a b∗
+
+0 0 -2.6 -3.6 -5.2 -6.9 -7.8 -10 -0.2 -0.3 -2.8 -3.8 -5.4 -7.1 -8 -10.2 -0.4 -0.6 -3 -4.1 -5.6 -7.4 -8.2 -10.5 -0.6 -0.9 -3.2 -4.3 -5.8 -7.6 -8.4 -10.7 -0.8 -1.1 -3.4 -4.6 -6 -7.9 -8.6 -10.9 -1 -1.4 -3.6 -4.9 -6.2 -8.1 -8.8 -11.2 -1.2 -1.7 -3.8 -5.1 -6.4 -8.4 -9 -11.4 -1.4 -2 -4 -5.4 -6.6 -8.6 -9.2 -11.6 -1.6 -2.2 -4.2 -5.6 -6.8 -8.8 -9.4 -11.8 -1.8 -2.5 -4.4 -5.9 -7 -9.1 -9.6 -12.1 -2 -2.8 -4.6 -6.1 -7.2 -9.3 -9.8 -12.3 -2.2 -3 -4.8 -6.4 -7.4 -9.5 -10 -12.5 -2.4 -3.3 -5 -6.6 -7.6 -9.8 -10.2 -12.7 Table 1: Data table of a and b∗ values. 52 4 6 8 10 t2 × 10 10 4 × 10 10 6 × 10 10 8 × 10 10 x(t)(a) a = 2 .5, b = 1 , q = 0 .2, x (0) = 1 .2 4 6 8 10 t                   
+
+> -1.2 ×10 9
+> -1.0 ×10 9
+> -8.0 ×10 8
+> -6.0 ×10 8
+> -4.0 ×10 8
+> -2.0 ×10 8x(t)
+
+(b) a = 2 .5, b = −2, q = 0 .7, x (0) = −1.20 000 40 000 60 000 80 000 100 000 t20 000 40 000 60 000 80 000 100 000 x(t)
+
+(c) a = −4, b = 5 , q = 0 .8 = −a/b .20 000 40 000 60 000 80 000 100 000 t246810 12 x(t) (d) a = −4, b = 5 , q = 0 .3 < −a/b .20 000 40 000 60 000 80 000 100 000 t2 × 10 94 × 10 96 × 10 9x(t)
+
+(e) a = −4, b = 5 , q = 0 .9 > −a/b .2 4 6 8 10 t
+
+0.2 0.4 0.6 0.8 1.0 x(t) (f) a = −6, b = −5, q = 0 .8 > b 2/a 2.
+
+Figure 1: Numerical solution trajectories for representative parameter values. 62 4 6 8 10 t
+
+0.2 0.4 0.6 0.8 1.0 x(t)(a) a = −6, b = −5, b 2/a 2 = 0 .6944 , q = 0 .65 <b2/a 2.20 000 40 000 60 000 80 000 100 000 
+
+t0.2 0.4 0.6 0.8 1.0 x(t) (b) a = −6, b = 4 , q = 0 .2 < b 2/a 2.2 4 6 8 10 t
+
+> 0.2 0.4 0.6 0.8 1.0 x(t)
+
+(c) a = −3, b ∗ = −4.1, b = −3.5 ∈ (b∗, a ), q = 0 .9.200 000 400 000 600 000 800 000 1 × 10 6 t
+
+-1.0 
+
+-0.5 0.5 1.0 x(t) (d) a = −3, b ∗ = −4.1, b = −3.5 ∈ (b∗, a ), q = 0 .4.20 000 40 000 60 000 80 000 100 000 t
+
+> -500 000 500 000 x(t)
+
+(e) a = −3, b ∗ = −4.1, b = −4.2 < b ∗, q = 0 .95 .1 2 3 4 5 t                
+
+> -2.5 ×10 10
+> -2.0 ×10 10
+> -1.5 ×10 10
+> -1.0 ×10 10
+> -5.0 ×10 9
+> x(t)
+
+(f) b = −7, a = 5 .6 ∈ (0 , −b), q = 0 .5, x (0) = 1 .
+
+Figure 2: Numerical solutions in the remaining regions. 72.6 The stability diagram in parameter plane 
+
+Based on the results provided in previous sections and the observations based on numerical computations, we sketch the stability regions in the parameter ab -plane in Figure 3. 
+
+Figure 3: Various stability regions of system (1.1) in the parameter plane. 
+
+# 3 Bifurcations and chaos in a q-analogue of the Mackey–Glass system 
+
+The classical Mackey–Glass chaotic system [18, 19] is given by 
+
+˙x(t) = −βx (t) + αx (t − τ )1 + x(t − τ )c ,
+
+where τ > 0 is the (constant) delay. We define the q-analogue of the Mackey–Glass system by 
+
+˙x(t) = −βx (t) + αx (qt )1 + x(qt )c , (3.1) 8where α > β > 0, c > 2 and 0 < q < 1.The system (3.1) admits the equilibrium points x∗ 
+
+> 1
+
+= 0 and x∗ 
+
+> 2
+
+= 
+
+> (α−ββ
+> )1/c
+
+. Note that, x∗ 
+
+> 2
+
+is a collection of equilibrium points with identical stability properties. Linearization of (3.1) at x∗ 
+
+> 1
+
+is given by 
+
+˙x(t) = −βx (t) + αx (qt ).
+
+Comparing this with (1.1), we get a = −β and b = α. Our assumptions show that a + b > 0. Hence, by Theorem 2.4, the equilibrium x∗ 
+
+> 1
+
+is unstable for all q ∈ (0 , 1) .
+
+Theorem 3.1. For system (3.1), the relevant bifurcation values of the parameter α are 
+
+α∗ 
+
+> 1
+
+= βc c − 2 and α∗ 
+
+> 2
+
+= β2cb∗ + β(c − 1) ,
+
+where b∗ is the threshold value described in Table 1. The nonzero equilibria x∗ 
+
+> 2
+
+satisfy the following stability classification: 
+
+• they are asymptotically stable for all q ∈ (0 , 1) if β < α < α ∗
+
+> 1
+
+;
+
+• they are delay-dependent stable if α∗ 
+
+> 1
+
+< α < α ∗
+
+> 2
+
+;
+
+• they are unstable for all q ∈ (0 , 1) if α > α ∗
+
+> 2
+
+.
+
+Proof : Linearization of the equation (3.1) at x∗ 
+
+> 2
+
+is given by 
+
+˙x(t) = −βx (t) +  
+
+> (
+
+(β − α)βc α + β
+
+> )
+
+x(qt ).
+
+Comparison with (1.1) gives a = −β and b = (β−α)βc α + β.Our assumptions on α, β, and c show that a < 0 and a + b < 0. Following the results discussed in Section 2 and summarized in Figure 3, we conclude that the nonzero equilibria x∗ 
+
+> 2
+
+are asymptotically stable for all 0 < q < 1 if a < b < −a, delay-dependent stable if b∗ < b < a , and unstable if b < b ∗.Thus, the first bifurcation point is obtained by solving a = b, namely, 
+
+−β = (β − α)βc α + β. 
+
+On simplification, we get the first bifurcation value of the parameter α as 
+
+α∗ 
+
+> 1
+
+= βc c − 2 . (3.2) The second bifurcation value is obtained by solving b = b∗, namely, 
+
+(β − α)βc α + β = b∗.
+
+This gives the second bifurcation value of the parameter α as 
+
+α∗ 
+
+> 2
+
+= β2cb∗ + β(c − 1) . (3.3) This proves the theorem. 93.1 Validation of Theorem 3.1 and investigation of chaos 
+
+Let us fix β = 1 and c = 10 in the system (3.1). Then a = −1, and Table 1 gives b∗ = −1.4.Furthermore, the bifurcation values for the parameter α are α∗ 
+
+> 1
+
+= 1 .25 and α∗ 
+
+> 2
+
+= 1 .31579 . Theorem 3.1 states that the nonzero equilibria x∗ 
+
+> 2
+
+satisfy the following stability classification: 
+
+• they are asymptotically stable for all q ∈ (0 , 1) if 1 < α < 1.25 ;
+
+• they are delay-dependent stable if 1.25 < α < 1.31579 ;
+
+• they are unstable for all q ∈ (0 , 1) if α > 1.31579 .For α = 1 .24 , the two nonzero equilibria are 0.867004 and −0.867004 . If x(0) > 0, then the resulting solution converges to 0.867004 (see Figure 4a). For x(0) < 0, the solution converges to 
+
+−0.867004 (see Figure 4b). For α = 1 .28 , the equilibrium points x∗ 
+
+> 2
+
+have values 0.880473 and −0.880473 . We get the stable solution for q = 0 .7, as shown in Figure 4c. For q = 0 .6 and x(0) = 0 .2, the solution trajectory oscillates around 0.867004 (see Figure 4d). The period of solution wave increases with t. It is expected because the delay τ (t) = (1 − q)t increases with t.For α = 1 .6, the equilibrium points x∗ 
+
+> 2
+
+take the values ±0.9502 . We observe chaotic oscillations for q = 0 .9 as shown in Figure 4e. The chaotic attractor is shown in Figure 4f. In fact, we have coexisting chaotic attractors as shown in Figure 4f. 
+
+# 4 Conclusion and discussion 
+
+This work examined the scalar pantograph delay equation 
+
+˙x(t) = ax (t) + bx (qt ), 0 < q < 1,
+
+from the viewpoint of stability, bifurcation, and nonlinear dynamics. Since the proportional delay prevents the direct construction of a characteristic equation by the usual exponential ansatz, the analysis was based on a combination of exact series representations, Lyapunov methods, and numerical experiments. The series solution yielded simple sufficient conditions for instability, including the cases a > 0, b > 0 and a > −b > 0. A Lyapunov–Krasovskii functional gave a rigorous sufficient condition for asymptotic stability when a < 0, a < b < −a, and b2/a 2 < q < 1, whereas a Lyapunov–Chetaev argument showed instability when a + b > 0.The numerical study complements these analytical criteria and gives a more complete picture of the parameter plane. The computations indicate that the condition obtained from the Lyapunov– Krasovskii functional is conservative: solutions appear to be asymptotically stable for all 0 < q < 1
+
+throughout the wider region a < 0 and a < b < −a. In the region a < 0 and b < a , the simulations suggest the existence of a threshold b∗ = b∗(a) separating parameters that are unstable for all proportional delays from parameters for which stability depends on q. For the sampled values of a,this threshold is well approximated by the quadratic fit 
+
+b∗(a) = 0 .014455 a2 + 1 .391065 a − 0.03994898 .
+
+Thus, the stability diagram consists of delay-independent stable regions, delay-independent unstable regions, and an intermediate delay-dependent region. A notable numerical feature in several boundary and delay-dependent cases is ultra-slow convergence or divergence, often accompanied by oscillations whose effective period increases with time because the delay τ (t) = (1 − q)t grows unboundedly. 10 20 40 60 80 100 t
+
+> 0.2 0.4 0.6 0.8 x(t)
+
+(a) α = 1 .24 , x(0) > 0: convergence to 0.867004 .2000 4000 6000 8000 10 000 t 
+
+> -0.8
+> -0.6
+> -0.4
+> -0.2
+> x(t)
+
+(b) α = 1 .24 , x(0) < 0: convergence to −0.867004 .10 20 30 40 50 t
+
+0.88 0.90 0.92 0.94 0.96 0.98 1.00 x(t)
+
+(c) α = 1 .28 , q = 0 .7: stable solution. 20 000 40 000 60 000 80 000 100 000 t
+
+> 0.2 0.4 0.6 0.8 x(t)
+
+(d) α = 1 .28 , q = 0 .6, x(0) = 0 .2: oscillation around 
+
+0.867004 .9600 9700 9800 9900 10 000 t0.2 0.4 0.6 0.8 1.0 1.2 x(t)
+
+(e) α = 1 .6, q = 0 .9: chaotic oscillations. 0.5 0.6 0.7 0.8 0.9 1.0 1.1 x(t) 
+
+> 0.2 0.4 0.6 0.8 1.0 1.2 x(t-1)
+
+(f) α = 1 .6, q = 0 .9: chaotic attractor. 
+
+Figure 4: Validation of Theorem 3.1 and numerical investigation of stability and chaos in the proportional-delay Mackey–Glass equation. 11 -1.0 -0.5 0.5 1.0 x(t)
+
+> -1.0
+> -0.5 0.5 1.0
+> x(t-1)
+
+Figure 5: Coexisting chaotic attractors for the proportional-delay Mackey–Glass equation with 
+
+α = 1 .6, q = 0 .7.The same stability framework was then applied to a proportional-delay analogue of the Mackey– Glass equation. Linearization about the nonzero equilibria reduces the local stability problem to the pantograph equation with coefficients determined by the biological parameters. This reduction gives explicit bifurcation thresholds 
+
+α∗ 
+
+> 1
+
+= βc c − 2 , α∗ 
+
+> 2
+
+= β2cb∗ + β(c − 1) ,
+
+which separate delay-independent stability, delay-dependent stability, and instability. For the representative case β = 1 and c = 10 , these values are α∗ 
+
+> 1
+
+= 1 .25 and α∗ 
+
+> 2
+
+= 1 .31579 . The simulations validate the predicted stable and delay-dependent regimes and also reveal rich nonlinear behaviour, including sustained oscillations, chaotic trajectories, and coexisting chaotic attractors for larger values of α.Several questions remain open. First, the numerical conjecture that the entire region a < 0,
+
+a < b < −a is asymptotically stable for every q ∈ (0 , 1) deserves a rigorous proof. Second, the threshold curve b∗(a) was obtained empirically; deriving it analytically, or proving sharp bounds for it, would substantially strengthen the stability classification. These directions would help turn the present stability diagram and numerical observations into a more complete theory for pantograph-type delay systems. 
+
+# Appendix: A predictor-corrector method to solve pantograph equa-tion 
+
+Consider 
+
+˙x(t) = f (x(t), x (qt )) , x(0) = x0, t ∈ [0 , T ]. (A1) 12 Let us discretize the interval [0 , T ] as 
+
+0 = t0 < t 1 = h < t 2 = 2 h < · · · < t N = N h = T, 
+
+where h > 0. Assume we already know xi, i = 0 , 1, · · · , n and wish to find xn+1 .Integrating (A1) on the interval [tn, t n+1 ] and using the trapezoidal rule, we get 
+
+xn+1 = xn + h
+
+2 [f (tn+1 , x n+1 , μ n+1 ) + f (tn, x n, μ n)] , (A2) where xn ≈ x(tn), and μn is an approximation to x(qt n).Note that qt n < t n as 0 < q < 1.If qt n = tm for some m < n , then μn = xm.Otherwise, qt n ∈ (tm−1, t m).In this case, we approximate x(qt n) by utilizing linear interpolation: 
+
+x(qt n) ≈ μn = (1 − qn + m − 1) xm−1 + ( qn − m + 1) xm
+
+As qnh ∈ (( m − 1) h, mh ), we have [qn ] = m − 1.Hence, 
+
+μn = (1 − qn + [ qn ]) xm−1 + ( qn − [qn ]) xm
+
+= (1 − δn)x[qn ] + δnx[qn ]+1 , (A3) where δn = qn − [qn ] is the fractional part of qn .Notice that 0 ≤ δn < 1, and everything in the right-hand side of (A3) is known. Now xn+1 appears on both sides of (A2). One way to find it is by a predictor-corrector method. First, an approximate value of xn+1 is obtained using a predictor, and then this approximation is refined by a correction step. 
+
+Predictor Step: 
+
+We use the rectangle rule on the interval [tn, t n+1 ] and define 
+
+xpn+1 = xn + h f (tn, x n, μ n). (A4) 
+
+Corrector Step: 
+
+xn+1 = xn + h
+
+2
+
+[f (tn+1 , x pn+1 , μ n+1 ) + f (tn, x n, μ n)] . (A5) Now q(n + 1) < n + 1 .
+
+• If q(n + 1) < n , then 
+
+μn+1 = (1 − δn+1 )x[q(n+1)] + δn+1 x[q(n+1)]+1 , (A6) where δn+1 = q(n + 1) − [q(n + 1)] . In this case, [q(n + 1)] + 1 ≤ n + 1 and all the terms on the right-hand side of (A6) are already known. 
+
+• If n < q (n + 1) < n + 1 , then [q(n + 1)] + 1 = n + 1 , and the unknown term xn+1 appears in the right-hand side of (A6) . In this case, we replace μn+1 by 
+
+μpn+1 = (1 − δn+1 )xn + δn+1 xpn+1 , (A7) and use this predictor value in (A5). After computing (A5), we will correct the value of μn+1 
+
+by utilizing (A5) and proceed to the next step. 13 Illustration: We illustrate above algorithm and provide the details of the evaluation of few terms. Given x0, we have to find x1.
+
+xp 
+
+> 1
+
+= x0 + h f (0 , x 0, μ 0),
+
+where μ0 = x(q · 0) = x(0) = x0 and 
+
+x1 = x0 + h
+
+2 [f (h, x p
+
+> 1
+
+, μ 1) + f (0 , x 0, μ 0)] , (A8) where 
+
+μ1 = (1 − δ1)x[q] + δ1x[q]+1 ,
+
+with δ1 = q − [q], x [q] = x0 and x[q]+1 = x1 as 0 < q < 1.Thus, 
+
+μ1 = (1 − q)x0 + q x 1. (A9) Since x1 is not known yet, we take 
+
+μp 
+
+> 1
+
+= (1 − q)x0 + q x p
+
+> 1
+
+and use this in (A8). Once we evaluate (A8), we update μ1 using (A9). Now, xp 
+
+> 2
+
+= x1 + h f (h, x 1, μ 1), and 
+
+μ2 = (1 − δ2)x[2 q] + δ2x[2 q]+1 , (A10) where 
+
+[2 q] = 
+
+
+
+0, 0 < q < 12 ,
+
+1, 12 ≤ q < 1.
+
+Also, 
+
+δ2 = 2 q − [2 q] = 
+
+
+
+2q, 0 < q < 12 ,
+
+2q − 1, 12 ≤ q < 1.
+
+Thus, if 0 < q < 12 , then 
+
+μ2 = (1 − 2q)x0 + 2 q x 1.
+
+If 12 ≤ q < 1, then 
+
+μ2 = (2 − 2q)x1 + (2 q − 1) x2.
+
+As x2 is not yet available, we take 
+
+μp 
+
+> 2
+
+= (2 − 2q)x1 + (2 q − 1) xp
+
+> 2
+
+,
+
+and then evaluate 
+
+x2 = x1 + h
+
+2 [f (2 h, x p
+
+> 2
+
+, μ 2) + f (h, x 1, μ 1)] .
+
+Similarly, 
+
+μ3 = (1 − δ3)x[3 q] + δ3x[3 q]+1 .
+
+14 If 0 < q < 13 , then δ3 = 3 q, [3 q] = 0 and hence μ3 = (1 − 3q)x0 + 3 q x 1.If 13 ≤ q < 23 , then δ3 = 3 q − 1, [3 q] = 1 and hence μ3 = (2 − 3q)x1 + (3 q − 1) x2.If 23 ≤ q < 1, then δ3 = 3 q − 2, [3 q] = 2 . In this case, first we compute xp 
+
+> 3
+
+= x2 + h f (2 h, x 2, μ 2)
+
+and define μp 
+
+> 3
+
+= (3 − 3q)x2 + (3 q − 2) xp
+
+> 3
+
+. The procedure will be continued. In the algorithm, we need to find a natural number k = 
+
+> [11−q
+> ]
+
+.The procedure will be as follows. For n = 1 , 2, . . . , k :1. Find xpn using (A4). 2. Find μpn using (A7). 3. Find xn using (A5). 4. Find μn using xn.For n > K :1. Find xpn using (A4). 2. Find μn using (A6). 3. Find xn using (A5). The C program for this method is available at [ 14 ]. More details on numerical methods to solve delay differential equations are available in [2]. 
+
+# References 
+
+[1] Sachin Bhalekar and Jayvant Patade. Series solution of the pantograph equation and its properties. Fractal and Fractional , 1(1):16, 2017. [2] Alfredo Bellen and Marino Zennaro. Numerical Methods for Delay Differential Equations .Oxford University Press, Oxford, 2003. [3] Kurt Mahler. On a special functional equation. Journal of the London Mathematical Society ,15(2):115–123, 1940. [4] Thomas S. Ferguson. Lose a dollar or double your fortune. In Proceedings of the Sixth Berkeley Symposium on Mathematical Statistics and Probability , volume 3, pages 657–666, Berkeley, 1972. University of California Press. [5] Yu Zhang and Longsuo Li. Stability of numerical method for semi-linear stochastic pantograph differential equations. Journal of Inequalities and Applications , 2016(30), 2016. [6] M. Dehghan and F. Shakeri. The use of the decomposition procedure of Adomian for solving a delay differential equation arising in electrodynamics. Physica Scripta , 78(6):065004, 2008. [7] A. J. Hall and G. C. Wake. A functional differential equation arising in the modelling of cell growth. Journal of the Australian Mathematical Society. Series B. Applied Mathematics ,30(4):424–435, 1989. 15 [8] V. A. Ambartsumyan. On the fluctuation of the brightness of the Milky Way. Doklady Akademii Nauk SSSR , 44:223–226, 1944. [9] J. R. Ockendon and A. B. Tayler. The dynamics of a current collection system for an electric locomotive. Proceedings of the Royal Society of London. Series A, Mathematical and Physical Sciences , 322(1551):447–468, 1971. [10] Tosio Kato and J. B. McLeod. The functional-differential equation y′(x) = ay (λx ) + by (x).
+
+Bulletin of the American Mathematical Society , 77(6):891–935, 1971. [11] Arieh Iserles. On the generalized pantograph functional-differential equation. European Journal of Applied Mathematics , 4(1):1–38, 1993. [12] C. T. H. Baker, C. A. H. Paul, and D. R. Willé. Issues in the numerical solution of evolutionary delay differential equations. Advances in Computational Mathematics , 3(3):171–196, 1995. [13] Arieh Iserles and Yunkang Liu. On pantograph integro-differential equations. Journal of Integral Equations and Applications , 6(2):213–237, 1994. [14] Sachin Bhalekar. Pantograph. https://github.com/sachinbhalekaruoh/pantograph , 2026. GitHub repository. [15] Nicolai Nikolaevich Krasovskii. Stability of motion. Stanford University Press , 1963. [16] N. G. Chetaev. The Stability of Motion . Pergamon Press, New York, 1961. Translated from the Russian. [17] Anthony N Michel, Ling Hou, and Derong Liu. Stability of dynamical systems . Springer, 2008. [18] Michael C Mackey and Leon Glass. Oscillation and chaos in physiological control systems. 
+
+Science , 197(4300):287–289, 1977. [19] Leon Glass and Michael Mackey. Mackey-glass equation. Scholarpedia , 5(3):6908, 2010. 16

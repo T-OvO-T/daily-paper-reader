@@ -1,0 +1,2537 @@
+Title: Decoupling Runge-Kutta schemes for elliptic-parabolic problems
+
+URL Source: https://arxiv.org/pdf/2605.22485v1
+
+Published Time: Fri, 22 May 2026 01:37:53 GMT
+
+Number of Pages: 26
+
+Markdown Content:
+DECOUPLING RUNGE–KUTTA SCHEMES FOR ELLIPTIC–PARABOLIC PROBLEMS 
+
+ROBERT ALTMANN †, ABDULLAH MUJAHID ⋆, AND BENJAMIN UNGER ‡
+
+Abstract. We study the construction and convergence of semi-explicit and iterative decoupling schemes for an elliptic–parabolic problem using higher-order Runge–Kutta methods. For the semi-explicit schemes, which are constructed using a nearby delay system with k time delays, we establish the convergence of kth-order Runge–Kutta methods under a weak coupling condition. We develop the convergence analysis by adapting the Fourier stability and perturbation techniques of [Lubich, Ostermann, Math. Comp., 64(210):601–627, 1995]. The key tool is the generating function framework, in which the Runge–Kutta discretization is encoded through an operator-valued function. Stability estimates are then obtained via Parseval’s identity on the unit circle. We further present convergence results for iterative (fixed-stress and undrained-split) higher-order Runge– Kutta schemes. Here, a spectral decomposition of the Schur complement operator is central. Finally, we provide numerical examples to verify the proven convergence results. 
+
+Keywords: Runge–Kutta methods, Fourier stability, semi-explicit schemes, iterative decoupling 
+
+AMS subject classification: 65M12, 65J10 
+
+1. Introduction 
+
+This article explores decoupling time integration schemes based on implicit Runge– Kutta (RK) methods for linear elliptic–parabolic problems, including the equations of poroelasticity [ Bio41 ]. Typical applications involve biomechanics, where the human brain and heart are modeled as poroelastic media with multiple fluid networks [ VCT +16 , ERT23 ], as well as geomechanics [Zob10]. The well-posedness of the considered elliptic–parabolic problem is studied in [ Sho00 ], its spatial discretization discussed in [ EM09 ]. To reduce the computational effort of the coupling, several decoupling strategies exist, based on fixed-point iterations combined with an implicit Euler discretization in time [ MW13 , KTJ11a , KTJ11b ]. In [ AMU24b ], fixed-point iterations for operator splitting were combined with higher-order backward differentiation formulae (BDF) up to order 5. An alternative approach based on semi-explicit methods, which decouples the system through a time delay approximation, was introduced for the implicit Euler method in [ AMU21 ] and extended to higher-order BDF methods in [ AMU24a , AMU26 ]. Such semi-explicit methods require a certain weak cou-pling condition, which may be relaxed by the implementation of an additional inner iteration [AD24, AD25]. The convergence analysis for BDF-based semi-explicit schemes presented in [ AMU26 ]relies on the construction of a weighted norm with a symmetric positive definite matrix enabling a telescoping argument (G-stability), cf. [ NO81 ]. The present article takes a fundamentally different analytical approach. Instead of G-stability, we adapt the Fourier stability and perturbation techniques developed by Lubich and Ostermann in [ LO95 ] for 
+
+Date : May 22, 2026.  
+
+> 1
+> arXiv:2605.22485v1 [math.NA] 21 May 2026 2ROBERT ALTMANN †, ABDULLAH MUJAHID ⋆, AND BENJAMIN UNGER ‡
+
+RK methods of quasi-linear parabolic equations. The core idea is to encode the RK discretization through generating functions and an associated operator-valued resolvent, decompose it via Schur decomposition, and obtain stability estimates through Parseval’s identity on the unit circle. Extending the framework of [ LO95 ] from a single parabolic equation to the coupled elliptic–parabolic system with delayed coupling operators is the main analytical challenge tackled in this paper. To be more precise, the coupling introduces a Schur complement operator and the delay approximation modifies the structure of the operator which needs to be inverted. Through a spectral decomposition of the Schur complement and a Rayleigh quotient argument for the coercive diffusion operator, we reduce the invertibility analysis to a scalar condition on the eigenvalues of the Schur complement, bounded by the coupling strength. The analysis then reveals the same critical coupling bounds as in the BDF setting considered in [AMU26]. For iterative RK schemes, we combine the contraction analysis of the iteration with RK consistency estimates. Here again, the spectral decomposition of the Schur complement is crucial to establish the contraction property. To summarize, the main contributions of this paper are: (i) Convergence analysis for RK-based semi-explicit decoupling schemes using Fourier stability techniques, establishing convergence of order k under a weak coupling condition and sufficient spatial regularity. (ii) Unified perspective connecting the BDF analysis of [ AMU26 ] with the RK analysis, showing that both approaches lead to equivalent stability conditions. (iii) Convergence analysis for iterative (fixed-stress and undrained-split) RK decoupling schemes, combining contraction analysis with RK consistency estimates. The remainder of this article is organized as follows. After this introduction, the abstract model problem is introduced in Section 2 with the particular example of poroelasticity. The delay approximation, the resulting semi-explicit scheme, and its Fourier stability and convergence analysis are presented in Section 3. This is followed by the proof of convergence for iterative RK schemes in Section 4. Finally, we present a numerical study of the convergence results in Section 5. 
+
+Notation. Throughout the article, we write a ≲ b to indicate that there exists a generic constant C > 0, independent of spatial and temporal discretization parameters, such that a ≤ Cb .2. Problem Setting and Preliminaries 
+
+We consider a linear elliptic–parabolic system in an m-dimensional bounded Lipschitz domain Ω ⊆ Rm, m ∈ { 2, 3}, over a time interval [0 , T ]. Let 
+
+V := [ H10 (Ω)] m, Q := H10 (Ω) , HV := [ L2(Ω)] m, HQ := L2(Ω) 
+
+and denote by V ↪→ HV ≃ H ∗ 
+
+> V
+
+↪→ V ∗ and Q ↪→ HQ ≃ H ∗ 
+
+> Q
+
+↪→ Q ∗ the associated Gelfand triples [ Zei90 , Sect. 23.4]. Given source terms f : [0 , T ] → V ∗ and g : [0 , T ] → Q ∗ of sufficient regularity, we seek u : [0 , T ] → V and p : [0 , T ] → Q such that 
+
+a(u, v ) − d(v, p ) = ⟨f, v ⟩, (2.1a) 
+
+d( ˙ u, q ) + c( ˙ p, q ) + b(p, q ) = ⟨g, q ⟩ (2.1b) DECOUPLING RUNGE–KUTTA SCHEMES FOR ELLIPTIC–PARABOLIC PROBLEMS 3
+
+for all test functions v ∈ V , q ∈ Q , and for almost every t ∈ (0 , T ]. The initial data 
+
+u(0) = u0 ∈ V , p(0) = p0 ∈ HQ (2.1c) are assumed to be consistent , i.e., to satisfy the consistency condition 
+
+a(u0, v ) − d(v, p 0) = ⟨f (0) , v ⟩ for all v ∈ V .
+
+Throughout the manuscript, we assume the bilinear forms a : V × V → R, b : Q × Q → R,and c : HQ × HQ → R to be symmetric, continuous, and elliptic. We write ca and Ca for the ellipticity and continuity constants of a ∈ { a, b, c }, respectively. The norms 
+
+∥ · ∥ b := b(·, ·)1/2 and ∥ · ∥ c := c(·, ·)1/2,
+
+induced by the bilinear forms b and c, satisfy  
+
+> 1
+> Cb
+
+∥ · ∥ 2 
+
+> b
+
+≤ ∥ · ∥ 2 
+
+> Q
+
+≤ 1 
+
+> cb
+
+∥ · ∥ 2 
+
+> b
+
+and 1 
+
+> Cc
+
+∥ · ∥ 2 
+
+> c
+
+≤ ∥ · ∥ 2 
+
+> HQ
+
+≤ 1 
+
+> cc
+
+∥ · ∥ 2 
+
+> c
+
+.
+
+The dual norms on Q∗ and V∗ are written as ∥ · ∥ Q∗ and ∥ · ∥ V∗ , respectively. The coupling form d : V × HQ → R is bounded, i.e., there exists a constant Cd > 0 such that d(u, p ) ≤ Cd ∥u∥V ∥p∥HQ for all u ∈ V , p ∈ HQ . Under these assumptions, well-posedness is established in [Sho00]. 
+
+Example 2.1 (linear poroelasticity) . The quasi-static Biot model [Bio41 ] of linear poroelas-ticity with homogeneous Dirichlet boundary conditions fits into the framework (2.1) . Here, the unknowns are the displacement u : [0 , T ]×Ω → Rm and the pore pressure p : [0 , T ]×Ω →
+
+R, satisfying 
+
+−∇ · σ(u) + α∇p = ˆf in (0 , T ] × Ω, (2.2a) 
+
+∂t
+
+(α∇ · u + 1 
+
+> M
+
+p) − ∇ · (κ∇p) = ˆ g in (0 , T ] × Ω. (2.2b) 
+
+Therein, σ(u) = μ (∇u + ( ∇u)T) + λ (∇ · u) id is the stress tensor with Lamé coefficients λ
+
+and μ, κ denotes the permeability, α the Biot–Willis coupling coefficient, and M the Biot modulus. The identification of the bilinear forms with the abstract setting (2.1) is standard; see, e.g., [EM09] .
+
+We define the coupling strength 
+
+ω := C2
+
+> d
+
+cacc
+
+, (2.3) which governs the convergence of all decoupling schemes considered in this article, and plays a central role in the upcoming analysis. We further introduce the operators A : V → V ∗, B : Q → Q ∗, C : HQ → H ∗
+
+> Q
+
+, and 
+
+D : V → H ∗ 
+
+> Q
+
+associated with a, b, c, and d, respectively. In operator notation, system (2.1) becomes 
+
+Au − D ∗p = f in V∗, (2.4a) 
+
+D ˙u + C ˙p + Bp = g in Q∗. (2.4b) Introducing the vectors and operator matrices 
+
+y := 
+
+[up
+
+]
+
+, E := 
+
+[ 0 0
+
+D C
+
+]
+
+, F := 
+
+[−A D∗
+
+0 −B 
+
+]
+
+, h := 
+
+[fg
+
+]
+
+, (2.5) we can rewrite (2.4) in the form 
+
+E ˙y = Fy + h. (2.6) 4 ROBERT ALTMANN †, ABDULLAH MUJAHID ⋆, AND BENJAMIN UNGER ‡
+
+Since A is invertible by the ellipticity of a, the displacement can be eliminated from (2.4a) ,reducing the system to the parabolic equation 
+
+(M + C) ˙ p + Bp = r, (2.7) where r := g − DA −1 ˙f and M := DA −1D∗ is the self-adjoint, non-negative Schur comple-ment operator. 2.1. Implicit Runge–Kutta methods. We now describe the RK time discretization of (2.6) . The delay approximation that yields the semi-explicit scheme is recalled in Section 3 below. To construct a numerical approximation of the solution y of (2.6) on the time interval [0 , T ], we rely on s-stage implicit RK methods, i.e., for a given invertible matrix A ∈ Rs×s and a vector β ∈ Rs, the RK method is given by the Butcher tableau 
+
+χ A
+
+βT with χ := A1,
+
+where 1 = [1 , . . . , 1] T ∈ Rs. We thus use the short notation (A, β ) to denote a specific RK method. In more detail, we consider RK methods applied to operator equations of the form (2.6) . Let us consider a time grid tn = nτ with time step τ > 0. Given an approximation yn−1 to y(tn−1), the RK approximation yn to the solution of system (2.6) at time point tn is computed in two steps (cf. [ KM06 , Ch. 5]): In step one, approximations ˙Y nℓ
+
+of the stage derivatives ˙y(tnℓ ) at the intermediate stage points tnℓ := tn−1+χℓτ , ℓ ∈ { 1, . . . , s },are computed from 
+
+E ˙Y nℓ = FY nℓ + h(tnℓ ), where Y nℓ = yn−1 + τ
+
+> s
+
+∑
+
+> j=1
+
+Aℓ,j ˙Y nj , (2.8) where E and F are defined in (2.5). Then, in the second step, we set 
+
+yn = yn−1 + τ
+
+> s
+
+∑
+
+> ℓ=1
+
+βℓ ˙Y nℓ . (2.9) Introducing the compact notation 
+
+Y n := 
+
+
+
+Y n
+
+> 1
+
+...
+
+Y ns
+
+ and ˙Y n := 
+
+
+
+˙Y n
+
+> 1
+
+...
+
+˙Y ns
+
+ ,
+
+we see that the RK stage derivative approximations satisfy the identity 
+
+˙Y n = 1 
+
+> τ
+
+A−1(Y n − 1yn−1) with 1yn−1 =
+
+
+
+yn−1
+
+...
+
+yn−1
+
+ . (2.10) Using the stability function defined as 
+
+R(z) = 1 + zβ T(Is − zA)−11, (2.11) we can thus use the vector notation to write the update formula (2.9) as 
+
+yn = R(∞)yn−1 + βTA−1Y n, (2.12) where R(∞) = 1 − βTA−11. The analysis throughout the paper requires the following stability properties of the RK method. DECOUPLING RUNGE–KUTTA SCHEMES FOR ELLIPTIC–PARABOLIC PROBLEMS 5
+
+Assumption 2.2 (RK method) . The s-stage RK method (A, β ) is A-stable, i.e., A( θ)-stable with θ ≥ π/ 2 (so |R(z)| ≤ 1 for Re z ≤ 0), with A ∈ Rs×s invertible and |R(∞)| < 1.
+
+Remark 2.3. A canonical family satisfying Assumption 2.2 is given by the Radau IIA methods [ HW96 , Sect. IV.5] . With s = 1 , 2, 3 stages they have classical orders k = 1 , 3, 5
+
+and stage orders q = 1 , 2, 3, respectively. They are also L-stable ( R(∞) = 0 ) and stiffly accurate, so that the update (2.12) reduces to yn = βTA−1Y n. The strict bound |R(∞)| < 1
+
+in Assumption 2.2 excludes the Gauss–Legendre methods (for which |R(∞)| = 1 ), which we do not analyze in the present work. 
+
+Assumption 2.4 (Resolvent smoothing) . Let σ > 0 denote the resolvent-smoothing exponent associated with the elliptic operator B. Its value depends on the operator itself, the boundary conditions, and the spatial dimension. cf. [ LO95 , Thm. 3.3] . The solution under consideration is assumed to possess the additional spatial regularity required for the resolvent-smoothing estimates of [LO95, Thm. 3.3] to apply. 
+
+Example 2.5. For a second-order strongly elliptic operator on a smooth bounded domain with homogeneous Dirichlet boundary conditions and a smooth solution, σ = 3 /4 − ε for arbitrary ε > 0 in two and three spatial dimensions [LO95, Ex. (i)] .
+
+Recall that the values produced by the RK method are stage vectors. For any normed space (X , ∥ · ∥ X ) and stage vector V = ( Vℓ)sℓ=1 ∈ X s, we define the stage-product norm via 
+
+∥V ∥2  
+
+> Xs
+
+:= 
+
+> s∑
+> ℓ=1
+
+∥Vℓ∥2 
+
+> X
+
+(2.13) together with the stage duality pairing ⟨F, V ⟩s := ∑sℓ=1 ⟨Fℓ, V ℓ⟩ between F ∈ (X ∗)s and 
+
+V ∈ X s. This convention covers X = Q, V and their duals Q∗, V∗ used below. Based on the norms induced by the bilinear forms a and c, we likewise write 
+
+∥V ∥2 
+
+> c,s
+
+:= 
+
+> s∑
+> ℓ=1
+
+∥Vℓ∥2 
+
+> c
+
+, ∥V ∥2 
+
+> a,s
+
+:= 
+
+> s∑
+> ℓ=1
+
+∥Vℓ∥2
+
+> a
+
+.
+
+3. Semi-explicit Runge–Kutta Decoupling 
+
+This section introduces the semi-explicit RK scheme, based on a delay approximation of the elliptic variable (Sections 3.1 and 3.2), and proves its stability and convergence using a generating-function framework adapted from [ LO95 ]. The analysis proceeds in four steps: (i) transform the scheme using generating functions (Section 3.3), (ii) eliminate the elliptic variable and derive a closed equation for P (ζ) (Section 3.4), (iii) analyze the resulting operator L(ζ) via spectral arguments (Section 3.4), (iv) transfer stability to the time domain using Parseval’s identity (Section 3.5). 3.1. Delay approximation. The decoupling strategy of [ AMU24a , AMU26 ] replaces the pressure p in the elliptic equation (2.4a) by a Lagrange interpolation polynomial of degree (k − 1) based on values at the k preceding time levels, i.e., ̂
+
+p(t; τ ) = 
+
+> k∑
+> δ=1
+
+ck,δ p(t − δτ ), ck,δ = ( −1) (δ−1) 
+
+> (
+
+kδ
+
+> )
+
+. (3.1) 6 ROBERT ALTMANN †, ABDULLAH MUJAHID ⋆, AND BENJAMIN UNGER ‡
+
+The central idea for the forthcoming decoupling time integration scheme is to use the time delay τ > 0 in (3.1) as the time step for the RK method. Substituting (3.1) into (2.4) yields the delay system 
+
+A¯u − D ∗
+
+( k∑
+
+> δ=1
+
+ck,δ ¯p(t − δτ )
+
+)
+
+= f in V∗, (3.2a) 
+
+D ˙¯u + C ˙¯p + B ¯p = g in Q∗, (3.2b) in which the elliptic and parabolic equations are decoupled in the following sense. Given the solution ¯p until some time t > 0, we can solve (3.2a) for ¯u on the interval [t, t + τ ]
+
+independently of the current pressure. This solution can then be used to compute ¯p on the interval [t, t + τ ] from (3.2b) . Eliminating ¯u as before gives the inherent delay parabolic equation 
+
+C ˙¯p + M
+
+( k∑
+
+> δ=1
+
+ck,δ ˙¯p(t − δτ )
+
+)
+
++ B ¯p = r, (3.3) where M is the Schur complement operator introduced in (2.7) . The approximation error introduced by the delay is controlled by the following result. 
+
+Proposition 3.1 ([ AMU26 , Prop. 1]) . Under sufficient smoothness assumptions, the solutions of (2.4) and (3.2) satisfy for almost every t ∈ [0 , T ] the estimate 
+
+∥¯u(t) − u(t)∥2 
+
+> V
+
++ ∥¯p(t) − p(t)∥2 
+
+> Q
+
+≲ τ 2k.
+
+3.2. Semi-explicit schemes. To construct a decoupling time-integration scheme for (2.1) ,respectively the operator formulation (2.4) , we apply an implicit s-stage RK method (A, β )
+
+to the time delay approximation (3.2) . To this end, we interpret (3.2) as a system for 
+
+y = ( u, p ), where the elliptic equation (3.2a) acts as constraint, while (3.2b) contains the time derivative. At time step n, we denote the stage values by 
+
+U n = [ U n 
+
+> 1
+
+, . . . , U ns ]T ∈ V s, P n = [ P n 
+
+> 1
+
+, . . . , P ns ]T ∈ Q s
+
+with corresponding stage derivatives ˙U n, ˙P n. Applying the RK method to (3.2) yields a decoupled scheme at time step tn. In vector form, this reads 
+
+(Is ⊗ A )U n − (Is ⊗ D ∗)
+
+> k
+
+∑
+
+> δ=1
+
+ck,δ P n−δ = F n, (3.4a) 
+
+(Is ⊗ D ) ˙U n + ( Is ⊗ C ) ˙P n + ( Is ⊗ B )P n = Gn. (3.4b) Here, ⊗ denotes the Kronecker product combining the s-dimensional stage structure with the function-space operators. This means, in particular, that (Is ⊗ A ) acts as A on each stage independently. Moreover, the right-hand sides consists of F nℓ = f (tn−1 + χℓτ ) and 
+
+Gnℓ = g(tn−1 + χℓτ ). Following (2.10) , the stage derivatives are related to the stage values by ˙U n = 1 
+
+> τ
+
+A−1(U n − 1un−1), ˙P n = 1 
+
+> τ
+
+A−1(P n − 1pn−1). (3.4c) The key observation is that the delay approximation eliminates any dependence of (3.4a) on the current stage values P n. Hence, the stage values U n can be computed solely from previous time steps, and system (3.4) becomes semi-explicit: first solve (3.4a) for U n, then compute P n from (3.4b) and (3.4c). Following (2.12), the update formulae are 
+
+un = R(∞)un−1 + βTA−1U n and pn = R(∞)pn−1 + βTA−1P n. (3.5) DECOUPLING RUNGE–KUTTA SCHEMES FOR ELLIPTIC–PARABOLIC PROBLEMS 7
+
+Remark 3.2 (Commutativity of the Schur complement construction and the RK dis-cretization) . The semi-explicit scheme (3.4) is independent of the order in which the RK discretization and elimination of u variables to construct the Schur complement are performed. 
+
+3.3. Generating functions and the ∆( ζ) operator. Following the (formal) generating power series framework for RK methods introduced in [Lub88a, Lub88b], we define 
+
+u(ζ) := 
+
+> ∞∑
+> n=1
+
+unζn, p(ζ) := 
+
+> ∞∑
+> n=1
+
+pnζn
+
+and, analogously, U , P , F , and G. The stage-product norm and pairing conventions from Section 2.1 extend to these generating-function-valued quantities termwise in ζ. Note that, compared to [ LO95 ], the summation starts at n = 1 (rather than n = 0 ) so that the initial data u0, p 0 do not appear in the generating functions and are treated separately. The sequences un, p n, etc., are defined by the scheme for n = 1 , . . . , N with N = T /τ . For the generating function analysis, we extend the scheme to all n > N by setting the data to zero, i.e., F n = Gn = 0 for n > N . This uniquely determines P n, U n, etc., for all n ≥ 1
+
+and ensures that the algebraic manipulations below hold as identities of formal power series. The RK update formula (3.5) thus yields 
+
+u(ζ) = R(∞)ζ
+
+1 − R(∞)ζ u0 + βTA−1
+
+1 − R(∞)ζ U (ζ) (3.6) and analogously for p(ζ). Following [LO95], we define the ∆-operator 
+
+∆( ζ) := 
+
+> (
+
+A + ζ
+
+1 − ζ 1βT)−1
+
+(3.7) which encodes the RK structure in a single matrix-valued function of ζ. As indicated in [LO95, Eq. (2.19)], it satisfies the identities 
+
+∆( ζ) = A−1 − ζA−11βTA−1
+
+1 − R(∞)ζ , ∆( ζ)1
+
+1 − ζ = A−11
+
+1 − R(∞)ζ . (3.8) 
+
+Lemma 3.3 (Spectral property of ∆( ζ)). Assume that the RK method (A, β ) is A(θ)-stable with θ > 0. Then, for |ζ| ≤ 1, all eigenvalues λ of ∆( ζ) satisfy 
+
+| arg λ| ≤ π − θ. (3.9) 
+
+In particular, for A-stable methods, i.e., θ ≥ π/ 2, all eigenvalues satisfy Re( λ) ≥ 0.Proof. By [ LO95 , Sect. 2, Eq. (2.11)], the eigenvalues of ∆( ζ) are either eigenvalues of A−1
+
+or satisfy R(λ) = 1 /ζ . By the assumed A( θ)-stability, both classes lie in the sector 
+
+| arg λ| ≤ π − θ, which gives (3.9) . For θ ≥ π/ 2, the sector | arg λ| ≤ π/ 2 is contained in the closed right half-plane. □
+
+3.4. The operator L(ζ) and its structure. We derive the transformed system by passing to the generating-function representation of the scheme (3.4) and eliminating U (ζ).
+
+Lemma 3.4. The generating functions for the semi-explicit RK scheme (3.4) satisfy 
+
+L(ζ)P (ζ) = R(ζ), (3.10) 
+
+where the operator L(ζ) : Qs → (Q∗)s is defined by 
+
+L(ζ) := ( Is ⊗ B ) + ∆( ζ)
+
+τ ⊗
+
+> (
+
+C + Ψ k(ζ) M
+
+> )
+
+(3.11) 8 ROBERT ALTMANN †, ABDULLAH MUJAHID ⋆, AND BENJAMIN UNGER ‡
+
+with Ψk(ζ) = ∑kδ=1 ck,δ ζδ and the right-hand side R(ζ) ∈ (Q∗)s is given by 
+
+R(ζ) := G(ζ) − 1
+
+τ
+
+(
+
+∆( ζ) ⊗ DA −1)
+
+F (ζ)
+
+− 1
+
+τ
+
+(
+
+∆( ζ) ⊗ M 
+
+) k∑
+
+> δ=1
+
+ck,δ δ∑
+
+> n=1
+
+P n−δζn + 1
+
+τ
+
+A−11ζ
+
+1 − R(∞)ζ ⊗ (Du0 + Cp0). (3.12) 
+
+Proof. Using (3.4b) and the stage derivative identity (3.4c) yields 
+
+G(ζ) = 1
+
+τ
+
+((Is ⊗ D )A−1) ( 
+
+U (ζ) − ζ1(u(ζ) + u0))
+
++ 1
+
+τ
+
+((Is ⊗ C )A−1) ( 
+
+P (ζ) − ζ1(p(ζ) + p0))
+
++ (Is ⊗ B )P (ζ).
+
+(3.13) Substituting the update formula (3.6) for u(ζ) together with ∆( ζ) with the representation given in (3.8), we get 
+
+A−1 (
+
+U (ζ) − ζ1(u(ζ) + u0))
+
+= ∆( ζ)U (ζ) − A−11ζ
+
+1 − R(∞)ζ u0
+
+and, similarly, for terms related to P (ζ) and p(ζ). Substituting these expressions into (3.13) yields 
+
+G(ζ) = 1
+
+τ
+
+(∆( ζ) ⊗ D )U (ζ) + 1
+
+τ
+
+(∆( ζ) ⊗ C )P (ζ) + (Is ⊗ B )P (ζ)
+
+− 1
+
+τ
+
+A−11ζ
+
+1 − R(∞)ζ ⊗ (Du0 + Cp0),
+
+(3.14) where we have used (Is ⊗ D )(∆( ζ) ⊗ Id ) = ∆( ζ) ⊗ D . Next, we eliminate U (ζ) by observing that (3.4a) yields 
+
+U (ζ) = ( Is ⊗ A −1)F (ζ) + ( Is ⊗ A −1D∗)
+
+> k
+
+∑
+
+> δ=1
+
+ck,δ 
+
+(
+
+P (ζ)ζδ +
+
+> δ
+
+∑
+
+> n=1
+
+P n−δζn)
+
+.
+
+Inserting this into (3.14) and using M = DA −1D∗, we collect all terms involving P (ζ) on the left-hand side, leading to 
+
+(
+
+(Is ⊗ B ) + 1
+
+τ
+
+(∆( ζ) ⊗ C ) + 1
+
+τ
+
+(∆( ζ) ⊗ M ) k∑
+
+> δ=1
+
+ck,δ ζδ
+
+)
+
+P (ζ)= G(ζ) − 1
+
+τ
+
+(∆( ζ) ⊗ DA −1)F (ζ) − 1
+
+τ
+
+(∆( ζ) ⊗ M ) k∑
+
+> δ=1
+
+ck,δ δ∑
+
+> n=1
+
+P n−δζn
+
++ 1
+
+τ
+
+A−11ζ
+
+1 − R(∞)ζ ⊗ (Du0 + Cp0),
+
+which completes the proof. □
+
+Compared to the classical case [ LO93 , LO95 ], the operator L(ζ) contains the additional perturbation Ψk(ζ)M originating from the delay approximation. Controlling this term is the key difficulty in the forthcoming analysis. 
+
+Remark 3.5 (Convergence of the generating functions) . The identity (3.10) holds as a formal power series by construction (cf. Section 3.3). Whether the series converges on the unit circle depends on the particular RK method. For L-stable methods ( R(∞) = 0 ), DECOUPLING RUNGE–KUTTA SCHEMES FOR ELLIPTIC–PARABOLIC PROBLEMS 9
+
+identity (3.8) gives ∆( ζ) = A−1 − ζ A−11βTA−1, i.e., a polynomial of degree one. Hence, 
+
+L(ζ) and R(ζ) are matrix polynomials in ζ and convergence is immediate. For |R(∞)| < 1,the factor ζ/ (1 −R(∞)ζ) in (3.12) has its pole at |ζ| = 1 /|R(∞)| > 1, so R(ζ) is analytic on the closed unit disc and convergence follows from the uniform bound on L(ζ)−1 established in Lemma 3.8 below. 
+
+To show the invertibility of L(ζ), we need the following observation regarding the coupling strength ω defined in (2.3). 
+
+Proposition 3.6 (Coupling bounds) . Consider the delay operator Ψk from Lemma 3.4. Then Re (1 + μΨk(ζ)) > 0 for all |ζ| ≤ 1, μ ∈ [0 , ω ] if and only if the strict weak coupling condition 
+
+ω < 12k − 1 (3.15) 
+
+holds. Moreover, Re (1 + μΨk(ζ)) = 0 if and only if ω = μ = 1 /(2 k − 1) and ζ = −1.Proof. Recall from (3.1) that the delay coefficients satisfy ck,δ = ( −1) δ−1(kδ
+
+) such that the binomial theorem ∑kδ=0 (−1) δ(kδ
+
+)ζδ = (1 − ζ)k implies 
+
+Ψk(ζ) = 
+
+> k
+
+∑
+
+> δ=1
+
+(−1) δ−1
+
+(kδ
+
+)
+
+ζδ = 1 − (1 − ζ)k. (3.16) Consequently, Ψk is analytic and, hence, Re (1 + μΨk(ζ)) = 1 + μ Re (Ψk(ζ)) is harmonic on the unit disc, showing that its minimal value is attained on the boundary of the unit disc. Let θ ∈ [0 , 2π] and define φ = θ−π 
+
+> 2
+
+. Then ζ = e iθ = −e2iφ and, hence, 
+
+1 − eiθ = 1 + e 2iφ = e iφ (e −iφ + e iφ ) = 2 cos( φ) e iφ .
+
+Thus, Re ((1 − eiθ )k) = 2 k cos k(φ) cos (kφ ) ≤ 2k and the maximum is attained at φ = 0 ,translating to Re ((1 − ζ)k) = Re ((1 − eiθ )k) = 2 k if and only if θ = π. We conclude 
+
+1 + μ Re (Ψk(ζ)) ≥ 1 + μ (1 − 2k).
+
+The expression is minimized for μ = ω, which concludes the proof. □
+
+Remark 3.7 (Connection to the energy-based analysis) . The same threshold ω ≤ 1/(2 k −1) 
+
+also arises in the G-stability analysis, where it is the condition for the energy identity underlying the summation lemma approach; see [AMU26 , Sect. 4] for the analogous BDF result. This confirms that the bound is intrinsic to the delay approximation (3.1) and independent of the proof technique. 
+
+Lemma 3.8 (Invertibility of L(ζ)). Consider the notation from Lemma 3.4 and let the RK method be A-stable. Assume that the weak coupling condition (3.15) holds such that 
+
+Re (1 + μΨk(ζ)) > 0 for all |ζ| ≤ 1, μ ∈ [0 , ω ]. (3.17) 
+
+Then the operator L(ζ) from (3.11) is invertible for all |ζ| ≤ 1 and there exists a constant 
+
+C > 0 independent of τ such that 
+
+sup 
+
+> |ζ|≤ 1
+
+∥L (ζ)−1∥(Q∗)s→Q s ≤ C. 10 ROBERT ALTMANN †, ABDULLAH MUJAHID ⋆, AND BENJAMIN UNGER ‡
+
+Proof. Fix ζ with |ζ| ≤ 1. We prove uniform invertibility by establishing injectivity and applying a Fredholm argument. Let ∆( ζ) = V (ζ)T (ζ)V (ζ)∗ denote a Schur decomposition of ∆( ζ) with unitary V (ζ) ∈ Cs×s and upper triangular matrix T (ζ) ∈ Cs×s. We study the transformed operator 
+
+˜L(ζ) := ( V (ζ)∗ ⊗ Id) L(ζ)( V (ζ) ⊗ Id) = ( Is ⊗ B ) + T (ζ)
+
+τ ⊗ (C + Ψ k(ζ)M).
+
+Since V (ζ) is unitary, V (ζ) ⊗ Id is an isometry on Qs (with the product norm). Hence, 
+
+˜L(ζ) is injective if and only if L(ζ) is and ∥ ˜L(ζ)∥Qs→(Q∗)s = ∥L (ζ)∥Qs→(Q∗)s . Since ˜L(ζ)
+
+is block upper triangular on the stage structure, injectivity reduces to injectivity of the diagonal blocks 
+
+Y(ζ) := B + λ(ζ)
+
+τ
+
+(C + Ψ k(ζ)M) : Q → Q ∗,
+
+where λ(ζ) is an eigenvalue of ∆( ζ). Let q ∈ Q and assume ⟨Y (ζ)q, q ⟩ = 0 . Define the Rayleigh quotient 
+
+μ(q) := ⟨M q, q ⟩∥q∥2
+
+> c
+
+∈ [0 , ω ],
+
+where we exploit that M is self-adjoint and non-negative. We thus obtain 
+
+0 = ⟨Y (ζ)q, q ⟩ = b(q, q ) + λ(ζ)
+
+τ
+
+(1 + μ(q)Ψ k(ζ)) ∥q∥2 
+
+> c
+
+=: b(q, q ) + λ(ζ)
+
+τ w ∥q∥2 
+
+> c
+
+.
+
+Since b(q, q ) and ∥q∥2 
+
+> c
+
+are real, separating real and imaginary parts gives: Im: Im( λw ) ∥q∥2 
+
+> c
+
+= 0 ,
+
+Re: b(q, q ) + 1 
+
+> τ
+
+Re( λw ) ∥q∥2 
+
+> c
+
+= 0 .
+
+From the imaginary part, either q = 0 (done) or Im (λw ) = 0 , i.e., λw ∈ R. In the latter case, note that Re (λ) ≥ 0 by Lemma 3.3 and Re (w) > 0 by the strict coupling condition (3.17). We distinguish three cases: 
+
+• Case λ = 0 : The real part equation reduces to b(q, q ) = 0 , which by coercivity forces q = 0 .
+
+• Case Re (λ) > 0: From Im (λw ) = Re (λ) Im (w) + Im (λ) Re (w) = 0 , we obtain 
+
+Im( w) = − Im( λ) Re( w)/ Re( λ), so 
+
+Re( λw ) = Re( λ) Re( w) + Im( λ)2 Re( w)Re( λ) = Re( w) |λ|2
+
+Re( λ) ≥ 0.
+
+Together with b(q, q ) ≥ cb∥q∥2 
+
+> Q
+
+> 0 for q̸ = 0 , the real part equation forces q = 0 .
+
+• Case Re (λ) = 0 with λ̸ = 0 : Since Re (w) > 0, we have Im (λw ) = Im (λ) Re (w) = 0 ,which forces Im( λ) = 0 , contradicting λ̸ = 0 .Hence, L(ζ) is injective. Towards surjectivity, we factor 
+
+L(ζ) = ( Is ⊗ B )((Is ⊗ Id) + K(ζ))
+
+with K(ζ) = 1 
+
+> τ
+
+(Is ⊗ B −1)(∆( ζ) ⊗ (C + Ψ k(ζ)M)). Since (C + Ψ k(ζ)M) : HQ → H ∗ 
+
+> Q
+
+⊂ Q ∗
+
+and B−1 : Q∗ → Q , the operator K(ζ) maps Qs → Q s and factors through the compact embedding Q ↪→ HQ . Hence K(ζ) is compact on Qs. By the Fredholm alternative [Bre11, Th. 6.6], (Is ⊗ Id ) + K(ζ) has index zero on Qs, so injectivity implies bijectivity. Since B is an isomorphism, L(ζ) : Qs → (Q∗)s is boundedly invertible. DECOUPLING RUNGE–KUTTA SCHEMES FOR ELLIPTIC–PARABOLIC PROBLEMS 11 
+
+To conclude the proof, we observe that the mapping ζ 7 → L (ζ) is continuous in the operator norm on the compact set {| ζ| ≤ 1} and that the inverse exists everywhere. This implies the claimed boundedness independent of τ . □
+
+Remark 3.9 (Sharpness of the coupling bound) . The strict coupling condition (3.17) is essential for the injectivity argument. At the boundary case ω = 1 /(2 k − 1) , by Proposi-tion 3.6, Re (1 + μΨk(ζ)) = 0 occurs at ζ = −1 and μ = ω. In this case, Re (w) = 0 and the injectivity proof breaks down, as the case Re (λ) = 0 with λ̸ = 0 can no longer be excluded. 
+
+3.5. Stability and convergence. With the invertibility of L(ζ) established in the previous subsection, we can now derive stability estimates using Parseval’s identity. 
+
+Theorem 3.10 (Stability) . Let Assumption 2.2 hold and assume that the weak coupling condition (3.15) is satisfied. Then the semi-explicit RK scheme (3.4) satisfies 
+
+τ 2
+
+> N
+
+∑
+
+> n=1
+
+∥P n∥2 
+
+> Qs
+
++ τ
+
+> N
+
+∑
+
+> n=1
+
+∥P n∥2
+
+> c,s
+
+≤ C
+
+(
+
+τ 2
+
+> N
+
+∑
+
+> n=1
+
+∥Gn∥2(Q∗)s +
+
+> N
+
+∑
+
+> n=1
+
+∥F n∥2(V∗)s + ∥u0∥2 
+
+> V
+
++ ∥p0∥2 
+
+> HQ
+
++
+
+> 0
+
+∑
+
+> n=−k
+
+∥P n∥2
+
+> c,s
+
+)
+
+, (3.18) 
+
+where C depends on the method, the coupling parameter, and 1/(1 − | R(∞)|), but is independent of τ and N .Proof. We extend the scheme (3.4) to all n > N by setting F n = Gn = 0 , as described in Section 3.3. By Lemma 3.4, the generating functions then satisfy 
+
+L(ζ) P (ζ) = R(ζ) (3.19) as an identity of formal power series. Due to the scheme extension, the data generating functions 
+
+G(ζ) = 
+
+> N
+
+∑
+
+> n=1
+
+Gnζn, F (ζ) = 
+
+> N
+
+∑
+
+> n=1
+
+F nζn (3.20) and the initial-value delay term ∑kδ=1 ck,δ 
+
+∑δn=1 P n−δζn are polynomials. The only singu-larities in R(ζ) and L(ζ) arise from the rational functions 
+
+ζ
+
+1 − R(∞)ζ and ∆( ζ) = A−1 − ζ A−11βTA−1
+
+1 − R(∞)ζ , (3.21) which have a pole at ζ = 1 /R (∞). Since |R(∞)| < 1 by assumption, this pole lies at 
+
+|ζ| = 1
+
+|R(∞)| > 1,
+
+so R(ζ) is analytic on a neighbourhood of the closed unit disc. By Lemma 3.8, P (ζ) = 
+
+L(ζ)−1R(ζ) is analytic on the closed unit disc and ∑ 
+
+> n≥1
+
+∥P n∥2 
+
+> c,s
+
+< ∞.Testing (3.19) with P (ζ) and taking the real part, the coercivity of b and the coupling condition (3.17) yield (cf. the proof of Lemma 3.8) 
+
+cb ∥P (ζ)∥2 
+
+> Qs
+
++ c0
+
+τ ∥P (ζ)∥2 
+
+> c,s
+
+≤ Re ⟨R (ζ), P (ζ)⟩s for all |ζ| ≤ 1, (3.22) 12 ROBERT ALTMANN †, ABDULLAH MUJAHID ⋆, AND BENJAMIN UNGER ‡
+
+where c0 > 0 depends on the method and coupling parameter. Since P and R are analytic on the closed unit disc, integrating (3.22) over |ζ| = 1 and applying Parseval’s identity to the left-hand side gives 
+
+cb
+
+> ∞
+
+∑
+
+> n=1
+
+∥P n∥2 
+
+> Qs
+
++ c0
+
+τ
+
+> ∞
+
+∑
+
+> n=1
+
+∥P n∥2 
+
+> c,s
+
+≤ 12π
+
+∫ 2π
+
+> 0
+
+Re ⟨R (e iθ ), P (e iθ )⟩s dθ. (3.23) We estimate the right-hand side while keeping R in the transform domain. The Cauchy– Schwarz inequality in the (Q∗)s–Qs duality applied pointwise on the unit circle yields 
+
+Re ⟨R (e iθ ), P (e iθ )⟩s ≤ ∥R (e iθ )∥(Q∗)s ∥P (e iθ )∥Qs .
+
+Integration, followed by the Cauchy–Schwarz inequality for the integral, then gives 
+
+12π
+
+∫ 2π
+
+> 0
+
+Re ⟨R (e iθ ), P (e iθ )⟩s dθ ≤
+
+( 12π
+
+∫ 2π
+
+> 0
+
+∥R (e iθ )∥2(Q∗)s dθ
+
+)1/2( 12π
+
+∫ 2π
+
+> 0
+
+∥P (e iθ )∥2 
+
+> Qs
+
+dθ
+
+)1/2
+
+.
+
+(3.24) Applying Parseval’s identity to the P -factor and the weighted Young inequality, this is bounded by 
+
+12cb
+
+12π
+
+∫ 2π
+
+> 0
+
+∥R (e iθ )∥2(Q∗)s dθ + cb
+
+2
+
+> ∞
+
+∑
+
+> n=1
+
+∥P n∥2 
+
+> Qs
+
+. (3.25) Substituting into (3.23) and absorbing the term with constant cb into the left-hand side, we obtain 
+
+cb
+
+2
+
+> ∞
+
+∑
+
+> n=1
+
+∥P n∥2 
+
+> Qs
+
++ c0
+
+τ
+
+> ∞
+
+∑
+
+> n=1
+
+∥P n∥2 
+
+> c,s
+
+≤ 12cb
+
+12π
+
+∫ 2π
+
+> 0
+
+∥R (e iθ )∥2(Q∗)s dθ, (3.26) which after multiplication by τ becomes 
+
+cbτ
+
+2
+
+> ∞
+
+∑
+
+> n=1
+
+∥P n∥2 
+
+> Qs
+
++ c0
+
+> ∞
+
+∑
+
+> n=1
+
+∥P n∥2 
+
+> c,s
+
+≤ τ
+
+2cb
+
+12π
+
+∫ 2π
+
+> 0
+
+∥R (e iθ )∥2(Q∗)s dθ. (3.27) It remains to estimate the right-hand side of (3.27) . Since R(ζ) in (3.12) is a sum of four terms, the inequality ∥a1 + · · · + a4∥2 ≤ 4 ( ∥a1∥2 + · · · + ∥a4∥2) gives 
+
+12π
+
+∫ 2π
+
+> 0
+
+∥R (e iθ )∥2(Q∗)s dθ ≤ 4 (T1 + T2 + T3 + T4
+
+), (3.28) where each Tk is defined as a contour integral over the unit circle |ζ| = 1 , namely 
+
+T1 := 12π
+
+∫ 2π
+
+> 0
+
+∥G(e iθ )∥2(Q∗)s dθ, T2 := 12π
+
+∫ 2π
+
+> 0
+
+∥∥∥∥
+
+∆(e iθ ) ⊗ DA −1
+
+τ F (e iθ )
+
+∥∥∥∥
+
+> 2(Q∗)s
+
+dθ, T3 := 12π
+
+∫ 2π
+
+> 0
+
+∥∥∥∥
+
+∆(e iθ ) ⊗ M 
+
+τ φ(e iθ )
+
+∥∥∥∥
+
+> 2(Q∗)s
+
+dθ, T4 := 12π
+
+∫ 2π
+
+> 0
+
+∥∥∥∥
+
+A−11 eiθ 
+
+τ (1 − R(∞)e iθ ) ⊗ (Du0 + Cp0)
+
+∥∥∥∥
+
+> 2(Q∗)s
+
+dθ, (3.29) DECOUPLING RUNGE–KUTTA SCHEMES FOR ELLIPTIC–PARABOLIC PROBLEMS 13 
+
+with the delay initial-value polynomial 
+
+φ(ζ) := 
+
+> k
+
+∑
+
+> δ=1
+
+ck,δ δ∑
+
+> m=1
+
+P m−δζm. (3.30) Exchanging the order of summation (the inner sum contributes to the coefficient of ζj
+
+when m = j and δ ≥ j), this polynomial takes the form 
+
+φ(ζ) = φ1ζ + φ2ζ2 + · · · + φkζk, (3.31) where the j-th coefficient is 
+
+φj =
+
+> k
+
+∑
+
+> δ=j
+
+ck,δ P j−δ, j = 1 , . . . , k. (3.32) In particular, the first and last coefficients read 
+
+φ1 = ck, 1 P 0 + ck, 2 P −1 + · · · + ck,k P 1−k, φk = ck,k P 0.
+
+Since j−δ ≤ 0 for every term, each P j−δ is an initial value with time index in {− k+1 , . . . , 0},and φj = 0 for j > k .We now apply Parseval’s identity to each Tk independently. Since G(ζ) is a polynomial of degree N , Parseval’s identity gives 
+
+T1 =
+
+> N
+
+∑
+
+> n=1
+
+∥Gn∥2(Q∗)s . (3.33) For T2, we first collect the needed operator bounds. From (3.8) and the triangle inequality, 
+
+sup 
+
+> θ∈[0 ,2π]
+
+∥∆(e iθ )∥ ≤ ∥ A−1∥ + ∥A−11∥ ∥ βTA−1∥
+
+1 − | R(∞)| =: C∆
+
+1 − | R(∞)| , (3.34) where we used |1 − R(∞)e iθ | ≥ 1 − | R(∞)|, and C∆ > 0 depends only on the RK method. From the coercivity of a and the continuity of d,
+
+∥DA −1∥V∗→Q ∗ ≤ Cd
+
+ca
+
+. (3.35) Using the submultiplicativity ∥(∆ ⊗ DA −1) v∥(Q∗)s ≤ ∥ ∆∥ ∥DA −1∥V∗→Q ∗ ∥v∥(V∗)s in the integrand and applying Parseval’s identity to the polynomial F , we obtain 
+
+T2 = 1
+
+τ 2
+
+12π
+
+∫ 2π
+
+> 0
+
+∥∥(∆(e iθ ) ⊗ DA −1) F (e iθ )∥∥2(Q∗)s dθ
+
+≤ C2∆
+
+τ 2(1 − | R(∞)|)2
+
+( Cd
+
+ca
+
+)2 N∑
+
+> n=1
+
+∥F n∥2(V∗)s , (3.36) using (3.34), (3.35), and Parseval’s identity for F .For T3, recall from (3.31) – (3.32) that φ(ζ) is a polynomial of degree at most k with coefficients φj depending only on the initial values P −k+1 , . . . , P 0. Applying the same operator-bound argument to M = DA −1D∗ and using ω = C2 
+
+> d
+
+/(cacc),
+
+∥M q∥Q∗ ≤ cc ω ∥q∥c for all q ∈ HQ . (3.37) 14 ROBERT ALTMANN †, ABDULLAH MUJAHID ⋆, AND BENJAMIN UNGER ‡
+
+Using the submultiplicativity ∥(∆ ⊗ M ) v∥(Q∗)s ≤ ∥ ∆∥ ccω ∥v∥c,s in the integrand together with (3.34) and Parseval’s identity for the polynomial φ, we obtain 
+
+T3 = 1
+
+τ 2
+
+12π
+
+∫ 2π
+
+> 0
+
+∥∥(∆(e iθ ) ⊗ M ) φ(e iθ )∥∥2(Q∗)s dθ
+
+≤ C2∆ (ccω)2
+
+τ 2(1 − | R(∞)|)2
+
+> k
+
+∑
+
+> j=1
+
+∥φj ∥2
+
+> c,s
+
+. (3.38) It remains to estimate the coefficients. By the triangle inequality applied to (3.32), 
+
+∥φj ∥c,s ≤
+
+> k
+
+∑
+
+> δ=j
+
+|ck,δ | ∥ P j−δ∥c,s .
+
+Squaring with (∑ ri=1 ai
+
+)2 ≤ r ∑ri=1 a2 
+
+> i
+
+for r = k −j +1 terms and summing over j = 1 , . . . , k 
+
+yields 
+
+> k
+
+∑
+
+> j=1
+
+∥φj ∥2 
+
+> c,s
+
+≤
+
+> k
+
+∑
+
+> j=1
+
+(k − j + 1) 
+
+> k
+
+∑
+
+> δ=j
+
+|ck,δ |2 ∥P j−δ∥2 
+
+> c,s
+
+≤ k
+
+> k
+
+∑
+
+> j=1
+> k
+
+∑
+
+> δ=j
+
+|ck,δ |2 ∥P j−δ∥2
+
+> c,s
+
+. (3.39) After the change of indices ℓ = j − δ ∈ {− k + 1 , . . . , 0}, each initial value P ℓ appears at most k times in the double sum, with coefficient bounded by max δ |ck,δ |2, so 
+
+T3 ≤ C2∆ (ccω)2 k2 max δ |ck,δ |2
+
+τ 2(1 − | R(∞)|)20∑
+
+> ℓ=−k+1
+
+∥P ℓ∥2
+
+> c,s
+
+. (3.40) For T4, since Du0 + Cp0 ∈ Q ∗ is a fixed vector, the integrand factorises as 
+
+∥∥∥∥
+
+A−11 eiθ 
+
+τ (1 − R(∞)e iθ ) ⊗ (Du0 + Cp0)
+
+∥∥∥∥
+
+> 2(Q∗)s
+
+= ∥A−11∥2
+
+τ 2 |1 − R(∞)e iθ |2 ∥D u0 + Cp0∥2 
+
+> Q∗
+
+,
+
+where we used |eiθ | = 1 . Expanding 
+
+11 − R(∞)ζ =
+
+> ∞
+
+∑
+
+> n=0
+
+R(∞)nζn
+
+and applying Parseval’s identity to compute the scalar integral, we obtain 
+
+T4 = ∥A−11∥2
+
+τ 2 ∥D u0 + Cp0∥2
+
+> Q∗
+
+12π
+
+∫ 2π
+
+> 0
+
+dθ 
+
+|1 − R(∞)e iθ |2 = ∥A−11∥2
+
+τ 2(1 − | R(∞)|2) ∥D u0 + Cp0∥2 
+
+> Q∗
+
+.
+
+(3.41) Substituting (3.33) – (3.41) into (3.28) and then into (3.27) , and multiplying by τ , we arrive at 
+
+cbτ 2
+
+2
+
+> ∞
+
+∑
+
+> n=1
+
+∥P n∥2 
+
+> Qs
+
++ c0τ
+
+> ∞
+
+∑
+
+> n=1
+
+∥P n∥2
+
+> c,s
+
+≤ C
+
+(
+
+τ 2
+
+> N
+
+∑
+
+> n=1
+
+∥Gn∥2(Q∗)s +
+
+> N
+
+∑
+
+> j=1
+
+∥F j ∥2(V∗)s +
+
+> 0
+
+∑
+
+> n=−k
+
+∥P n∥2 
+
+> c,s
+
++ ∥D u0 + Cp0∥2
+
+> Q∗
+
+)
+
+, (3.42) where C > 0 depends on the method, the coupling parameter, and 1/(1 − | R(∞)|).Restricting the left-hand side to n = 1 , . . . , N gives (3.18). □
+
+We now combine the stability estimates with consistency to obtain convergence. DECOUPLING RUNGE–KUTTA SCHEMES FOR ELLIPTIC–PARABOLIC PROBLEMS 15 
+
+Theorem 3.11 (Convergence of RK stages) . Consider the solution ¯p of the delay equa-tion (3.3) for sufficiently smooth right-hand sides. Let P n be the RK stage approximation given by (3.4) and ¯P n the exact stage values of the delay solution. Let q denote the stage order of the RK method (cf. Remark 2.3). Then we have under the assumptions of Theorem 3.10, 
+
+τ 2
+
+> N
+
+∑
+
+> n=1
+
+∥P n − ¯P n∥2 
+
+> Qs
+
++ τ
+
+> N
+
+∑
+
+> n=1
+
+∥P n − ¯P n∥2 
+
+> c,s
+
+≲ τ 2r +
+
+> 0
+
+∑
+
+> δ=−k
+
+∥P δ − ¯P δ∥2
+
+> c,s
+
+, (3.43) 
+
+where the exponent r is determined by (i) r = min( k, q + 1) in the general case and (ii) r = min( k, q + 1 + σ) under Assumption 2.4. Proof. Let En := P n − ¯P n denote the stage error and en : = pn − ¯p(tn) the grid error. Inserting the exact stage values ¯P n into the scheme (3.4) produces a defect Dn ∈ (Q∗)s.For a method of stage order q, the defect satisfies (cf. [LO95, Eq. (1.6)]) 
+
+∥Dn∥(Q∗)s ≲ τ q+1 . (3.44) The error satisfies the operator equation (3.10) with the defect as right-hand side, i.e., 
+
+L(ζ) E(ζ) = D(ζ) + (delay initial-value and initial-data errors) . (3.45) Here, the defect D plays the role of the data term G in (3.12) , while the elliptic equa-tion (3.4a) is satisfied exactly at each stage, so there is no contribution from the F -term. 
+
+Part (i). Applying Theorem 3.10 to (3.45) yields 
+
+τ 2
+
+> N
+
+∑
+
+> n=1
+
+∥En∥2 
+
+> Qs
+
++ τ
+
+> N
+
+∑
+
+> n=1
+
+∥En∥2 
+
+> c,s
+
+≲ τ 2
+
+> N
+
+∑
+
+> n=1
+
+∥Dn∥2(Q∗)s +
+
+> 0
+
+∑
+
+> δ=−k
+
+∥Eδ∥2
+
+> c,s
+
+≲ τ 2 N τ 2( q+1) +
+
+> 0
+
+∑
+
+> δ=−k
+
+∥Eδ∥2 
+
+> c,s
+
+≲ τ 2q+2 , (3.46) where the last step uses N τ = T and absorbs initial errors of order τ 2q or better. Capping the stage-order bound τ q+1 by the classical order τ k gives (3.43). 
+
+Part (ii). The basic bound (3.46) estimates the defect D as generic data in (Q∗)s. Under Assumption 2.4, however, D is itself smoothed by the parabolic component of L(ζ)−1,gaining a factor τ 2σ in (3.46) . This is the resolvent-smoothing mechanism of [ LO95 ,Thm. 3.3], which closes the gap between the stage-order rate and the full classical order k.In our setting, the elliptic constraint (3.4a) enters through D without altering the exponent, which is determined by B. This yields the improved exponent r = min( k, q + 1 + σ). □
+
+Remark 3.12 (Stiffly accurate methods and grid values) . For stiffly accurate methods, we have R(∞) = 0 and pn = βTA−1P n by (3.5) , so the grid error satisfies 
+
+∥pn − ¯p(tn)∥c ≤ ∥ βTA−1∥ ∥ P n − ¯P n∥c,s .
+
+Corollary 3.13 (Convergence of semi-explicit RK scheme) . For stiffly accurate methods, combining Theorem 3.11 with Proposition 3.1 and Remark 3.12 via the triangle inequality yields the total error 
+
+∥un − u(tn)∥2 
+
+> V
+
++ ∥pn − p(tn)∥2 
+
+> HQ
+
+≲ τ 2r (3.47) 
+
+with r defined in Theorem 3.11. 16 ROBERT ALTMANN †, ABDULLAH MUJAHID ⋆, AND BENJAMIN UNGER ‡
+
+Remark 3.14 (Convergence rates for Radau IIA) . For Radau IIA-s, q = s and k = 2 s − 1,so Corollary 3.13 predicts the baseline orders min (k, q + 1) = 1 , 3, 4 for s = 1 , 2, 3. With 
+
+σ = 3 /4 − ε from Example 2.5, the sharpened bound predicts orders 1, 3, and ≈ 4.75 for 
+
+s = 1 , 2, 3; the third rate falls short of the classical order k = 5 by 1/4, consistent with the numerically observed rates ≈ 4.5–4.8 in Section 5. 
+
+4. Iterative Runge–Kutta Decoupling 
+
+This section is devoted to iterative decoupling schemes for the elliptic–parabolic sys-tem (2.4) using fixed-stress and undrained-split strategies. Similar to the semi-explicit schemes studied in Section 3, iterative schemes decouple the fully coupled system (2.4) by solving the two equations alternatingly: Given approximations u(i−1) , p(i−1) from the previous iteration, the next iterates u(i), p(i) are computed by solving a sequence of two subproblems. The advantage of the iterative decoupling methods is that they use a sta-bilization parameter to avoid a restriction on the coupling condition as for semi-explicit schemes. 
+
+Assumption 4.1 (RK method for iterative decoupling) . In addition to Assumption 2.2, the s-stage RK method (A, β ) is algebraically stable , i.e., diag (β) A + ATdiag (β) − ββ T ⪰ 0,where ⪰ denotes positive semidefiniteness, with weights βℓ > 0 for all ℓ; see [HW96 , Ch. IV, Def. 12.1] .
+
+Remark 4.2. As already discussed in Remark 2.3, Assumption 4.1 is satisfied by the Radau IIA methods with s = 1 , 2, 3 stages. 
+
+In the following, we apply an s-stage RK method (A, β ) to an iterative scheme in order to obtain a fully discrete method. On each time interval [tn−1, t n] of size τ , we denote the RK stage values at iteration i by 
+
+U n,i = [ U n,i  
+
+> 1
+
+, . . . , U n,i s ]T ∈ V s and P n,i = [ P n,i  
+
+> 1
+
+, . . . , P n,i s ]T ∈ Q s
+
+with corresponding stage derivatives ˙U n,i , ˙P n,i given by the identity (3.4c) . The iteration at each time step is initialized by U n, 0 = 1 un−1 and P n, 0 = 1 pn−1, i.e., all stages are set to the solution from the previous time step. Since C−1M is self-adjoint, non-negative on HQ , and compact, the spectral theorem (see, e.g., [Bre11, Th. 6.11]) yields eigenpairs (μj , ϕ j ) with 
+
+Mϕj = μj Cϕj , c(ϕj , ϕ j′ ) = ⟨C ϕj , ϕ j′ ⟩ = δjj ′ , 0 ≤ μj ≤ ω. (4.1) This provides an orthonormal basis of HQ with respect to the c-norm. In addition to the unweighted stage-product norms introduced in Section 2.1, the iterative analysis uses the 
+
+β-weighted variants 
+
+∥V ∥2 
+
+> a,β
+
+:= 
+
+> s
+
+∑
+
+> ℓ=1
+
+βℓ ∥Vℓ∥2
+
+> a
+
+, ∥Q∥2 
+
+> c,β
+
+:= 
+
+> s
+
+∑
+
+> ℓ=1
+
+βℓ ∥Qℓ∥2 
+
+> c
+
+,
+
+∥θ∥2 
+
+> β
+
+:= 
+
+> s
+
+∑
+
+> ℓ=1
+
+βℓ θ2 
+
+> ℓ
+
+, ⟨θ, θ ′⟩β := 
+
+> s
+
+∑
+
+> ℓ=1
+
+βℓ θℓ θ′ 
+
+> ℓ
+
+for θ, θ ′ ∈ Rs.
+
+The same notation ⟨f, g ⟩β := ∑sℓ=1 βℓ ⟨fℓ, g ℓ⟩ is used for the stage-tensor duality pairing on (X ∗)s × X s for X ∈ {V , Q} . Since βℓ > 0 by Assumption 4.1, the β-weighted norms are equivalent to the unweighted stage-product versions with constants min ℓ βℓ and max ℓ βℓ.DECOUPLING RUNGE–KUTTA SCHEMES FOR ELLIPTIC–PARABOLIC PROBLEMS 17 
+
+In the following, we introduce two splitting strategies which yield a contraction, namely fixed-stress (Section 4.1) and undrained-split (Section 4.2). Afterwards, we establish convergence of the two iterative schemes (Section 4.3). 4.1. Fixed-stress splitting. The fixed-stress splitting decouples the fully coupled system by adding a stabilization term to the flow equation; see [ MW13 ] for the underlying idea. In each iteration step, the flow equation is solved first for the pressure, followed by the mechanics equation to update the displacement. In the continuous setting, at iteration i,the scheme reads 
+
+A u(i) − D ∗ p(i) = f, (4.2a) 
+
+D ˙u(i−1) + C ˙p(i) + B p(i) + L C ( ˙ p(i) − ˙p(i−1) ) = g, (4.2b) where L > 0 is a stabilization parameter. Applying the RK method to (4.2) , the fixed-stress RK scheme at time step n and iteration i reads 
+
+(Is ⊗ A ) U n,i − (Is ⊗ D ∗) P n,i = F n (4.3a) 
+
+(Is ⊗ D ) ˙U n,i −1 + ( Is ⊗ C ) ˙P n,i + ( Is ⊗ B ) P n,i + L (Is ⊗ C ) ( ˙P n,i − ˙P n,i −1) = Gn (4.3b) in (V∗)s and (Q∗)s, respectively. Note that the two equations are decoupled since one can first solve for P n,i with the second equation. 
+
+Theorem 4.3 (Contraction of fixed-stress RK iteration) . Under Assumption 4.1, the fixed-stress iteration (4.3) satisfies 
+
+∥P n,i − P n,i −1∥c,β ≤ ρFS ∥P n,i −1 − P n,i −2∥c,β (4.4) 
+
+with contraction rate 
+
+ρFS = max 
+
+> μ∈[0 ,ω ]
+
+|L − μ|
+
+1 + L . (4.5) 
+
+In particular, ρFS < 1 for all L > max (0, ω−12
+
+) and the optimal choice L = ω/ 2 yields 
+
+ρFS = ω/ (2 + ω).Proof. Define the iterate differences 
+
+Θn,i u := U n,i − U n,i −1 ∈ V s and Θn,i p := P n,i − P n,i −1 ∈ Q s
+
+as well as ˙Θn,i u and ˙Θn,i p accordingly. Subtracting (4.3) for consecutive iterates yields 
+
+(Is ⊗ A ) Θ n,i u − (Is ⊗ D ∗) Θ n,i p = 0 , (4.6a) 
+
+(Is ⊗ D ) ˙Θn,i −1 
+
+> u
+
++ ( Is ⊗ C ) ˙Θn,i p + ( Is ⊗ B ) Θ n,i p + L (Is ⊗ C ) ( ˙Θn,i p − ˙Θn,i −1 
+
+> p
+
+) = 0 . (4.6b) Eliminating Θn,i u via (4.6a) and using the stage derivative formula (2.10) , in which the 
+
+1 ⊗ pn−1 contribution cancels under the iterate subtraction, we obtain 
+
+(
+
+Is ⊗ B + 1 + Lτ A−1 ⊗ C 
+
+)
+
+Θn,i p = A−1
+
+τ ⊗ (LC − M ) Θ n,i −1 
+
+> p
+
+. (4.7) We expand Θn,i p = ∑ 
+
+> j
+
+θn,i j ⊗ ϕj with coefficients θn,i j ∈ Rs using the eigenpairs (μj , ϕ j )
+
+from (4.1) . Note that this expansion diagonalizes the C- and M-terms (by orthonormality and Mϕj = μj Cϕj ), but not the B-term. 18 ROBERT ALTMANN †, ABDULLAH MUJAHID ⋆, AND BENJAMIN UNGER ‡
+
+Multiplying (4.7) by A on the stage structure and testing with ( diag (β) ⊗ Id ) Θ n,i p in the stage-tensor Q-duality pairing gives 
+
+〈(A ⊗ B ) Θ n,i p , Θn,i p
+
+〉
+
+> β
+
+︸ ︷︷ ︸ 
+
+> =: TB
+
++ 1 + Lτ ∥Θn,i p ∥2 
+
+> c,β
+
+= 1
+
+τ
+
+〈( Is ⊗ (LC − M )) Θn,i −1 
+
+> p
+
+, Θn,i p
+
+〉 
+
+> β
+
+. (4.8) Writing out the stage indices, we have 
+
+TB =
+
+> s
+
+∑
+
+> ℓ,ℓ ′=1
+
+βℓ′ Aℓ′ℓ b(Θ n,i p,ℓ , Θn,i p,ℓ ′ ) = tr(diag( β)A B),
+
+where B is the Gram matrix of the stage errors in the b-inner product, i.e., Bℓℓ ′ =
+
+b(Θ n,i p,ℓ , Θn,i p,ℓ ′ ). Since tr (diag (β)A B) = tr (sym (diag (β)A) B) and B ⪰ 0 by the ellipticity of b, the assumed algebraic stability implies sym (diag (β)A) ⪰ 12 ββ T ⪰ 0 and, hence, 
+
+TB ≥ 0. Dropping TB and substituting the spectral expansion on both sides yields 
+
+1 + Lτ
+
+∑
+
+> j
+
+∥θn,i j ∥2 
+
+> β
+
+≤ 1
+
+τ
+
+∑
+
+> j
+
+(L − μj ) 〈θn,i −1 
+
+> j
+
+, θ n,i j
+
+〉 
+
+> β
+
+.
+
+The Cauchy–Schwarz inequality in the β-inner product (first on each ⟨θn,i −1 
+
+> j
+
+, θ n,i j ⟩β , then on the sum over j) gives 
+
+( ∑ 
+
+> j
+
+∥θn,i j ∥2
+
+> β
+
+)1/2
+
+≤ max μ∈[0 ,ω ] |L − μ|
+
+1 + L
+
+( ∑ 
+
+> j
+
+∥θn,i −1 
+
+> j
+
+∥2
+
+> β
+
+)1/2
+
+. (4.9) Introducing the contraction rate ρFS as in (4.5) and noting that ∥Θn,i p ∥2 
+
+> c,β
+
+= ∑ 
+
+> j
+
+∥θn,i j ∥2
+
+> β
+
+via the c-orthonormality of {ϕj }, estimate (4.9) becomes 
+
+∥Θn,i p ∥c,β ≤ ρFS ∥Θn,i −1 
+
+> p
+
+∥c,β , (4.10) which is (4.4) . This is a contraction provided ρFS < 1, which imposes conditions on the stabilization parameter L:
+
+• For L ≥ ω/ 2: max μ∈[0 ,ω ] |L − μ| = L, giving ρFS = L/ (1 + L) < 1 for all L ≥ ω/ 2.
+
+• For L < ω/ 2: max μ∈[0 ,ω ] |L − μ| = ω − L, giving ρFS = ( ω − L)/(1 + L) < 1 if and only if L > (ω − 1) /2.
+
+• The minimum of ρFS over L ≥ 0 is attained at L = ω/ 2, yielding ρFS = ω/ (2 + ω).In particular, ρFS < 1 for all L > max (0, ω−12
+
+). □
+
+Remark 4.4 (Case L = 0 ). Without stabilization, i.e., for L = 0 , we obtain ρFS = ω.Hence, the iteration is contractive only for ω < 1.
+
+The proven contraction of the pressure differences in (4.4) translates – via the elliptic coupling and a stopping criterion argument – into convergence of the displacement as well as the pressure iterates to the fully coupled monolithic RK solution at the optimal order in τ . The precise statement and proof are given in Section 4.3 below. 4.2. Undrained-split decoupling. In contrast to the previous approach, the undrained-split stabilizes the mechanics equation; see [ KTJ11a , MW13 ] for the underlying idea. For this, we define the operator 
+
+˜M := D∗C−1D : V → V ∗, (4.11) DECOUPLING RUNGE–KUTTA SCHEMES FOR ELLIPTIC–PARABOLIC PROBLEMS 19 
+
+where C−1 : H∗ 
+
+> Q
+
+→ HQ is well-defined due to the ellipticity of c. Moreover, we introduce the associated semi-norm 
+
+|v|2
+
+˜M := 〈 ˜M v, v 〉 = 〈C−1D v, Dv〉, v ∈ V , (4.12) together with its (unweighted and β-weighted) stage-product extensions 
+
+|V |2
+
+˜M,s := 
+
+> s
+
+∑
+
+> ℓ=1
+
+|Vℓ|2
+
+˜M, |V |2
+
+˜M,β := 
+
+> s
+
+∑
+
+> ℓ=1
+
+βℓ |Vℓ|2
+
+˜M for V ∈ V s.
+
+In the continuous setting, the undrained-split scheme at iteration i reads 
+
+A u(i) − D ∗ p(i−1) + L ˜M (u(i) − u(i−1) ) = f, 
+
+D ˙u(i) + C ˙p(i) + B p(i) = g, 
+
+where L > 0 is again a stabilization parameter. Applying a RK method, the undrained-split RK scheme at time step n and iteration i reads 
+
+(Is ⊗ A ) U n,i − (Is ⊗ D ∗) P n,i −1 + L (Is ⊗ ˜M) ( U n,i − U n,i −1) = F n in (V∗)s, (4.13a) 
+
+(Is ⊗ D ) ˙U n,i + ( Is ⊗ C ) ˙P n,i + ( Is ⊗ B ) P n,i = Gn in (Q∗)s. (4.13b) The contraction property is subject of the following theorem. 
+
+Theorem 4.5 (Contraction of undrained-split RK iteration) . Given Assumption 4.1, the undrained-split iteration (4.13) satisfies 
+
+∣∣U n,i − U n,i −1∣∣ ˜M,β ≤ ρUS 
+
+∣∣U n,i −1 − U n,i −2∣∣ ˜M,β (4.14) 
+
+with contraction rate 
+
+ρUS = ω max( L, 1 − L)1 + Lω . (4.15) 
+
+In particular, ρUS < 1 for all L ≥ 12 (unconditionally) and for 0 ≤ L < 12 provided 
+
+ω < 1/(1 − 2L). The optimal choice L = 12 yields ρUS = ω/ (2 + ω).Proof. Set 
+
+Θn,i u := U n,i − U n,i −1 ∈ V s, Θn,i p := P n,i − P n,i −1 ∈ Q s,
+
+and define ˙Θn,i u , ˙Θn,i p accordingly. Subtracting (4.13) for two consecutive iterates yields 
+
+(Is ⊗ A + L I s ⊗ ˜M) Θ n,i u = ( Is ⊗ D ∗) Θ n,i −1 
+
+> p
+
++ L (Is ⊗ ˜M) Θ n,i −1 
+
+> u
+
+,
+
+(4.16a) 
+
+(Is ⊗ D ) ˙Θn,i u + ( Is ⊗ C ) ˙Θn,i p + ( Is ⊗ B ) Θ n,i p = 0 . (4.16b) Using the stage-derivative formula (2.10) in (4.16b) , where the constant contributions 
+
+1 ⊗ un−1 and 1 ⊗ pn−1 cancel, and multiplying by τ A on the stage structure gives the compact form 
+
+T Θn,i p = − (Is ⊗ D ) Θ n,i u , T := Is ⊗ C + τ A ⊗ B . (4.17) Evaluating (4.17) at iterate i−1 and substituting the resulting expression for Θn,i −1
+
+> p
+
+into (4.16a), the mechanics equation becomes a closed equation in Θn,i u , namely 
+
+(Is ⊗ A + L I s ⊗ ˜M) Θn,i u = L (Is ⊗ ˜M) Θ n,i −1 
+
+> u
+
+− (Is ⊗ D ∗) T −1 (Is ⊗ D ) Θ n,i −1 
+
+> u
+
+. (4.18) 20 ROBERT ALTMANN †, ABDULLAH MUJAHID ⋆, AND BENJAMIN UNGER ‡
+
+Testing this equation with (diag (β) ⊗ Id ) Θ n,i u in the stage-tensor V-duality pairing ⟨· , ·⟩ β
+
+and applying ⟨ ˜Mu, v ⟩ = ⟨C −1Du, Dv⟩ on the right-hand side, we obtain 
+
+∥Θn,i u ∥2 
+
+> a,β
+
++ L ∣∣Θn,i u
+
+∣∣2
+
+˜M,β = 〈[ L (Is ⊗ C −1) − T −1] (Is ⊗ D ) Θ n,i −1 
+
+> u
+
+, (Is ⊗ D ) Θ n,i u
+
+〉 
+
+> β
+
+. (4.19) Since C−1B : HQ → HQ is self-adjoint and positive on the c-inner product (by the ellipticity of b), the spectral theorem yields eigenpairs (νj , ˜ϕj ) with 
+
+B ˜ϕj = νj C ˜ϕj , c( ˜ϕj , ˜ϕk) = δjk , νj ≥ cb/C c > 0. (4.20) We expand (Is ⊗ D )Θ n,i −1 
+
+> u
+
+and (Is ⊗ D )Θ n,i u in the basis {C ˜ϕj } of Q∗ stage-wise, leading to 
+
+(Is ⊗ D )Θ n,i −1 
+
+> u
+
+= ∑
+
+> j
+
+ξj ⊗ C ˜ϕj , (Is ⊗ D )Θ n,i u = ∑
+
+> j
+
+ηj ⊗ C ˜ϕj
+
+with coefficient vectors ξj , η j ∈ Rs whose components are ξj,ℓ = ⟨D Θn,i −1 
+
+> u,ℓ
+
+, ˜ϕj ⟩ and ηj,ℓ =
+
+⟨D Θn,i u,ℓ , ˜ϕj ⟩. Applying T −1 and Is ⊗ C −1, respectively, we obtain by (4.20) 
+
+T −1 (Is ⊗ D )Θ n,i −1 
+
+> u
+
+= ∑
+
+> j
+
+(Is + τ ν j A)−1ξj ⊗ ˜ϕj , (Is ⊗ C −1)( Is ⊗ D )Θ n,i −1 
+
+> u
+
+= ∑
+
+> j
+
+ξj ⊗ ˜ϕj .
+
+The right-hand side of (4.19) therefore becomes the diagonal sum 
+
+〈[ L (Is ⊗ C −1) − T −1] (Is ⊗ D )Θ n,i −1 
+
+> u
+
+, (Is ⊗ D )Θ n,i u
+
+〉 
+
+> β
+
+= ∑
+
+> j
+
+〈Kj ξj , η j
+
+〉 
+
+> β
+
+, (4.21) where 
+
+Kj := LI s − Sj ∈ Rs×s, with Sj := ( Is + τ ν j A)−1.
+
+We claim that 
+
+∥Kj ∥β ≤ max( L, 1 − L) for every j, (4.22) where ∥ · ∥ β denotes the matrix norm induced by the β-weighted inner product on Rs. The assumed algebraic stability from Assumption 4.1 implies sym(diag( β)A) ⪰ 0 and, hence, 
+
+xTsym(diag( β) ( Is + τ ν j A)) x = ∥x∥2 
+
+> β
+
++ τ ν j xTsym(diag( β)A) x ≥ ∥ x∥2 
+
+> β
+
+(4.23) for all x ∈ Rs. Inserting x = Sj y in (4.23) and using (Is + τ ν j A) Sj = Is yields ⟨Sj y, y ⟩β ≥∥Sj y∥2 
+
+> β
+
+. An application of Cauchy–Schwarz then yields ∥Sj y∥β ≤ ∥ y∥β for every y ∈ Rs.Taking the supremum yields the contraction property of the resolvent, namely 
+
+∥Sj ∥β ≤ 1.
+
+An expansion of the squared β-norm yields 
+
+∥(LI s − Sj ) y∥2 
+
+> β
+
+= L2∥y∥2 
+
+> β
+
+− (2 L − 1) ∥Sj y∥2 
+
+> β
+
+− 2L (⟨y, S j y⟩β − ∥ Sj y∥2
+
+> β
+
+),
+
+where the last term is non-negative by (4.23). Dropping it yields 
+
+∥Kj y∥2 
+
+> β
+
+= ∥(LI s − Sj ) y∥2 
+
+> β
+
+≤ L2∥y∥2 
+
+> β
+
+− (2 L − 1) ∥Sj y∥2 
+
+> β
+
+. (4.24) A case distinction on L closes (4.22), 
+
+• L ≥ 12 : (2 L − 1) ≥ 0 and (4.24) yields ∥Kj y∥β ≤ L ∥y∥β ;
+
+• L ≤ 12 : using ∥Sj y∥β ≤ ∥ y∥β in (4.24) yields ∥Kj y∥β ≤ (1 − L)∥y∥β .DECOUPLING RUNGE–KUTTA SCHEMES FOR ELLIPTIC–PARABOLIC PROBLEMS 21 
+
+By the c-orthonormality of { ˜ϕj }, Parseval’s identity gives 
+
+∑
+
+> j
+
+∥ξj ∥2 
+
+> β
+
+= ∣∣Θn,i −1
+
+> u
+
+∣∣2
+
+˜M,β , ∑
+
+> j
+
+∥ηj ∥2 
+
+> β
+
+= ∣∣Θn,i u
+
+∣∣2
+
+˜M,β .
+
+Applying Cauchy–Schwarz to each summand of (4.21) as well as to the sum over the modes, we conclude ∣∣∣∣∑
+
+> j
+
+⟨Kj ξj , η j ⟩β
+
+∣∣∣∣ ≤ max( L, 1 − L) ∣∣Θn,i −1
+
+> u
+
+∣∣ ˜M,β 
+
+∣∣Θn,i u
+
+∣∣ ˜M,β . (4.25) With the coupling strength ω from (2.3), we have the Rayleigh inequality 
+
+∣∣v∣∣2
+
+˜M = ∥∥C−1/2D v∥∥2 ≤ ω ∥v∥2
+
+> a
+
+.
+
+Weighted stage-wise by β, this lifts to 
+
+|Θn,i u |2
+
+˜M,β ≤ ω ∥Θn,i u ∥2 
+
+> a,β
+
+. (4.26) Now, combining (4.19), (4.21), (4.25), and (4.26) gives 
+
+1 + Lω ω
+
+∣∣Θn,i u
+
+∣∣ ˜M,β ≤ max( L, 1 − L) ∣∣Θn,i −1
+
+> u
+
+∣∣ ˜M,β ,
+
+which is (4.14) with rate ρUS as defined in (4.15) . The conditions for ρUS < 1 follow from a case analysis of the stabilization parameter L:
+
+• L ≥ 12 : ρUS = Lω/ (1 + Lω ) < 1 unconditionally; 
+
+• 0 ≤ L < 12 : ρUS = (1 − L)ω/ (1 + Lω ) < 1 iff ω < 1/(1 − 2L).The minimum is attained at L = 12 , yielding ρUS = ω/ (2 + ω) < 1. □
+
+Remark 4.6 (Case L = 0 ). Without stabilization, i.e., for L = 0 , the contraction constant satisfies ρUS 
+
+∣∣L=0 = ω. Hence, the iteration is contractive only for ω < 1.
+
+Remark 4.7 (Contraction in a genuine norm) . The form | · | ˜M vanishes on ker (D), so 
+
+| · | ˜M,β is, in general, only a seminorm on Vs. One can show, however, that the iterates 
+
+Θn,i u live in a subspace on which | · | ˜M,β is a norm equivalent to ∥ · ∥ a,β , so that (4.14) is indeed a genuine norm contraction. 
+
+4.3. Convergence of iterative RK splittings. As shown in the previous subsections, the fixed-stress (Theorem 4.3) as well as the undrained-split (Theorem 4.5) iterations provide a contraction with rate ρ < 1 in their respective norms if the stabilization parameter is chosen appropriately. The convergence argument is identical for both splittings. We write it generically using ∥ · ∥ ∗ acting on Θn,i := Xn,i − Xn,i −1 with 
+
+• X = P and ∥ · ∥ ∗ = ∥ · ∥ c,β , ρ = ρFS for fixed-stress, 
+
+• X = U with ∥ · ∥ ∗ = | · | ˜M,β , ρ = ρUS for undrained-split. Since βℓ > 0 for all ℓ by Assumption 4.1, the weighted norms ∥·∥ c,β and ∥·∥ a,β are equivalent to the unweighted stage norms ∥ · ∥ c and ∥ · ∥ a, respectively. The same equivalence applies to | · | ˜M,β versus | · | ˜M,s .
+
+Theorem 4.8 (Convergence of iterative RK splittings) . Given Assumptions 2.4 and 4.1, let u, p be the solutions of (2.4) with sufficient temporal regularity, and consider an s-stage 22 ROBERT ALTMANN †, ABDULLAH MUJAHID ⋆, AND BENJAMIN UNGER ‡
+
+RK method of stage order q and classical order k. Let (un,J n , p n,J n ) denote the iterative solution (fixed-stress or undrained-split) after Jn iterations satisfying the stopping criterion 
+
+∥∥Θn,J n ∥∥∗ ≤ TOL . (4.27) 
+
+Then, 
+
+∥∥un,J n − u(tn)∥∥2 
+
+> V
+
++ ∥∥pn,J n − p(tn)∥∥2 
+
+> HQ
+
+≲ TOL 2
+
+τ 3 + τ 2 min( k, q +1+ σ), (4.28) 
+
+where the hidden constant contains an exponential factor of the form eCt n . Setting TOL =
+
+τ min( k, q +1+ σ)+3 /2 balances both terms, yielding an overall error of order min (k, q + 1 + σ).Proof. Let (un, p n) denote the exact fully coupled RK solution at time tn and Xn the corresponding stage vector ( X = P for fixed-stress, X = U for undrained-split), so that 
+
+∥∥pn,J n − p(tn)∥∥HQ ≤ ∥∥pn,J n − pn∥∥HQ + ∥∥pn − p(tn)∥∥HQ (4.29) and analogously for u. By the contraction results (Theorems 4.3 and 4.5), we have after 
+
+Jn iterations 
+
+∥Xn,J n − Xn,J n−1∥∗ ≤ ρJn−1 ∥Xn, 1 − Xn, 0∥∗.
+
+Summing the geometric series, the stopping criterion (4.27) yields ∥Xn,J n − Xn∥∗ ≲ TOL .Since pn−1 (resp. un−1) is fixed across iterates and stiffly-accurate RK methods satisfy 
+
+pn = βTA−1P n (resp. un = βTA−1U n) by (3.5) , the time-step iteration error of the contracted component is bounded by the stage iteration error, 
+
+∥∥xn,J n − xn∥∥ ≤ ∥ βTA−1∥ ∥ Xn,J n − Xn∥∗ ≲ TOL , (4.30) where x ∈ { p, u } matches the contracted component X and the LHS norm is ∥ · ∥ HQ
+
+for fixed-stress and ∥ · ∥ V for undrained-split. The error of the other component is then controlled by the elliptic coupling Au = D∗p + f and the stability of A−1. For the discretization error of the fully coupled implicit RK scheme for (2.4) , we do not re-derive a Fourier stability estimate. Instead, we invoke the resolvent-smoothing analysis of [ LO95 ,Thm. 3.3], which, by Assumption 2.4, yields 
+
+∥pn − p(tn)∥HQ ≲ τ min( k, q +1+ σ).
+
+The per-step iteration error (4.30) of order TOL propagates through the parabolic structure, since the stage derivatives involve a factor 1/τ (from (2.10) ). A discrete Gronwall argument over N = T /τ steps hence gives 
+
+max 
+
+> 1≤n≤N
+
+∥∥pn,J n − pn∥∥2 
+
+> HQ
+
+≲ TOL 2
+
+τ 3 .
+
+Combining this with the discretization bound via (4.29) yields 
+
+∥∥pn,J n − p(tn)∥∥2 
+
+> HQ
+
+≲ TOL 2
+
+τ 3 + τ 2 min( k, q +1+ σ).
+
+The choice TOL = τ min( k, q +1+ σ)+3 /2 balances both terms, yielding the overall error 
+
+O(τ 2 min( k, q +1+ σ)). The bound for u follows from the elliptic equation Au = D∗p + f and the stability of A−1. □
+
+To summarize, both iterative approaches reach rate ρ = ω/ (2 + ω) if the optimal stabilization parameter ( L = ω/ 2 for fixed-stress, L = 1 /2 for undrained-split) is chosen. Hence, both methods converge rapidly for small ω.DECOUPLING RUNGE–KUTTA SCHEMES FOR ELLIPTIC–PARABOLIC PROBLEMS 23 
+
+5. Numerical Experiments 
+
+We verify the theoretical convergence rates obtained in Sections 3 and 4 using a manu-factured solution for linear poroelasticity on the unit square Ω = (0 , 1) 2 with T = 1 . We prescribe the exact solution as 
+
+u(t, x, y ) = −e−At 
+
+> [
+
+sin( πx ) sin( πy )sin( πx ) sin( πy )
+
+> ]
+
+, p(t, x, y ) = e −At sin( πx ) sin( πy ). (5.1) The forcing terms are chosen accordingly. The decay rate 
+
+A = 2π2 κ/ν α + 1 /M (5.2) depends on all material parameters of the Biot system, which are chosen as 
+
+λ μ κν M α
+
+1 0.5 0.1 1 0.1
+
+The coupling strength ω entering the weak coupling condition (3.15) is estimated at the continuous level by ω ≈ α2M/ (2 μ) = 10 −2, which is well below 1/(2 5 − 1) = 1 /31 , the bound for delay order k = 5 (Radau IIA-3, the highest-order method tested). With these parameters, the decay rate (5.2) evaluates to A ≈ 1.79 , giving e−AT ≈ 0.17 at T = 1 .Spatial discretization is performed using Taylor–Hood finite elements for (u, p ) on a uniform triangular mesh with h = 2 −6 (64 × 64 cells). To ensure that temporal errors dominate over spatial discretization effects across the tested time-step range, the polynomial degree is increased with the RK order: Radau IIA-1 : ( P4, P 3), Radau IIA-2 : ( P6, P 5), Radau IIA-3 : ( P7, P 6).
+
+Each method is paired with k = 2 s−1 delays matching its classical order. Recall that Radau IIA methods are stiffly accurate, which ensures full classical order convergence for both the algebraic variable u and the differential variable p; cf. [ HW96 , Ch. VI, Thm. 1.2]. All errors are reported in the L∞(0 , T ) norm, i.e., the maximum error over all time steps. The convergence results are summarized in Figures 1 and 2. Both figures include gray dotted reference lines of slopes 1, 3, and 5, corresponding to the classical orders of the Radau IIA family. For benchmarking, the monolithic implicit RK errors (dashed red) are plotted in both figures. For the implicit scheme, Radau IIA-1
+
+and IIA-2 attain their classical orders 1 and 3 in both the V- and HQ -norms. Radau IIA-3
+
+attains a rate of ≈ 4.2 for the pressure in agreement with the bound r = min (k, q + 1 + σ)
+
+of Theorem 3.11. For the displacement, this rate can be seen only for coarse time steps before it saturates for τ ≤ 2−6 at the spatial discretization floor. The semi-explicit pressure errors (Figure 1) essentially coincide with the implicit ones for all three methods. The semi-explicit displacement errors, however, lie clearly above the implicit ones across all tested τ , while sharing the same asymptotic rate. For the iterative schemes (Figure 2), with optimal stabilizations L = ω/ 2 (fixed-stress, cf. Theorem 4.3) and L = 1 /2 (undrained-split, cf. Theorem 4.5), the converged pressure and displacement errors essentially coincide with the monolithic ones, confirming convergence to the fully coupled solution. For Radau IIA-3, the iterative u-error plateaus instead of tracking the monolithic errors. Finally, the average iteration counts presented in Table 1 only show a mild growth with decreasing τ , using TOL = τ k+3 /2.24 ROBERT ALTMANN †, ABDULLAH MUJAHID ⋆, AND BENJAMIN UNGER ‡
+
+2−42−52−62−7
+
+10 −14 
+
+10 −11 
+
+10 −8
+
+10 −5
+
+10 −2
+
+step size τ
+
+> max n ∥u(tn) − un∥V
+
+2−42−52−62−7
+
+10 −14 
+
+10 −11 
+
+10 −8
+
+10 −5
+
+10 −2
+
+step size τ
+
+> max n ∥p(tn) − pn∥HQ
+
+implicit Radau IIA-1 implicit Radau IIA-2 implicit Radau IIA-3
+
+semi-expl. Radau IIA-1 semi-expl. Radau IIA-2 semi-expl. Radau IIA-3
+
+order 1 order 3 order 5
+
+Figure 1 – Comparison of implicit (dashed red) and semi-explicit (solid blue) RK discretization. 
+
+Table 1 – Average number of inner iterations per time step for the fixed-stress ( L = ω/ 2) and undrained-split ( L = 1 /2) schemes, with stopping criterion (4.27) and TOL = τ k+3 /2.
+
+Method τ = 2 −4 τ = 2 −5 τ = 2 −6 τ = 2 −7
+
+fixed-stress, Radau IIA-1 2.44 2.69 2.92 3.00 fixed-stress, Radau IIA-2 3.00 3.00 4.00 4.00 fixed-stress, Radau IIA-3 4.00 4.00 5.00 6.00 undrained-split, Radau IIA-1 2.38 2.97 3.00 3.00 undrained-split, Radau IIA-2 3.00 3.00 4.00 4.00 undrained-split, Radau IIA-3 4.00 4.00 5.00 6.00 6. Conclusions 
+
+We have presented a convergence analysis for decoupling RK schemes applied to elliptic– parabolic problems. For the semi-explicit schemes based on a delay approximation, we adapted the Fourier stability framework of [ LO95 ] and established convergence of order k
+
+under weak coupling conditions for each delay order k, matching the bounds obtained for BDF methods in [ AMU26 ]. The consistency of results across BDF and RK time integrators suggests that the coupling bounds are sharp and intrinsic to the delay approximation structure. For the iterative schemes (fixed-stress and undrained-split), we combined contraction analysis with RK consistency estimates, using a spectral decomposition of the Schur complement operator to establish the contraction property. Future directions include the extension to nonlinear problems and the treatment of variable time steps. DECOUPLING RUNGE–KUTTA SCHEMES FOR ELLIPTIC–PARABOLIC PROBLEMS 25 
+
+2−42−52−62−7
+
+10 −14 
+
+10 −11 
+
+10 −8
+
+10 −5
+
+10 −2
+
+step size τ
+
+> max n ∥u(tn) − un∥V
+
+2−42−52−62−7
+
+10 −14 
+
+10 −11 
+
+10 −8
+
+10 −5
+
+10 −2
+
+step size τ
+
+> max n ∥p(tn) − pn∥HQ
+
+implicit Radau IIA-1 implicit Radau IIA-2 implicit Radau IIA-3
+
+FS Radau IIA-1 FS Radau IIA-2 FS Radau IIA-3
+
+US Radau IIA-1 US Radau IIA-2 US Radau IIA-3
+
+order 1 order 3 order 5
+
+Figure 2 – Comparicon of iterative RK splittings schemes (fixed-stress in blue, undrained-split in green) with the monolithic implicit RK method (dashed red). 
+
+Acknowledgments 
+
+This project is funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) – 467107679. BU further acknowledges funding by the Deutsche Forschungsge-meinschaft (DFG, German Research Foundation) – Project-ID 258734477 – SFB 1173. AM and BU acknowledge support by the Stuttgart Center for Simulation Science (SimTech). 
+
+References 
+
+[AD24] R. Altmann and M. Deiml. A novel iterative time integration scheme for linear poroelasticity. 
+
+Electron. Trans. Numer. Anal. , 60:256–275, 2024. [AD25] R. Altmann and M. Deiml. A second-order iterative time integration scheme for linear poroelas-ticity. SIAM J. Sci. Comput. , 47(4):B875–B898, 2025. [AMU21] R. Altmann, R. Maier, and B. Unger. Semi-explicit discretization schemes for weakly-coupled elliptic-parabolic problems. Math. Comp. , 90:1089–1118, 2021. [AMU24a] R. Altmann, R. Maier, and B. Unger. Semi-explicit integration of second order for weakly coupled poroelasticity. BIT Numer. Math. , 64:20, 2024. [AMU24b] R. Altmann, A. Mujahid, and B. Unger. Higher-order iterative decoupling for poroelasticity. 
+
+Adv. Comput. Math. , 50:11, 2024. [AMU26] R. Altmann, A. Mujahid, and B. Unger. Decoupling multistep schemes for elliptic–parabolic problems. SMAI J. Comput. Math. , 2026. accepted for publication. [Bio41] M. A. Biot. General theory of three-dimensional consolidation. J. Appl. Phys , 12(2):155–164, 1941. [Bre11] H. Brezis. Functional analysis, Sobolev spaces and partial differential equations . Universitext. Springer, New York, London, 2011. [EM09] A. Ern and S. Meunier. A posteriori error analysis of Euler-Galerkin approximations to coupled elliptic-parabolic problems. ESAIM: Math. Model. Numer. Anal. , 43(2):353–375, 2009. [ERT23] E. Eliseussen, M. E. Rognes, and T. B. Thompson. A posteriori error estimation and adaptivity for multiple-network poroelasticity. ESAIM: Math. Model. Numer. Anal. , 57(4):1921–1952, 2023. 26 ROBERT ALTMANN †, ABDULLAH MUJAHID ⋆, AND BENJAMIN UNGER ‡
+
+[HW96] E. Hairer and G. Wanner. Solving Ordinary Differential Equations II: Stiff and Differential– Algebraic Problems . Springer Berlin Heidelberg, Berlin, Heidelberg, 1996. [KM06] P. Kunkel and V. Mehrmann. Differential-Algebraic Equations. Analysis and Numerical Solution .European Mathematical Society, Zürich, 2006. [KTJ11a] J. Kim, H.A. Tchelepi, and R. Juanes. Stability and convergence of sequential methods for coupled flow and geomechanics: Drained and undrained splits. Comput. Meth. Appl. Mech. Eng. , 200(23):2094–2116, 2011. [KTJ11b] J. Kim, H.A. Tchelepi, and R. Juanes. Stability and convergence of sequential methods for coupled flow and geomechanics: Fixed-stress and fixed-strain splits. Comput. Meth. Appl. Mech. Eng. , 200(13):1591–1606, 2011. [LO93] C. Lubich and A. Ostermann. Runge–Kutta methods for parabolic equations and convolution quadrature. Math. Comp. , 60(201):105–131, 1993. [LO95] C. Lubich and A. Ostermann. Runge–Kutta approximation of quasi-linear parabolic equations. 
+
+Math. Comp. , 64(210):601–627, 1995. [Lub88a] C. Lubich. Convolution quadrature and discretized operational calculus. I. Numer. Math. ,52(2):129–145, 1988. [Lub88b] C. Lubich. Convolution quadrature and discretized operational calculus. II. Numer. Math. ,52(4):413–425, 1988. [MW13] A. Mikelić and M. F. Wheeler. Convergence of iterative coupling for coupled flow and geome-chanics. Comput. Geosci. , 17(3):455–461, 2013. [NO81] O. Nevanlinna and F. Odeh. Multiplier techniques for linear multistep methods. Numer. Funct. Anal. Optim. , 3(4):377–423, 1981. [Sho00] R. E. Showalter. Diffusion in poro-elastic media. J. Math. Anal. Appl. , 251(1):310–340, 2000. [VCT +16] J. C. Vardakis, D. Chou, B. J. Tully, C. C. Hung, T. H. Lee, P. H. Tsui, and Y. Ventikos. Investigating cerebral oedema using poroelasticity. Med. Eng. Phys. , 38(1):48–57, 2016. [Zei90] E. Zeidler. Nonlinear functional analysis and its applications. 2A: Linear monotone operators .Springer, New York, Berlin, Heidelberg, 1990. [Zob10] M. D. Zoback. Reservoir geomechanics . Cambridge University Press, Cambridge, 2010.  
+
+> †
+
+Institute of Analysis and Numerics, Otto von Guericke University Magdeburg, Univer-sitätsplatz 2, 39106 Magdeburg, Germany 
+
+Email address : robert.altmann@ovgu.de  
+
+> ⋆
+
+Stuttgart Center for Simulation Science (SC SimTech), University of Stuttgart, Uni-versitätsstr. 32, 70569 Stuttgart, Germany 
+
+Email address : abdullah.mujahid@simtech.uni-stuttgart.de  
+
+> ‡
+
+Institute for Applied and Numerical Mathematics, Karlsruhe Institute of Technology, Englerstr. 2, 76131 Karlsruhe, Germany 
+
+Email address : benjamin.unger@kit.edu

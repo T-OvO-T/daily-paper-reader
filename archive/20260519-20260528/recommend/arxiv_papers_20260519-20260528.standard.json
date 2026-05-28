@@ -1,0 +1,490 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-28T07:24:04.752470+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 8,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 7,
+    "quick_skim_target": 11,
+    "quick_selected": 7
+  },
+  "deep_dive": [
+    {
+      "id": "2605.22019v1",
+      "source": "arxiv",
+      "title": "Stability Analysis of Pantograph Delay Differential Equations",
+      "abstract": "This article investigates the stability of pantograph delay differential equations, in which the delayed argument is proportional to the present time. We derive analytic criteria that partition the parameter plane into unstable, asymptotically stable, and delay-dependent stability regions. The theoretical results are supported by numerical simulations that illustrate the sharpness of the stability boundaries. We also formulate a proportional-delay analogue of the Mackey--Glass chaotic delay differential equation and examine the resulting dynamical behaviour.",
+      "authors": [
+        "Sachin Bhalekar"
+      ],
+      "primary_category": "math.DS",
+      "categories": [
+        "math.DS",
+        "math.NA"
+      ],
+      "published": "2026-05-21T05:38:41+00:00",
+      "link": "https://arxiv.org/pdf/2605.22019v1",
+      "tags": [
+        "keyword:time-delay",
+        "query:time-delay"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "stability analysis of pantograph delay differential equations",
+      "llm_evidence_cn": "比例延迟微分方程的稳定性分析",
+      "llm_evidence": "比例延迟微分方程的稳定性分析",
+      "canonical_evidence": "比例延迟微分方程的稳定性分析",
+      "llm_tldr_en": "Derives analytic stability criteria for pantograph delay differential equations, partitioning the parameter plane into stability regions, and provides numerical simulations; also formulates a chaotic delay equation.",
+      "llm_tldr_cn": "本文研究比例延迟微分方程的稳定性，推导出解析准则将参数平面划分为不稳定、渐近稳定和延迟依赖稳定区域。数值模拟验证了边界的尖锐性。作者还构造了比例延迟的Mackey-Glass混沌方程并分析其动力学，为比例时滞系统提供了完整理论框架。",
+      "llm_tldr": "本文研究比例延迟微分方程的稳定性，推导出解析准则将参数平面划分为不稳定、渐近稳定和延迟依赖稳定区域。数值模拟验证了边界的尖锐性。作者还构造了比例延迟的Mackey-Glass混沌方程并分析其动力学，为比例时滞系统提供了完整理论框架。",
+      "llm_tags": [
+        "query:time-delay"
+      ],
+      "matched_query_tag": "query:time-delay",
+      "matched_query_text": "stability analysis of time-delay systems",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.22299v1",
+      "source": "arxiv",
+      "title": "Data-Driven Reduced Modeling of Delayed Dynamical Systems via Spectral Submanifolds",
+      "abstract": "We show how the recent extension of spectral submanifold (SSM) theory to delay differential equations (DDEs) enables data-driven model reduction of nonlinear delay systems. First, using a scalar DDE with a single discrete delay, we compare equation-based and data-driven SSM reductions, to illustrate the need for the latter. We then use the same algorithm to obtain purely data-driven, SSM-reduced, delay-free ODE models for several nonlinear delayed systems. Our approach requires no information about the form of the underlying DDE, or about the number and magnitude of the delays it contains. Our SSM-reduced, low-dimensional models remain predictive even for chaotic dynamics. We also illustrate the use of parametric SSM-reduction to capture bifurcations in systems with both distributed and discrete delays. Finally we extend the theoretical underpinning of delayed SSM-reductions to non-autonomous systems with periodic delays, and apply these results to experimental data from a control system with feedback delay and quantization.",
+      "authors": [
+        "Giacomo Abbasciano",
+        "Gergely Buza",
+        "George Haller"
+      ],
+      "primary_category": "math.DS",
+      "categories": [
+        "math.DS",
+        "nlin.CD"
+      ],
+      "published": "2026-05-21T10:46:33+00:00",
+      "link": "https://arxiv.org/pdf/2605.22299v1",
+      "tags": [
+        "keyword:time-delay",
+        "query:time-delay"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "data-driven reduced modeling of delayed dynamical systems via spectral submanifolds",
+      "llm_evidence_cn": "基于谱流形的时滞动力系统数据驱动降阶建模",
+      "llm_evidence": "基于谱流形的时滞动力系统数据驱动降阶建模",
+      "canonical_evidence": "基于谱流形的时滞动力系统数据驱动降阶建模",
+      "llm_tldr_en": "Extends spectral submanifold theory to delay differential equations for data-driven model reduction, obtaining delay-free ODE models that predict nonlinear delayed system dynamics including chaos.",
+      "llm_tldr_cn": "本文将谱流形理论扩展到时滞微分方程，实现了非线性时滞系统的数据驱动降阶建模。该方法无需已知时滞方程的形式或数量，仅从数据即可获得降阶的无时滞常微分方程模型。即使在混沌动力学中，降阶模型依然保持预测能力，并展示了参数化降阶捕捉分岔的能力。",
+      "llm_tldr": "本文将谱流形理论扩展到时滞微分方程，实现了非线性时滞系统的数据驱动降阶建模。该方法无需已知时滞方程的形式或数量，仅从数据即可获得降阶的无时滞常微分方程模型。即使在混沌动力学中，降阶模型依然保持预测能力，并展示了参数化降阶捕捉分岔的能力。",
+      "llm_tags": [
+        "query:time-delay"
+      ],
+      "matched_query_tag": "query:time-delay",
+      "matched_query_text": "stability analysis of time-delay systems",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.23722v1",
+      "source": "arxiv",
+      "title": "Sustained Limit Cycles in the Logistic Two-Gene Genetic Oscillator: A Delay-Driven Hopf Bifurcation",
+      "abstract": "The logistic two-gene negative-feedback oscillator is locally asymptotically stable for all biological parameter values, since the trace of the Jacobian is uniformly negative. Real biological oscillators (circadian rhythms, the segmentation clock, Hes1, p53) nevertheless rely on delays. We extend the logistic two-gene model to a delay-differential system with transcriptional delays $τ_1$ and $τ_2$, and prove that the equilibrium loses stability through a Hopf bifurcation as the total delay $τ=τ_1+τ_2$ crosses an explicit critical value $τ_c$. The Hopf frequency $ω_c$ and $τ_c$ are computed in closed form from the logistic derivatives; the loop-gain condition $AB>γ_1γ_2$ is necessary and sufficient; the transversality $\\mathrm{Re}(dμ/dτ)|_{τ_c}>0$ admits a parameter-uniform positive lower bound; and the bifurcation persists globally. A sum-of-delays symmetry reduces the analysis to the scalar parameter $τ$. Numerical simulations confirm three regimes (damped, small limit cycle, relaxation), the supercritical amplitude scaling $A\\sim c\\sqrt{τ-τ_c}$, and the deep-relaxation period asymptote $T\\sim 2τ+C_\\infty$ with closed-form offset $C_\\infty$. For the symmetric-threshold loop, supercriticality is proved by a Lindstedt--Poincaré reduction yielding closed-form amplitude and frequency laws; for the general asymmetric loop it delivers a closed-form first Lyapunov coefficient and an explicit criticality criterion. Calibrated to p53--Mdm2 data, the closed-form Hopf period matches the observed oscillation within $3\\%$, and the standard Hill-function model within a few percent. The analysis extends to cyclic $N$-gene loops, with a closed-form transversality rate valid for every $N$ and -- in the symmetric case -- an explicit delay-induced-Hopf window $γ^N<Λ<γ^N\\sec^N(π/N)$.",
+      "authors": [
+        "Ismail Belgacem"
+      ],
+      "primary_category": "math.DS",
+      "categories": [
+        "math.DS"
+      ],
+      "published": "2026-05-22T15:02:52+00:00",
+      "link": "https://arxiv.org/pdf/2605.23722v1",
+      "tags": [
+        "keyword:time-delay",
+        "query:time-delay"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "delay-driven Hopf bifurcation in two-gene oscillator, stability analysis of time-delay system",
+      "llm_evidence_cn": "时滞驱动的双基因振荡器Hopf分岔，时滞系统稳定性分析",
+      "llm_evidence": "时滞驱动的双基因振荡器Hopf分岔，时滞系统稳定性分析",
+      "canonical_evidence": "时滞驱动的双基因振荡器Hopf分岔，时滞系统稳定性分析",
+      "llm_tldr_en": "Extends a logistic two-gene model to a delay-differential system and proves that equilibrium loses stability via Hopf bifurcation when total delay exceeds a critical value; closed-form expressions given.",
+      "llm_tldr_cn": "本文扩展逻辑斯谛双基因负反馈振荡器为时滞微分系统，证明当总转录延迟超过显式临界值时，平衡点通过Hopf分岔失稳。Hopf频率和临界延时均以封闭形式给出，并给出了必要的回路增益条件。该工作揭示了时滞在生物振荡器中的关键作用，为理解生物节律提供了理论模型。",
+      "llm_tldr": "本文扩展逻辑斯谛双基因负反馈振荡器为时滞微分系统，证明当总转录延迟超过显式临界值时，平衡点通过Hopf分岔失稳。Hopf频率和临界延时均以封闭形式给出，并给出了必要的回路增益条件。该工作揭示了时滞在生物振荡器中的关键作用，为理解生物节律提供了理论模型。",
+      "llm_tags": [
+        "query:time-delay"
+      ],
+      "matched_query_tag": "query:time-delay",
+      "matched_query_text": "stability analysis of time-delay systems",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.24315v1",
+      "source": "arxiv",
+      "title": "Boundary stabilization of an Euler-Bernoulli beam with axial force and internal delay",
+      "abstract": "This paper investigates the boundary stabilization of an Euler-Bernoulli beam under constant axial tension and subject to an internal time-delay. First, the well-posedness of the system is established using semigroup of linear operators theory. Then, by constructing an adequate Lyapunov functional, we establish the exponential stability of the system within a region of the $(α, ξ)$-plane, explicitly characterized by a system of inequalities involving the physical parameters. This work extends the results of Han et al. (Journal of Difference Equations, 2016) by incorporating the effect of axial tension and an internal delay term without sign constraints.",
+      "authors": [
+        "Ben Bakary Junior Siriki",
+        "Adama Coulibaly"
+      ],
+      "primary_category": "math.AP",
+      "categories": [
+        "math.AP"
+      ],
+      "published": "2026-05-23T00:46:00+00:00",
+      "link": "https://arxiv.org/pdf/2605.24315v1",
+      "tags": [
+        "keyword:time-delay",
+        "query:time-delay"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "boundary stabilization of beam with internal time-delay using Lyapunov functional",
+      "llm_evidence_cn": "使用Lyapunov泛函对内时滞欧拉-伯努利梁进行边界镇定",
+      "llm_evidence": "使用Lyapunov泛函对内时滞欧拉-伯努利梁进行边界镇定",
+      "canonical_evidence": "使用Lyapunov泛函对内时滞欧拉-伯努利梁进行边界镇定",
+      "llm_tldr_en": "This paper studies exponential stabilization of an Euler-Bernoulli beam under axial tension and internal delay using a Lyapunov functional, extending previous work by incorporating axial force and delay without sign constraints.",
+      "llm_tldr_cn": "本文研究受恒定轴向张力且存在内部时滞的欧拉-伯努利梁的边界镇定问题。首先利用线性算子半群理论建立系统的适定性，然后通过构造适当的Lyapunov泛函，在物理参数满足一组不等式条件的区域上证明了指数稳定性。该工作通过引入轴向张力和无符号约束的内部延迟项，推广了Han等人(2016)的结果。",
+      "llm_tldr": "本文研究受恒定轴向张力且存在内部时滞的欧拉-伯努利梁的边界镇定问题。首先利用线性算子半群理论建立系统的适定性，然后通过构造适当的Lyapunov泛函，在物理参数满足一组不等式条件的区域上证明了指数稳定性。该工作通过引入轴向张力和无符号约束的内部延迟项，推广了Han等人(2016)的结果。",
+      "llm_tags": [
+        "query:time-delay"
+      ],
+      "matched_query_tag": "query:time-delay",
+      "matched_query_text": "stability analysis of time-delay systems",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.19961v1",
+      "source": "arxiv",
+      "title": "Data-driven approximation of regions of attraction via an LP-based selection of PWA Lyapunov functions",
+      "abstract": "This paper presents a method to approximate regions of attraction of unknown nonlinear dynamical systems from data. Assuming point-wise evaluations of the vector field and known Lipschitz bounds, a polyhedral uncertainty set of admissible dynamics is constructed. This uncertainty description enables the synthesis of a continuous \\ac{PWA} Lyapunov candidate via a linear program, enforcing a robust decrease condition for all admissible vector fields. The approach allows certification of a region of attraction consistent with the available data. Numerical examples illustrate the effectiveness of the proposed method in extracting certified regions of attraction from sparse data.",
+      "authors": [
+        "Oumayma Khattabi",
+        "Matteo Tacchi-Bénard",
+        "Martin Gulan",
+        "Sorin Olaru"
+      ],
+      "primary_category": "math.OC",
+      "categories": [
+        "math.OC",
+        "eess.SY"
+      ],
+      "published": "2026-05-19T15:14:09+00:00",
+      "link": "https://arxiv.org/pdf/2605.19961v1",
+      "tags": [
+        "keyword:time-delay",
+        "query:time-delay"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "region of attraction approximation using Lyapunov functions",
+      "llm_evidence_cn": "使用Lyapunov函数近似吸引域",
+      "llm_evidence": "使用Lyapunov函数近似吸引域",
+      "canonical_evidence": "使用Lyapunov函数近似吸引域",
+      "llm_tldr_en": "Approximates regions of attraction for unknown nonlinear dynamical systems from data using PWA Lyapunov functions and linear programming, ensuring robust decrease condition.",
+      "llm_tldr_cn": "本文针对未知非线性动力系统，从数据中近似其吸引域。通过构造多面体不确定性集，利用线性规划合成连续PWA Lyapunov函数，并保证对所有允许向量场的鲁棒下降条件。数值例子表明该方法能从稀疏数据中提取认证的吸引域，为数据驱动稳定性分析提供新途径。",
+      "llm_tldr": "本文针对未知非线性动力系统，从数据中近似其吸引域。通过构造多面体不确定性集，利用线性规划合成连续PWA Lyapunov函数，并保证对所有允许向量场的鲁棒下降条件。数值例子表明该方法能从稀疏数据中提取认证的吸引域，为数据驱动稳定性分析提供新途径。",
+      "llm_tags": [
+        "query:time-delay"
+      ],
+      "matched_query_tag": "query:time-delay",
+      "matched_query_text": "stability of dynamical systems and its applications",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.19961v2",
+      "source": "arxiv",
+      "title": "Data-driven approximation of regions of attraction via an LP-based selection of PWA Lyapunov functions",
+      "abstract": "This paper presents a method to approximate regions of attraction of unknown nonlinear dynamical systems from data. Assuming point-wise evaluations of the vector field and known Lipschitz bounds, a polyhedral uncertainty set of admissible dynamics is constructed. This uncertainty description enables the synthesis of a continuous piece-wise affine Lyapunov candidate via a linear program, enforcing a robust decrease condition for all admissible vector fields. The approach allows certification of a region of attraction consistent with the available data. Numerical examples illustrate the effectiveness of the proposed method in extracting certified regions of attraction from sparse data.",
+      "authors": [
+        "Oumayma Khattabi",
+        "Matteo Tacchi-Bénard",
+        "Martin Gulan",
+        "Sorin Olaru"
+      ],
+      "primary_category": "math.OC",
+      "categories": [
+        "math.OC",
+        "eess.SY"
+      ],
+      "published": "2026-05-19T15:14:09+00:00",
+      "link": "https://arxiv.org/pdf/2605.19961v2",
+      "tags": [
+        "keyword:time-delay",
+        "query:time-delay"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "approximates regions of attraction using PWA Lyapunov functions from data",
+      "llm_evidence_cn": "使用分段仿射李雅普诺夫函数近似吸引域",
+      "llm_evidence": "使用分段仿射李雅普诺夫函数近似吸引域",
+      "canonical_evidence": "使用分段仿射李雅普诺夫函数近似吸引域",
+      "llm_tldr_en": "This paper proposes a data-driven method to approximate regions of attraction of unknown nonlinear systems via LP-based selection of PWA Lyapunov functions.",
+      "llm_tldr_cn": "针对未知非线性系统吸引域难以从数据中准确估计的问题，本文提出了一种基于线性规划的数据驱动方法。通过构建多面体不确定性集并合成连续分段仿射李雅普诺夫候选函数，该方法能够从稀疏数据中认证与数据一致的吸引域。数值实验验证了其有效性，为数据驱动的稳定性分析提供了新的途径。",
+      "llm_tldr": "针对未知非线性系统吸引域难以从数据中准确估计的问题，本文提出了一种基于线性规划的数据驱动方法。通过构建多面体不确定性集并合成连续分段仿射李雅普诺夫候选函数，该方法能够从稀疏数据中认证与数据一致的吸引域。数值实验验证了其有效性，为数据驱动的稳定性分析提供了新的途径。",
+      "llm_tags": [
+        "query:time-delay"
+      ],
+      "matched_query_tag": "query:time-delay",
+      "matched_query_text": "stability of dynamical systems and its applications",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.22485v1",
+      "source": "arxiv",
+      "title": "Decoupling Runge-Kutta schemes for elliptic-parabolic problems",
+      "abstract": "We study the construction and convergence of semi-explicit and iterative decoupling schemes for an elliptic-parabolic problem using higher-order Runge-Kutta methods. For the semi-explicit schemes, which are constructed using a nearby delay system with $k$ time delays, we establish the convergence of $k$th-order Runge-Kutta methods under a weak coupling condition. We develop the convergence analysis by adapting the Fourier stability and perturbation techniques of [Lubich, Ostermann, Math. Comp., 64(210):601--627, 1995]. The key tool is the generating function framework, in which the Runge-Kutta discretization is encoded through an operator-valued function. Stability estimates are then obtained via Parseval's identity on the unit circle. We further present convergence results for iterative (fixed-stress and undrained-split) higher-order Runge-Kutta schemes. Here, a spectral decomposition of the Schur complement operator is central. Finally, we provide numerical examples to verify the proven convergence results.",
+      "authors": [
+        "Robert Altmann",
+        "Abdullah Mujahid",
+        "Benjamin Unger"
+      ],
+      "primary_category": "math.NA",
+      "categories": [
+        "math.NA"
+      ],
+      "published": "2026-05-21T13:41:46+00:00",
+      "link": "https://arxiv.org/pdf/2605.22485v1",
+      "tags": [
+        "keyword:time-delay",
+        "query:time-delay"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "decoupling Runge-Kutta schemes using a delay system with k time delays for elliptic-parabolic problems",
+      "llm_evidence_cn": "利用含k个时滞的延迟系统构建解耦龙格-库塔格式求解椭圆-抛物问题",
+      "llm_evidence": "利用含k个时滞的延迟系统构建解耦龙格-库塔格式求解椭圆-抛物问题",
+      "canonical_evidence": "利用含k个时滞的延迟系统构建解耦龙格-库塔格式求解椭圆-抛物问题",
+      "llm_tldr_en": "Constructs semi-explicit and iterative Runge-Kutta schemes for elliptic-parabolic problems using a nearby delay system; proves convergence under weak coupling.",
+      "llm_tldr_cn": "该论文利用含k个时滞的邻近延迟系统构造椭圆-抛物问题的半显式和迭代解耦格式。基于傅里叶稳定性和摄动技术，证明了在弱耦合条件下k阶龙格-库塔方法的收敛性。通过生成函数框架和单位圆上的Parseval恒等式获得稳定性估计。该工作直接涉及时滞微分方程的数值方法，与需求高度相关。",
+      "llm_tldr": "该论文利用含k个时滞的邻近延迟系统构造椭圆-抛物问题的半显式和迭代解耦格式。基于傅里叶稳定性和摄动技术，证明了在弱耦合条件下k阶龙格-库塔方法的收敛性。通过生成函数框架和单位圆上的Parseval恒等式获得稳定性估计。该工作直接涉及时滞微分方程的数值方法，与需求高度相关。",
+      "llm_tags": [
+        "query:time-delay"
+      ],
+      "matched_query_tag": "query:time-delay",
+      "matched_query_text": "numerical solvers for delay differential equations",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2605.20553v1",
+      "source": "arxiv",
+      "title": "Long-Time Stability Analysis for Stochastic Evolution Equations with Multiplicative Noise",
+      "abstract": "In this paper, we study the long-time stability behavior of a class of linear stochastic evolution equations in a Hilbert space with multiplicative noise. Explicit sufficient conditions for $p$-th moment and almost sure exponential stability are established, highlighting the interplay between the principal eigenvalue of the governing operator, the drift coefficient, and the noise intensity. The relationship between these two notions of stability is also clarified. Applications to several stochastic partial differential equations are presented. In addition, a fully discrete spectral Galerkin method together with the implicit Euler--Maruyama scheme is shown to preserve these stability properties at the discrete level. Finally, numerical simulations are provided to confirm the theoretical results.",
+      "authors": [
+        "Abdellatif Elgrou",
+        "Abdelaziz Rhandi",
+        "Jawad Salhi"
+      ],
+      "primary_category": "math.AP",
+      "categories": [
+        "math.AP"
+      ],
+      "published": "2026-05-19T23:10:23+00:00",
+      "link": "https://arxiv.org/pdf/2605.20553v1",
+      "tags": [
+        "keyword:time-delay",
+        "query:time-delay"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "long-time stability of stochastic evolution equations",
+      "llm_evidence_cn": "随机演化方程的长时间稳定性",
+      "llm_evidence": "随机演化方程的长时间稳定性",
+      "canonical_evidence": "随机演化方程的长时间稳定性",
+      "llm_tldr_en": "Establishes sufficient conditions for exponential stability of stochastic evolution equations with multiplicative noise, and shows a spectral Galerkin scheme preserves stability.",
+      "llm_tldr_cn": "本文研究线性随机演化方程在乘性噪声下的长时间稳定性，建立了p阶矩和几乎必然指数稳定的充分条件，揭示了主特征值、漂移系数和噪声强度的相互作用。进一步提出了全离散谱Galerkin方法结合隐式欧拉-丸山格式，证明该格式保持离散层面的稳定性。数值结果验证了理论。",
+      "llm_tldr": "本文研究线性随机演化方程在乘性噪声下的长时间稳定性，建立了p阶矩和几乎必然指数稳定的充分条件，揭示了主特征值、漂移系数和噪声强度的相互作用。进一步提出了全离散谱Galerkin方法结合隐式欧拉-丸山格式，证明该格式保持离散层面的稳定性。数值结果验证了理论。",
+      "llm_tags": [
+        "query:time-delay"
+      ],
+      "matched_query_tag": "query:time-delay",
+      "matched_query_text": "stability of dynamical systems and its applications",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.24567v1",
+      "source": "arxiv",
+      "title": "Orthant-Monotonic Norms and Additive D-Stability",
+      "abstract": "Matrix measures induced by vector norms are widely used in contraction theory of nonlinear dynamical systems. A natural and important robustness question is whether negativity of a matrix measure is preserved under arbitrary nonnegative diagonal damping. Matrix measures with this property have been called admissible. We show that an induced matrix measure is admissible if and only if the underlying norm is orthant-monotonic. Equivalently, these are precisely the induced matrix measures satisfying $μ(D) = \\max_i\\{d_{ii} \\}$ for every nonnegative diagonal matrix $D$. We further show that this class is maximal for uniform preservation of contraction under nonnegative diagonal perturbations. The result gives a new geometric characterization of admissibility and clarifies the role of orthant-monotonicity in additive $D$-stability and diffusion-induced instability.",
+      "authors": [
+        "Ron Ofir",
+        "Michael Margaliot"
+      ],
+      "primary_category": "math.OC",
+      "categories": [
+        "math.OC"
+      ],
+      "published": "2026-05-23T13:02:26+00:00",
+      "link": "https://arxiv.org/pdf/2605.24567v1",
+      "tags": [
+        "keyword:time-delay",
+        "query:time-delay"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Paper provides a stability analysis tool (matrix measures) for nonlinear dynamical systems, relevant to stability of dynamical systems",
+      "llm_evidence_cn": "论文为非线性动力系统提供矩阵测度稳定性分析工具，与动力系统稳定性相关",
+      "llm_evidence": "论文为非线性动力系统提供矩阵测度稳定性分析工具，与动力系统稳定性相关",
+      "canonical_evidence": "论文为非线性动力系统提供矩阵测度稳定性分析工具，与动力系统稳定性相关",
+      "llm_tldr_en": "Characterizes admissible matrix measures preserving negativity under arbitrary nonnegative diagonal damping, linking orthant-monotonic norms to contraction theory, relevant to stability of dynamical systems.",
+      "llm_tldr_cn": "该文研究矩阵测度在非负对角扰动下保持负性的条件，证明诱导矩阵测度可允许当且仅当范数是正交单调的。这为非线性动力系统收缩理论提供了新的几何刻画，对稳定性分析具有通用价值。",
+      "llm_tldr": "该文研究矩阵测度在非负对角扰动下保持负性的条件，证明诱导矩阵测度可允许当且仅当范数是正交单调的。这为非线性动力系统收缩理论提供了新的几何刻画，对稳定性分析具有通用价值。",
+      "llm_tags": [
+        "query:time-delay"
+      ],
+      "matched_query_tag": "query:time-delay",
+      "matched_query_text": "stability of dynamical systems and its applications",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.26191v1",
+      "source": "arxiv",
+      "title": "Modeling Dynamic Mixtures of Time-Delay Systems from Streaming Time Series",
+      "abstract": "This research addresses the problem of adaptive modeling in time-series data streams with clear input-output relationships. This problem is challenging because rapid system changes (regime shifts) caused by environmental factors or input delay changes degrade model performance, and the trade-off among accuracy, robustness, and memory usage arises when using multiple small models for each time-series pattern. To address these issues, this paper presents an online framework/method that treats streaming time series as dynamic mixtures of time-delay systems. This framework maintains robustness of model tracking and reduces memory usage by summarizing past regimes using a fixed-length representation that captures both the system dynamics and input-output delays. Concretely, this approach constructs a summary system tensor using the system's Markov parameter series, capturing both dynamic behavior and delay characteristics. If necessary, a tensor decomposition algorithm extracts relevant past models from the tensor and helps select the system that best fits the current regime. This method enables rapid adaptation to environmental changes and is computationally efficient. Tests on real datasets show that DelayMix consistently outperforms other methods, achieving superior forecast accuracy and faster adaptation to delays, especially for highly non-stationary data.",
+      "authors": [
+        "Ren Fujiwara",
+        "Yasuko Matsubara",
+        "Yasushi Sakurai"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-05-25T11:42:37+00:00",
+      "link": "https://arxiv.org/pdf/2605.26191v1",
+      "tags": [
+        "keyword:time-delay",
+        "query:time-delay"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "time-delay systems modeling",
+      "llm_evidence_cn": "时滞系统建模",
+      "llm_evidence": "时滞系统建模",
+      "canonical_evidence": "时滞系统建模",
+      "llm_tldr_en": "Presents an online framework for adaptive modeling of streaming time series as dynamic mixtures of time-delay systems, enabling robust regime tracking and memory efficiency.",
+      "llm_tldr_cn": "该论文针对流式时间序列的在线建模问题，提出将数据视为时滞系统的动态混合。方法通过固定长度表示总结历史模式，兼顾鲁棒性和内存效率。实验表明该方法能有效应对系统变化和输入延迟变化，适用于时变环境下的系统辨识。为时滞系统在线建模提供了新视角。",
+      "llm_tldr": "该论文针对流式时间序列的在线建模问题，提出将数据视为时滞系统的动态混合。方法通过固定长度表示总结历史模式，兼顾鲁棒性和内存效率。实验表明该方法能有效应对系统变化和输入延迟变化，适用于时变环境下的系统辨识。为时滞系统在线建模提供了新视角。",
+      "llm_tags": [
+        "query:time-delay:composite"
+      ],
+      "matched_query_tag": "query:time-delay:composite",
+      "matched_query_text": "Papers central to 动力系统的稳定性及时滞微分方程的数值方法相关论文检索, especially work that connects or combines: stability analysis of time-delay systems; Lyapunov-Krasovskii functional for time-delay systems; stability of dynamical systems and its applications; numerical solvers for delay differential equations; Stability analysis of time delay dynamical systems using numerical methods; Lyapunov methods for stability of time delay systems with applications; numerical methods for delay differential equations.",
+      "matched_requirement_id": "req-composite-time-delay",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2605.24506v1",
+      "source": "arxiv",
+      "title": "Safe Data-Driven Control and Dynamical Learning via Constrained Neural Architectures and Koopman Operators",
+      "abstract": "The deployment of learning-based models in safety-critical control systems demands mathematical guarantees that standard regression architectures cannot provide. This paper presents an integrated framework that bridges Neural Ordinary Differential Equations (Neural ODEs), measurement-induced geometric structures, and Koopman operator theory, with the explicit aim of producing data-driven models whose stability certificates are computable, not merely conjectured. Three complementary components are developed and analyzed. First, ControlSynth Neural ODEs enforce global convergence through tractable linear matrix inequalities (LMIs), enabling complex nonlinear dynamics to be captured without sacrificing boundedness guarantees. Second, the ICODE formulation incorporates extrinsic environmental inputs into the learned vector field, while measurement-induced bundle structures confine state trajectories to physically admissible manifolds. Third, a systematic ISS verification pipeline certifies the input-to-state stability of Koopman-identified models via a convex $L_2$-gain LMI, converting an otherwise intractable robustness question into a solvable semidefinite program. The certified model is embedded in an ICODE-MPPI controller, which uses continuous-time residual learning inside a stochastic sampling loop to deliver robust path tracking under parametric uncertainty and persistent disturbances. Numerical experiments on a vehicle path-tracking benchmark and a nonlinear mechanical oscillator demonstrate up to a 61\\% reduction in tracking RMSE and a 54\\% reduction in state estimation error relative to uncertified baselines, with near-zero LMI violation rates across all evaluated disturbance levels.",
+      "authors": [
+        "Lin Feng",
+        "Xin He"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY"
+      ],
+      "published": "2026-05-23T10:37:04+00:00",
+      "link": "https://arxiv.org/pdf/2605.24506v1",
+      "tags": [
+        "keyword:time-delay",
+        "query:time-delay"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "provides computable stability certificates via constrained neural architectures and Koopman operators",
+      "llm_evidence_cn": "通过约束神经架构和Koopman算子提供可计算的稳定性证明",
+      "llm_evidence": "通过约束神经架构和Koopman算子提供可计算的稳定性证明",
+      "canonical_evidence": "通过约束神经架构和Koopman算子提供可计算的稳定性证明",
+      "llm_tldr_en": "This paper integrates Neural ODEs, geometric structures, and Koopman operator theory to produce data-driven models with computable stability certificates using LMIs.",
+      "llm_tldr_cn": "在安全关键控制系统中，学习模型需提供数学稳定性保证。本文提出了一个集成框架，将神经ODE、测量诱导几何结构和Koopman算子理论相结合，通过线性矩阵不等式（LMI）确保全局收敛性，从而得到具有可计算稳定性证书的数据驱动模型。该框架不仅保持了非线性动力学的表达能力，还提供了稳定的边界保障。",
+      "llm_tldr": "在安全关键控制系统中，学习模型需提供数学稳定性保证。本文提出了一个集成框架，将神经ODE、测量诱导几何结构和Koopman算子理论相结合，通过线性矩阵不等式（LMI）确保全局收敛性，从而得到具有可计算稳定性证书的数据驱动模型。该框架不仅保持了非线性动力学的表达能力，还提供了稳定的边界保障。",
+      "llm_tags": [
+        "query:time-delay"
+      ],
+      "matched_query_tag": "query:time-delay",
+      "matched_query_text": "stability of dynamical systems and its applications",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.26173v1",
+      "source": "arxiv",
+      "title": "Effect of $R^2$ on the stability of de Sitter solution of the generalized Einsteinian cubic gravity",
+      "abstract": "In this paper, we would like to investigate whether a generalized Einsteinian cubic gravity, in which three possible cubic interactions ${\\cal P}$, ${\\cal C}$, and ${\\cal C}'$ are treated on an equal footing, admits a de Sitter solution as its stable cosmological solution. As a result, we are able to confirm the existence of the corresponding de Sitter solution for this gravity by solving analytically its field equations. Remarkably, only the cubic interaction ${\\cal P}$ gives rise to the existence of the de Sitter solution. Then, we convert the field equations into the corresponding dynamical system for a stability analysis purpose. A fixed point of this dynamical system is found and shown to be equivalent to the obtained de Sitter solution. However, the perturbed dynamical system turns out to be incomplete, leaving undetermined information of the stability of the fixed point (or equivalently the de Sitter solution). Fortunately, we show that this loophole can be cured once the well-known Starobinsky term $R^2$ is introduced into the action of the generalized Einsteinian cubic gravity, despite the fact that it contributes nothing to the value of the de Sitter solution.",
+      "authors": [
+        "Tuan Q. Do"
+      ],
+      "primary_category": "physics.gen-ph",
+      "categories": [
+        "physics.gen-ph"
+      ],
+      "published": "2026-05-25T04:28:45+00:00",
+      "link": "https://arxiv.org/pdf/2605.26173v1",
+      "tags": [
+        "keyword:time-delay"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "stability analysis of dynamical system from gravity theory",
+      "llm_evidence_cn": "引力理论中动力系统的稳定性分析",
+      "llm_evidence": "引力理论中动力系统的稳定性分析",
+      "canonical_evidence": "引力理论中动力系统的稳定性分析",
+      "llm_tldr_en": "Investigates the stability of de Sitter solution in generalized Einsteinian cubic gravity by converting field equations into a dynamical system and analyzing fixed points; finds that only a specific cubic interaction yields stable de Sitter.",
+      "llm_tldr_cn": "本文研究广义爱因斯坦三次引力中de Sitter解的稳定性。通过将场方程转化为动力系统，找到固定点并证明其等价于de Sitter解。结果表明只有特定立方相互作用能支持稳定的de Sitter解，为引力模型选择提供了稳定性判据。",
+      "llm_tldr": "本文研究广义爱因斯坦三次引力中de Sitter解的稳定性。通过将场方程转化为动力系统，找到固定点并证明其等价于de Sitter解。结果表明只有特定立方相互作用能支持稳定的de Sitter解，为引力模型选择提供了稳定性判据。",
+      "llm_tags": [
+        "query:time-delay"
+      ],
+      "matched_query_tag": "query:time-delay",
+      "matched_query_text": "stability of dynamical systems and its applications",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.27576v1",
+      "source": "arxiv",
+      "title": "Automated Synthesis of Lyapunov Functions for Multi-Agent Systems under Jointly Connected Topology",
+      "abstract": "This article investigates the consensus tracking problem of multi-agent systems under jointly connected topology through automated synthesis of Lyapunov functions. Based on the proposed distributed nonlinear control protocol, several consensus criteria for first-order multi-agent systems are established and certified by the construction and synthesis of more general polynomial Lyapunov functions. By employing sum-of-squares decomposition for multivariate polynomials, we can efficiently synthesize polynomial Lyapunov functions to achieve consensus verification in polynomial time, although the widely used quadratic Lyapunov functions do not exist. Moreover, polynomial coupling functions for our proposed protocol are concomitantly generated. Furthermore, the distributed nonlinear control protocol is extended to deal with second-order multi-agent systems, while ensuring second-order consensus verification. Finally, an example is presented to demonstrate the efficacy of our method.",
+      "authors": [
+        "Shuyuan Zhang",
+        "Lei Wang",
+        "Qing-Guo Wang"
+      ],
+      "primary_category": "math.OC",
+      "categories": [
+        "math.OC"
+      ],
+      "published": "2026-05-26T18:48:26+00:00",
+      "link": "https://arxiv.org/pdf/2605.27576v1",
+      "tags": [
+        "keyword:time-delay",
+        "query:time-delay"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "automated synthesis of Lyapunov functions for multi-agent systems; method transferable to time-delay systems",
+      "llm_evidence_cn": "多智能体系统Lyapunov函数的自动综合；方法可迁移至时滞系统",
+      "llm_evidence": "多智能体系统Lyapunov函数的自动综合；方法可迁移至时滞系统",
+      "canonical_evidence": "多智能体系统Lyapunov函数的自动综合；方法可迁移至时滞系统",
+      "llm_tldr_en": "Proposes automated synthesis of polynomial Lyapunov functions using sum-of-squares for consensus of multi-agent systems under jointly connected topology.",
+      "llm_tldr_cn": "该论文针对联合连通拓扑下的多智能体系统一致性跟踪问题，通过自动综合Lyapunov函数来建立一致性判据。利用多项式平方和分解高效综合多项式Lyapunov函数，避免传统二次型Lyapunov函数不存在的困境。方法在多项式时间内完成一致性验证，为时滞系统Lyapunov函数的构造提供了可借鉴的自动化框架。",
+      "llm_tldr": "该论文针对联合连通拓扑下的多智能体系统一致性跟踪问题，通过自动综合Lyapunov函数来建立一致性判据。利用多项式平方和分解高效综合多项式Lyapunov函数，避免传统二次型Lyapunov函数不存在的困境。方法在多项式时间内完成一致性验证，为时滞系统Lyapunov函数的构造提供了可借鉴的自动化框架。",
+      "llm_tags": [
+        "query:time-delay"
+      ],
+      "matched_query_tag": "query:time-delay",
+      "matched_query_text": "Lyapunov-Krasovskii functional for time-delay systems",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

@@ -111,6 +111,7 @@ subscriptions:
           source: generated
           note: ''
       updated_at: '2026-05-28T08:34:59.379Z'
+      paused: true
 source_backends:
   arxiv:
     papers_table: arxiv_papers

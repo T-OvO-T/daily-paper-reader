@@ -60,7 +60,7 @@ subscriptions:
           enabled: true
           source: manual
           note: ''
-      updated_at: '2026-05-28T07:11:26.778Z'
+      updated_at: '2026-05-28T07:30:00.765Z'
 source_backends:
   arxiv:
     papers_table: arxiv_papers

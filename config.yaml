@@ -25,3 +25,54 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: time-delay
+      description: 动力系统的稳定性及时滞微分方程的数值方法相关论文检索
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: time-delay systems
+          keyword_cn: 时滞系统
+          query: stability analysis of time-delay systems
+        - keyword: Lyapunov methods
+          keyword_cn: 李雅普诺夫方法
+          query: Lyapunov-Krasovskii functional for time-delay systems
+        - keyword: dynamical systems stability
+          keyword_cn: 动力系统稳定性
+          query: stability of dynamical systems and its applications
+        - keyword: delay differential equation solvers
+          keyword_cn: 时滞微分方程数值求解
+          query: numerical solvers for delay differential equations
+      intent_queries:
+        - query: Stability analysis of time delay dynamical systems using numerical methods
+          query_cn: 使用时滞动力系统数值方法的稳定性分析
+          enabled: true
+          source: manual
+          note: ''
+        - query: Lyapunov methods for stability of time delay systems with applications
+          query_cn: 时滞系统稳定性的李雅普诺夫方法及应用
+          enabled: true
+          source: manual
+          note: ''
+        - query: numerical methods for delay differential equations
+          query_cn: 时滞微分方程数值方法
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-05-28T07:11:26.778Z'
+source_backends:
+  arxiv:
+    papers_table: arxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_arxiv_papers
+    vector_rpc_exact: match_arxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_arxiv_papers_bm25
+    sync_table: arxiv_sync_status
+    sync_success_value: success
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq

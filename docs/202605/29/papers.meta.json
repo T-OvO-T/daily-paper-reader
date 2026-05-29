@@ -1,0 +1,39 @@
+{
+  "label": "2026-05-29",
+  "date": "2026-05-29",
+  "generated_at": "2026-05-29T21:50:20",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202605/29/2605.24132v1-local-input-to-state-stability-for-consensus-in-the-presence-of-intermittent-communication-and-input-saturation",
+      "section": "deep",
+      "title_en": "Local Input-to-State Stability for Consensus in the Presence of Intermittent Communication and Input Saturation",
+      "authors": "Thales C. Silva, M. Ani Hsieh",
+      "date": "2026-05-22",
+      "pdf": "https://arxiv.org/pdf/2605.24132v1",
+      "score": "8.0",
+      "evidence": "间歇通信与输入饱和下共识的局部输入-状态稳定性",
+      "tldr": "本文针对输入饱和及间歇通信阻碍共识收敛的问题，将共识问题转化为等价稳定性问题。通过计算有界集包含初始条件和轨迹演化，导出局部输入-状态稳定性充分条件。利用凸优化设计控制器，最大化保证稳定性的区域，并评估扰动抑制能力（L2增益）。数值例子揭示了间歇通信频率、扰动能量与收敛区域大小的权衡关系。",
+      "tags": "query:multi-agent",
+      "abstract_en": "This paper addresses the problem of reaching consensus under input saturation and intermittent communication, which can hinder the convergence of the system. We propose a method that translates the consensus into an equivalent stability problem. Then, we compute bounded sets that enclose the initial conditions and the evolution of trajectories leading to local input-to-state stability for systems interconnected over directed intermittent topologies. Our contributions include sufficient conditions for stability and stabilization of multi-agent systems under intermittent interactions and saturating inputs, with the ability to evaluate disturbance tolerance and rejection based on the regions that enclose the system's trajectories. We define disturbance rejection in terms of the $\\mathscr{L}_2$ gain, and formulate stability and controller design conditions as convex optimization problems. Our method enable the maximization of regions that ensure local input-to-state stability, we provide numerical examples highlighting the trade-offs between mean frequency of intermittent interactions, disturbance energy, and convergence region size.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/29/2605.24315v1-boundary-stabilization-of-an-euler-bernoulli-beam-with-axial-force-and-internal-delay",
+      "section": "deep",
+      "title_en": "Boundary stabilization of an Euler-Bernoulli beam with axial force and internal delay",
+      "authors": "Ben Bakary Junior Siriki, Adama Coulibaly",
+      "date": "2026-05-23",
+      "pdf": "https://arxiv.org/pdf/2605.24315v1",
+      "score": "8.0",
+      "evidence": "基于Lyapunov泛函的时滞梁边界镇定",
+      "tldr": "针对恒定轴向张力下含内部时滞的Euler-Bernoulli梁，本文研究其边界镇定问题。首先基于线性算子半群理论证明系统适定性，随后通过构造Lyapunov泛函，在由物理参数不等式刻画的(α,ξ)平面区域内建立指数稳定性。该工作将Han等人的结果拓展至考虑轴向张力及无符号约束时滞项的情形。",
+      "tags": "query:time-delay",
+      "abstract_en": "This paper investigates the boundary stabilization of an Euler-Bernoulli beam under constant axial tension and subject to an internal time-delay. First, the well-posedness of the system is established using semigroup of linear operators theory. Then, by constructing an adequate Lyapunov functional, we establish the exponential stability of the system within a region of the $(α, ξ)$-plane, explicitly characterized by a system of inequalities involving the physical parameters. This work extends the results of Han et al. (Journal of Difference Equations, 2016) by incorporating the effect of axial tension and an internal delay term without sign constraints.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

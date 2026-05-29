@@ -1,0 +1,3739 @@
+Title: Boundary stabilization of an Euler-Bernoulli beam with axial force and internal delay
+
+URL Source: https://arxiv.org/pdf/2605.24315v1
+
+Published Time: Tue, 26 May 2026 00:37:21 GMT
+
+Number of Pages: 21
+
+Markdown Content:
+BOUNDARY STABILIZATION OF AN EULER-BERNOULLI BEAM WITH AXIAL FORCE AND INTERNAL DELAY 
+
+BEN BAKARY JUNIOR SIRIKI AND ADAMA COULIBALY 
+
+Abstract. This paper investigates the boundary stabilization of an Euler-Bernoulli beam under constant axial tension and subject to an internal time-delay. First, the well-posedness of the system is established using semigroup of linear operators theory. Then, by constructing an adequate Lyapunov func-tional, we establish the exponential stability of the system within a region of the (α, ξ )-plane, explicitly characterized by a system of inequalities involving the physical parameters. This work extends the results of Han et al. (Journal of Difference Equations, 2016) by incorporating the effect of axial tension and an internal delay term without sign constraints. 
+
+1. Introduction 
+
+In this paper, we study the stabilization of a uniform Euler-Bernoulli beam, clamped at one end and subject to a boundary velocity control at its free end. We assume that the beam is under a constant axial tension T > 0 and includes an internal delay term. The equations governing the vibratory motion of this structure are given by: 
+
+
+
+ytt (x, t ) + yxxxx (x, t ) − T y xx (x, t ) + αy t(x, t − τ ) = 0 ,
+
+(x, t ) ∈ (0 , ℓ ) × (0 , +∞),y(0 , t ) = yx(0 , t ) = 0 , t ∈ (0 , +∞),yxx (ℓ, t ) = 0 , t ∈ (0 , +∞),yxxx (ℓ, t ) − T y x(ℓ, t ) = κy t(ℓ, t ), t ∈ (0 , +∞),y(x, 0) = y0(x), y t(x, 0) = y1(x), x ∈ [0 , ℓ ],yt(x, s ) = f0(x, s ), x ∈ (0 , ℓ ), s ∈ (−τ, 0) ,
+
+(1) where y(x, t ) represents the deflection of the beam at position x and time t, while 
+
+τ > 0 denotes the time delay, assumed to be constant. The parameter α ∈ R is the coefficient associated with the delay term, and κ > 0 represents the gain of the boundary control at x = ℓ. Finally, the functions y0, y 1, and f0 define the initial data of the system. The stabilization of Euler-Bernoulli beams constitutes a pivotal issue in con-trol theory and continues to attract significant attention owing to its wide-ranging technological applications (see [1–6]). To address the precision requirements of modern engineering systems, various stabilization strategies have been explored in recent decades. Among them, the contributions of Guo et al. [7] and Dadfarnia et al. [8] stand out as representative of two distinct and fundamental approaches in the literature, both applied to uniform flexible beams with a tip mass. To achieve exponential stabilization, Guo et al. [7] employ a frequency-domain approach based on the asymptotic expansion of generalized eigenvalues and eigenvectors of the lin-ear operator associated with the system, as well as the Riesz basis property. For further contributions based on this approach, see for instance [9–14]. Conversely, 
+
+2020 Mathematics Subject Classification. 35B40, 93D15, 47D06, 35Q74. 
+
+Key words and phrases. Euler-Bernoulli beam equation, internal time delay, axial force, Boundary control, exponential stability.  
+
+> 1
+> arXiv:2605.24315v1 [math.AP] 23 May 2026 2BEN BAKARY JUNIOR SIRIKI AND ADAMA COULIBALY
+
+Dadfarnia et al. [8] favor a time-domain approach based on the direct Lyapunov method. For more details on the application of this method to beam stabilization, we refer the reader to [15–24]. However, the question of stabilization remains largely unexplored for beams mod-els incorporating axial forces (see [9, 10, 16, 18, 19]), in comparison to the abundant literature dealing with beams in the absence of such constraints (see [7, 11, 14, 15, 17, 25–27]). Accounting for such forces is nevertheless vital, as they can profoundly alter the system’s dynamics, potentially triggering to instability. Furthermore, the study of time-delay effects on dynamical systems remains a subject of great interest within the research community, as they allow for more realistic mathematical models and meet numerous practical requirements. Inher-ent to any realistic physical system, these delays can cause system destabilization, even when they are arbitrarily small (see [28, 29]). To address this issue, several approaches have been developed depending on the location of the delay within the system: one may consult, for instance, [12–14, 18–20] for input delays, [30–32] for output delays, and finally [21–24, 33, 34] for internal delays. However, to the best of our knowledge, the question of exponential stabilization of an Euler-Bernoulli beam, simultaneously subjected to an axial force and a con-stant internal delay, remains an open problem. Our work fits into this framework and aims to extend the stability results obtained by Han et al. [24]. More precisely, we treat the case of a an Euler-Bernoulli beam under constant axial tension, in which the coefficient α associated with the delayed velocity term is not subject to any sign constraint. Our strategy consists, first, in formulating the closed-loop system (1) as a linear evolution problem in an appropriate state space based on Hilbert spaces. The Lümer-Phillips theorem guarantees that the system is well-posed within the framework of semigroup theory [35, 36] . Next, to establish the exponential stability of the model, we employ a Lyapunov-based approach, building upon the framework developed in [23,34]. Specifically, we construct a suitable Lya-punov functional, which we prove to be equivalent to the energy of the system (1). Finally, a rigorous estimation of its time derivative allows us to derive sufficient conditions guaranteeing the exponential decay of the energy within an explicitly described (α, ξ )−region. The remainder of this article is organized as follows: Section 2 addresses the well-posedness of system (1) using the theory of linear operator semigroups. Subse-quently, Section 3 is devoted to the proof of the exponential stability of the system, relying on the construction of an appropriate Lyapunov functional. Finally, Section 4 concludes this work by suggesting several avenues for further research. 2. Well-posedness of the system: a semigroup approach 
+
+In this section, we will study the existence, uniqueness and regularity of the solution of system (1), using a semigroup approach. First, we will rewrite system (1) as an abstract linear Cauchy problem into a tailored Hilbert state space. Next, by using Lümer-Phillips, we will prove the existence of a unique solution to problem (1). 2.1. Abstract Cauchy problem formulation. To reformulate system (1) as an abstract linear Cauchy problem in an appropriate Hilbert space, we first introduce an auxiliary variable. Let 
+
+u(x, s, t ) := yt(x, t − τ s ), (x, s, t ) ∈ (0 , ℓ ) × (0 , 1) × (0 , +∞). (2) BOUNDARY STABILIZATION OF AN EBB WITH AXIAL FORCE AND INTERNAL DELAY 3 
+
+It follows that u satisfies the system: 
+
+
+
+τ u t(x, s, t ) + us(x, s, t ) = 0 , (x, s, t ) ∈ (0 , ℓ ) × (0 , 1) × (0 , +∞),u(x, 0, t ) = yt(x, t ), (x, t ) ∈ (0 , ℓ ) × (0 , +∞),u(x, 1, t ) = yt(x, t − τ ), (x, t ) ∈ (0 , ℓ ) × (0 , +∞),u(x, s, 0) = f0(x, −τ s ), (x, s ) ∈ [0 , ℓ ] × (0 , 1) .
+
+(3) Thus, the original system (1) is equivalent to the following augmented system: 
+
+
+
+ytt (x, t ) + yxxxx (x, t ) − T y xx (x, t ) + αu (x, 1, t ) = 0 ,
+
+(x, t ) ∈ (0 , ℓ ) × (0 , +∞),τ u t(x, s, t ) + us(x, s, t ) = 0 , (x, s, t ) ∈ (0 , ℓ ) × (0 , 1) × (0 , +∞),y(0 , t ) = yx(0 , t ) = 0 , t ∈ (0 , +∞),u(x, 0, t ) = yt(x, t ), (x, t ) ∈ (0 , ℓ ) × (0 , +∞),yxx (ℓ, t ) = 0 , t ∈ (0 , +∞),yxxx (ℓ, t ) − T y x(ℓ, t ) = κy t(ℓ, t ), t ∈ (0 , +∞),u(x, 1, t ) = yt(x, t − τ ), (x, t ) ∈ (0 , ℓ ) × (0 , +∞),y(x, 0) = y0(x), y t(x, 0) = y1(x), x ∈ [0 , ℓ ],u(x, s, 0) = f0(x, −τ s ), (x, s ) ∈ [0 , ℓ ] × (0 , 1) .
+
+(4) Next, to set up the appropriate framework for our analysis, we introduce the follow-ing functional spaces Let H2 
+
+> E
+
+(0 , ℓ ) := y ∈ H2(0 , ℓ ) : y(0) = y′(0) = 0 . The state space H is then defined as: 
+
+H := H2 
+
+> E
+
+(0 , ℓ ) × L2(0 , ℓ ) × L2 (0 , ℓ ) × (0 , 1) . (5) We endow H with the inner product 
+
+≺ Y1, Y 2 ≻ := 
+
+Z ℓ
+
+> 0
+
+v1(x) v2(x) dx + T
+
+Z ℓ
+
+> 0
+
+y′
+
+> 1
+
+(x) y′
+
+> 2
+
+(x) dx +
+
+Z ℓ
+
+> 0
+
+y′′  
+
+> 1
+
+(x) y′′  
+
+> 2
+
+(x) dx 
+
++ ξ
+
+Z ℓ
+
+> 0
+
+Z 10
+
+u1(x, s ) u2(x, s ) ds dx, 
+
+(6) for all Yi := ( yi, v i, u i) ∈ H , i = 1 , 2, where ξ a positive constant. With this inner product, H forms a Hilbert space, and its associated norm is denoted by ∥·∥ H .Now, we consider the linear operator A : D(A) ⊂ H → H defined by: 
+
+D(A) := 
+
+Y =
+
+
+
+yvu
+
+ ∈ H :
+
+y ∈ H4(0 , ℓ ), v ∈ H2 
+
+> E
+
+(0 , ℓ ),u ∈ L2  0, ℓ ; H1(0 , 1)  , v = u(·, 0) 
+
+y′′ (ℓ) = 0 , y (3) (ℓ) − T y ′(ℓ) = κv (ℓ)
+
+ , (7) 
+
+AY := 
+
+
+
+v
+
+−y(4) + T y ′′ − αu (·, 1) 
+
+−τ −1us(·, s )
+
+ . (8) Based on the above considerations, system (4) is recast as the following abstract Cauchy problem: 
+
+dY (t)
+
+dt = AY (t), t ∈ (0 , ∞),Y (0) = Y0,
+
+(9) where Y (t) :=  y(·, t ), v (·, t ), u (·, t ) and Y0 := 
+
+
+
+y0, y 1, f 0(·, −sτ )
+
+
+
+, s ∈ (0 , 1) .2.2. Existence and uniqueness result. Before stating the first main result of this paper, we establish some fundamental properties of the operator A in the following lemmas. 
+
+Lemma 1. The linear operator A given by (7) –(8) is closed and its domain D(A)
+
+is dense in the Hilbert space H .4 BEN BAKARY JUNIOR SIRIKI AND ADAMA COULIBALY 
+
+Proof. First, to establish that the linear operator A is densely defined in H , we invoke a corollary of the geometric form of the Hahn-Banach theorem [37, Corollary 1.8 p.47]. Let Y = ( y, v, u ) ∈ H and assume that ≺ Y, (f, g, h ) ≻= 0 for all 
+
+(f, g, h ) ∈ D A. By the definition of the inner product in H , this orthogonality condition explicitly reads: 
+
+Z ℓ
+
+> 0
+
+
+
+v(x)g(x) + T y ′(x)f ′(x) + y′′ (x)f ′′ (x)
+
+
+
+dx 
+
++ ξ
+
+Z ℓ
+
+> 0
+
+Z 10
+
+u(s, x )h(x, s ) ds dx = 0 .
+
+(10) Choosing f = g = 0 and h ∈ D  (0 , ℓ ) × (0 , 1) , we find that: 
+
+Z ℓ
+
+> 0
+
+Z 10
+
+u(s, x )h(x, s ) ds dx = 0 . (11) It follows that u = 0 a.e. in (0 , ℓ )×(0 , 1) , which implies u = 0 in L2 (0 , ℓ )×(0 , 1)  by the density of test functions space D (0 , ℓ ) × (0 , 1)  in L2 (0 , ℓ ) × (0 , 1) . Similarly, choosing f = 0 , h = 0 and g ∈ D (0 , ℓ ), the orthogonality condition reduces to: 
+
+Z ℓ
+
+> 0
+
+v(x)g(x) dx = 0 . (12) Due to density of D(0 , ℓ ) in L2(0 , ℓ ), it follows immediately that v = 0 in L2(0 , ℓ ).In view of the fact that u = v = 0 , the initial relation (10) simplifies to: 
+
+Z ℓ
+
+> 0
+
+
+
+y′′ (x)f ′′ (x) + T y ′(x)f ′(x)
+
+
+
+dx = 0 . (13) Note that (f, 0, 0) ∈ D(A) if and only if f ∈ H2 
+
+> E
+
+(0 , ℓ ) ∩ H4(0 , ℓ ).Since this in-tersection space is dense in H2 
+
+> E
+
+(0 , ℓ ) (equipped with its natural inner product 
+
+≺ · , · ≻ H2 
+
+> E(0 ,ℓ )
+
+) yields y = 0 . Hence, Y = 0 in H .Next, we show that the operator A is closed. To this end, let (Yn)n∈N ⊂ D(A) be a sequence such that Yn → Y and AYn → F in H as n → ∞ . We must show that 
+
+Y ∈ D(A) and AY = F . More explicitly, setting Yn = ( yn, v n, u n), Y = ( y, v, u ),and F = ( f1, f 2, f 3), the convergence relations mean that: 
+
+yn −→  
+
+> n→∞
+
+y in H2 
+
+> E
+
+(0 , ℓ ), v n −→  
+
+> n→∞
+
+v in L2(0 , ℓ ) and un → u in L2 (0 , ℓ ) × (0 , 1) , (14) 
+
+vn −→  
+
+> n→∞
+
+f1 in H2 
+
+> E
+
+(0 , ℓ ), −y(4)  
+
+> n
+
++ T y ′′  
+
+> n
+
+− αu n(·, 1) −→  
+
+> n→∞
+
+f2 in L2(0 , ℓ ),
+
+and τ −1(un)s −→  
+
+> n→∞
+
+−f3 in L2 (0 , ℓ ) × (0 , 1) . (15) Since H2 
+
+> E
+
+(0 , ℓ ) is a linear subspace of L2(0 , ℓ ), we obtain, by unicity of limit, that 
+
+v = f1 ∈ H2 
+
+> E
+
+(0 , ℓ ).Furthermore, from the convergence of (un)n∈N to u in L2 (0 , ℓ )×(0 , 1) , there exists a subsequence (unk )k∈N such that: 
+
+unk −→  
+
+> k→+∞
+
+u a.e. in (0 , ℓ ) × (0 , 1) , (16) 
+
+unk ⩽ h a.e. in (0 , ℓ ) × (0 , 1) , (17) with some function h ∈ L2 (0 , ℓ ) × (0 , 1) . Then, we get: 
+
+unk φs −→  
+
+> k→+∞
+
+uφ s a.e. in (0 , ℓ ) × (0 , 1) , (18) 
+
+unk φs ⩽
+
+
+
+sup 
+
+> (x,s )∈(0 ,ℓ )×(0 ,1)
+
+φs(x, s )
+
+
+
+h a.e. in (0 , ℓ ) × (0 , 1) . (19) BOUNDARY STABILIZATION OF AN EBB WITH AXIAL FORCE AND INTERNAL DELAY 5 
+
+Applying Lebesgue’s dominated convergence Theorem, we obtain: 
+
+Z ℓ
+
+> 0
+
+Z 10
+
+(unk )s(x, s )φ(x, s ) ds dx = −
+
+Z ℓ
+
+> 0
+
+Z 10
+
+unk (x, s )φs(x, s ) ds dx 
+
+Z ℓ
+
+> 0
+
+Z 10
+
+(unk )s(x, s )φ(x, s ) ds dx −→  
+
+> k→+∞
+
+−
+
+Z ℓ
+
+> 0
+
+Z 10
+
+u(x, s )φs(x, s ) ds dx 
+
+=
+
+Z ℓ
+
+> 0
+
+Z 10
+
+us(x, s )φ(x, s ) ds dx, 
+
+(20) for all φ ∈ D ((0 , ℓ ) × (0 , 1)) . Consequently, (unk )s → us a.e. in (0 , ℓ ) × (0 , 1) . By the density of D (0 , ℓ ) × (0 , 1)  in L2 (0 , ℓ ) × (0 , 1)  and the uniqueness of the limit, we readily deduce that −τ −1(unk )s → − τ −1us = f3 in L2 (0 , ℓ ) × (0 , 1) , which implies that u ∈ L2 0, ℓ ; H1(0 , 1) . In addition, since yn → y in H2 
+
+> E
+
+(0 , ℓ ), it follows that y′′  
+
+> n
+
+−→  
+
+> n→+∞
+
+y′′ , y ′ 
+
+> n
+
+−→  
+
+> n→+∞
+
+y′ and yn −→  
+
+> n→+∞
+
+y in L2(0 , ℓ ). Consequently, by a similar subsequence extraction argument, there exists a subsequence (ynk )k∈N such that: 
+
+≺ y′′  
+
+> nk
+
+− y′′ , φ ′′ ≻L2(0 ,ℓ ) −T ≺ ynk − y, φ ′′ ≻L2(0 ,ℓ ) → 
+
+> k→+∞
+
+0,
+
+≺
+
+
+
+y(4)  
+
+> nk
+
+− T y ′′ 
+
+> nk
+
+
+
+−
+
+
+
+y(4) − T y ′′ 
+
+, φ ≻L2(0 ,ℓ ) −→  
+
+> k→+∞
+
+0, (21) for all φ ∈ D (0 , ℓ ), after a double integration by parts. The density of D(0 , ℓ )
+
+in L2(0 , ℓ ) implies that y(4)  
+
+> nk
+
+− T y ′′  
+
+> nk
+
+−→  
+
+> k→+∞
+
+y(4) − T y ′′ in L2(0 , ℓ ). Hence, y ∈
+
+H4(0 , ℓ ). To verify that y satisfies the boundary conditions, we identify y with its continuous representative in C3[0 , ℓ ] via the Sobolev embedding theorem, and apply the sequential characterization of limits. Thus, Y ∈ D(A).Furthermore, for almost every x ∈ (0 , ℓ ), the map s 7 → u(x, s ) belongs to H1(0 , 1) .Since H1(0 , 1) is continuously embedded in C[0 , 1] , identifying u with its continuous representative with respect to s immediately yields un(·, 1) → u(·, 1) as n → +∞.Hence, −y(4)  
+
+> nk
+
++ T y ′′  
+
+> nk
+
+− αu nk (·, 1) converges to f2 = −y(4) + T y ′′ − αu (·, 1) in 
+
+L2(0 , ℓ ) as k → +∞. It follows immediately that F = AY , thereby completing the proof. □
+
+Lemma 2. The linear operator A, defined by (7) –(8) , is invertible and its inverse 
+
+A−1 is compact on H .Proof. First, we prove that the linear operator A is invertible. To this end, let 
+
+F = ( f, g, h ) ∈ H and consider the equation AY = F for Y = ( y, v, u ) ∈ D(A).This equation is equivalent to the following system: 
+
+
+
+v = f, 
+
+−y(4) + T y ′′ − αu (·, 1) = g, 
+
+−τ −1us(·, s ) = h(·, s ).
+
+(22) The first equation in the above system immediately yields v = f , which allows us to integrate the equation (22) 3 explicitly as: 
+
+u(·, s ) = −τ
+
+Z s
+
+> 0
+
+h(·, r ) dr + f, (23) in (0 , 1) . Inserting this expression in the equation (22) 2, we obtain: 
+
+−y(4) + T y ′′ = g + α
+
+
+
+f − τ
+
+Z 10
+
+h(·, r ) dr 
+
+
+
+y(4) − T y ′′ + ψα(f, g, h ) = 0 , (24) 6 BEN BAKARY JUNIOR SIRIKI AND ADAMA COULIBALY 
+
+where ψα(f, g, h ) := g + α
+
+
+
+f − τ R 10 h(·, r ) dr 
+
+
+
+. The characteristic equation associ-ated with the homogeneous part of (24) reads: 
+
+r4 − T r 2 = 0 (25) and its roots are given by 
+
+r = 0 , r = ϱ and r = −ϱ, (26) where ϱ = √T . Consequently, the homogeneous solution yH := yH (x) is given by: 
+
+yH = c1 + c2x + c3eϱx + c4e−ϱx , ci ∈ R, i ∈ { 1, 2, 3, 4}. (27) Let yP be a particular solution of the non-homogeneous equation (24) associated with the source term ψα. It can be found by varying the constants ci. Substituting 
+
+y by yP in non-homogeneous equation (24) yields: 
+
+
+
+1 x eϱx e−ϱx 
+
+0 1 ϱe ϱx −ϱe −ϱx 
+
+0 0 ϱ2eϱx ϱ2e−ϱx 
+
+0 0 ϱ3eϱx −ϱ3e−ϱx 
+
+| {z } 
+
+> W(x)
+
+
+
+c′
+
+> 1
+
+(x)
+
+c′
+
+> 2
+
+(x)
+
+c′
+
+> 3
+
+(x)
+
+c′
+
+> 4
+
+(x)
+
+| {z }
+
+> C′(x)
+
+=
+
+
+
+000
+
+−ψα(f, g, h )
+
+ (28) Let W (x) be the matrix associated with the above fundamental system. The Wron-skian ∆ := det( W (x)) is given by: 
+
+∆ = 
+
+1 x eϱx e−ϱx 
+
+0 1 ϱe ϱx −ϱe −ϱx 
+
+0 0 ϱ2eϱx ϱ2e−ϱx 
+
+0 0 ϱ3eϱx −ϱ3e−ϱx 
+
+= ϱ2eϱx ϱ2e−ϱx 
+
+ϱ3eϱx −ϱ3e−ϱx = −2ϱ5. (29) By Cramer’s rule, we obtain c′
+
+> i
+
+(x) := ∆i
+
+∆ , i = 1 , 2, 3, 4 , where: 
+
+∆1 =
+
+0 x eϱx e−ϱx 
+
+0 1 ϱe ϱx −ϱe −ϱx 
+
+0 0 ϱ2eϱx ϱ2e−ϱx 
+
+−ψα(f, g, h ) 0 ϱ3eϱx −ϱ3e−ϱx 
+
+= 2 xϱ 3ψα(f, g, h ) (30) 
+
+∆2 =
+
+1 0 eϱx e−ϱx 
+
+0 0 ϱe ϱx −ϱe −ϱx 
+
+0 0 ϱ2eϱx ϱ2e−ϱx 
+
+0 −ψα(f, g, h ) ϱ3eϱx −ϱ3e−ϱx 
+
+= −2ϱ3ψα(f, g, h ) (31) 
+
+∆3 =
+
+1 x 0 e−ϱx 
+
+0 1 0 −ϱe −ϱx 
+
+0 0 0 ϱ2e−ϱx 
+
+0 0 −ψα(f, g, h ) −ϱ3e−ϱx 
+
+= ϱ2e−ϱx ψα(f, g, h ) (32) 
+
+∆4 =
+
+1 x eϱx 00 1 ϱe ϱx 00 0 ϱ2eϱx 00 0 ϱ3eϱx −ψα(f, g, h )
+
+= −ϱ2eϱx ψα(f, g, h ). (33) Specifically, we find: 
+
+c′
+
+> 1
+
+(x) = − xψ α(f, g, h )
+
+ϱ2 c′
+
+> 2
+
+(x) = ψα(f, g, h )
+
+ϱ2
+
+c′
+
+> 3
+
+(x) = − e−ϱx ψα(f, g, h )2ϱ3 c′
+
+> 4
+
+(x) = eϱx ψα(f, g, h )2ϱ3 ,
+
+(34) BOUNDARY STABILIZATION OF AN EBB WITH AXIAL FORCE AND INTERNAL DELAY 7 
+
+and consequently, a particular solution is given by, 
+
+yP = 1
+
+ϱ2
+
+Z x
+
+> 0
+
+(x − r)ψα(f, g, h )( r) dr 
+
+− 1
+
+ϱ3
+
+Z x
+
+> 0
+
+sinh 
+
+
+
+ϱ(x − r)
+
+
+
+ψα(f, g, h )( r) dr. 
+
+(35) Hence, the general solution to the non-homogeneous equation (24) is given by: 
+
+y(x) = c1 + c2x + c3eϱx + c4e−ϱx + 1
+
+ϱ2
+
+Z x
+
+> 0
+
+(x − r)ψα(f, g, h )( r) dr 
+
+− 1
+
+ϱ3
+
+Z x
+
+> 0
+
+sinh 
+
+
+
+ϱ(x − r)
+
+
+
+ψα(f, g, h )( r) dr. 
+
+(36) To compute the coefficients ci, i = 1 , 2, 3, 4 in (36), we apply the boundary condi-tions at x = 0 and x = ℓ:
+
+
+
+y(0) = y′(0) = 0 ,y′′ (ℓ) = 0 ,y(3) (ℓ) − T y ′(ℓ) = κf (ℓ).
+
+(37) The successive derivatives of the solution y are the following expressions: 
+
+y′(x) = c2 + ϱ c3eϱx − c4e−ϱx 
+
++ 1
+
+ϱ2
+
+Z x
+
+> 0
+
+
+
+1 − cosh  ϱ(x − r)
+
+ψα(f, g, h )( r) dr (38) 
+
+y′′ (x) = ϱ2 c3eϱx + c4e−ϱx  − 1
+
+ϱ
+
+Z x
+
+> 0
+
+sinh  ϱ(x − r)ψα(f, g, h )( r) dr (39) 
+
+y(3) (x) = ϱ3 c3eϱx − c4e−ϱx  − 1
+
+ϱ
+
+Z x
+
+> 0
+
+cosh  ϱ(x − r)ψα(f, g, h )( r) dr. (40) The boundary condition (37) 1 is equivalent to the following algebraic system: 
+
+ c1 + c3 + c4 = 0 
+
+c2 + ϱ c3 − c4
+
+ = 0 . (41) The condition (37) 2 becomes: 
+
+c3eϱℓ + c4e−ϱℓ = 1
+
+ϱ3
+
+Z ℓ
+
+> 0
+
+sinh 
+
+
+
+ϱ(ℓ − r)
+
+
+
+ψα(f, g, h )( r) dr. (42) The third boundary condition (37) 3 rewrites as: 
+
+−T c 2 +
+
+
+
+ϱ3 − T ϱ 
+
+
+
+c3eϱℓ −
+
+
+
+ϱ3 − T ϱ 
+
+
+
+c4e−ϱℓ = κf (ℓ)+
+
+Z ℓ
+
+> 0
+
+−T cosh  ϱ(ℓ − r) − 1
+
+ϱ2 + cosh  ϱ(ℓ − r)
+
+ϱ
+
+!
+
+ψα(f, g, h )( r) dr. 
+
+(43) Ultimately, the coefficients ci, i = 1 , 2, 3, 4 are found to satisfy the algebraic system: 
+
+
+
+c1 + c3 + c4 = 0 
+
+c2 + ϱ
+
+
+
+c3 − c4
+
+
+
+= 0 
+
+eϱℓ c3 + e−ϱℓ c4 = φ1(ℓ)
+
+−T c 2 + π(ϱ)eϱℓ c3 − π(ϱ)e−ϱℓ c4 = φ2(ℓ),
+
+(44) 8 BEN BAKARY JUNIOR SIRIKI AND ADAMA COULIBALY 
+
+where the function π(·) and constants φ1(ℓ), φ 2(ℓ) are given by: 
+
+π(ϱ) := ϱ3 − T ϱ φ1(ℓ) := 1
+
+ϱ3
+
+Z ℓ
+
+> 0
+
+sinh 
+
+
+
+ϱ(ℓ − r)
+
+
+
+ψα(f, g, h )( r) dr, φ2(ℓ) := 1
+
+ϱ2
+
+Z ℓ
+
+> 0
+
+ cosh 
+
+
+
+ϱ(ℓ − r)
+
+
+
+− 1
+
+ϱ2 +cosh 
+
+
+
+ϱ(ℓ − r)
+
+
+
+ϱ
+
+ ψα(f, g, h )( r) dr 
+
++ κf (ℓ).
+
+(45) A direct computation of the determinant ∆c associated with the linear system (44) yields ∆c = −2π(ϱ) + 2 P ϱ cosh( ϱℓ )̸ = 0 , which guarantees the existence and uniqueness of the coefficients ci. It follows that the linear operator A is invertible, and its inverse A−1 : H → D(A) is continuous by the closed graph Theorem. We now prove the compactness of A−1. We recall that D(A) ⊂ H4(0 , 1) ×
+
+H2(0 , 1) × L2 0, ℓ ; H1(0 , 1) ). Since the domain D(A) is compactly embedded into 
+
+H by the Rellich-Kondrachov theorem, and the resolvent A−1 : H → D(A) is bounded, it follows immediately that A−1 is a compact operator on H . □
+
+We, now, state the first main result of this paper. 
+
+Theorem 1. The linear operator A generates a C0-semigroup on H . Conse-quently, for any initial datum Y0 ∈ H , system (1) admits a unique mild solution 
+
+Y ∈ C([0 , +∞), H ). Furthermore, if Y0 ∈ D(A), then Y is a classical solution satisfying Y ∈ C([0 , +∞), D(A)) ∩ C1([0 , +∞), H ).Proof. First, we prove the dissipativity of the linear operator A − mαI. We have: 
+
+≺ AY, Y ≻ =≺
+
+
+
+v
+
+−y(4) + T y ′′ − αu (·, 1) 
+
+−τ −1us(·, s )
+
+ ,
+
+
+
+yvu
+
+ ≻≺ AY, Y ≻ =
+
+Z ℓ
+
+> 0
+
+
+
+− y(4) (x) + T y ′′ (x) − αu (x, 1) 
+
+
+
+v(x) dx 
+
++
+
+Z ℓ
+
+> 0
+
+v′′ (x)y′′ (x) dx + T
+
+Z ℓ
+
+> 0
+
+v′(x)y′(x) dx 
+
+− ξτ −1
+
+Z ℓ
+
+> 0
+
+Z 10
+
+us(x, s )u(x, s ) ds dx. 
+
+(46) Performing successive integrations by parts and invoking the boundary conditions (4) 3 and (4) 5, we obtain: 
+
+Z ℓ
+
+> 0
+
+y(4) (x)v(x) dx =
+
+h
+
+y(3) (x)v(x) − y′′ (x)v′(x)
+
+iℓ
+
+> 0
+
++
+
+Z ℓ
+
+> 0
+
+y′′ (x)v′′ (x) dx 
+
+= y(3) (ℓ)v(ℓ) + 
+
+Z ℓ
+
+> 0
+
+y′′ (x)v′′ (x) dx 
+
+(47) 
+
+Z ℓ
+
+> 0
+
+y′′ (x)v(x) dx =
+
+h
+
+y′(x)v(x)
+
+iℓ
+
+> 0
+
+−
+
+Z ℓ
+
+> 0
+
+y′(x)v′(x) dx 
+
+= y′(ℓ)v(ℓ) −
+
+Z ℓ
+
+> 0
+
+y′(x)v′(x) dx 
+
+(48) 
+
+Z 10
+
+us(·, s )u(·, s ) ds = 12
+
+Z 10
+
+dds 
+
+ u2(·, s ) ds =
+
+h
+
+u2(·, s )
+
+is=1 
+
+> s=0
+
+= 12
+
+
+
+u2(·, 1) − u2(·, 0) 
+
+
+
+.
+
+(49) BOUNDARY STABILIZATION OF AN EBB WITH AXIAL FORCE AND INTERNAL DELAY 9 
+
+By combining the expressions (47)–(49) and using the boundary condition (4) 6, it follows that: 
+
+≺ AY, Y ≻ =
+
+
+
+T y ′(ℓ) − y(3) (ℓ)
+
+
+
+v(ℓ) − ξτ −1
+
+2
+
+Z ℓ
+
+> 0
+
+
+
+u2(x, 1) − u2(x, 0) 
+
+
+
+dx 
+
+− α
+
+Z ℓ
+
+> 0
+
+u(x, 1) v(x) dx 
+
+= − ξτ −1
+
+2
+
+Z ℓ
+
+> 0
+
+
+
+u2(x, 1) − v2(x)
+
+
+
+dx − α
+
+Z ℓ
+
+> 0
+
+u(x, 1) v(x) dx 
+
+− κv 2(ℓ).
+
+(50) By applying Young’s inequality to the cross term −αu (x, 1) v(x) for all x ∈ (0 , ℓ ),we obtain: 
+
+−αu (x, 1) v(x) ⩽ ε1
+
+2 u2(x, 1) + α2
+
+2ε1
+
+v2(x), ∀ ε1 > 0. (51) Consequently, the identity (50) leads to the following estimates: 
+
+≺ AY, Y ≻ ⩽ α2ε−11 + ξτ −1
+
+2
+
+Z ℓ
+
+> 0
+
+v2(x) dx + ε1 − ξτ −1
+
+2
+
+Z ℓ
+
+> 0
+
+u2(x, 1) dx − κv 2(ℓ)
+
+≺ AY, Y ≻ ⩽
+
+ ξ
+
+2τ + τ α 2
+
+ξ
+
+ Z ℓ
+
+> 0
+
+v2(x) dx − ξτ −1
+
+4
+
+Z ℓ
+
+> 0
+
+u2(x, 1) dx − κv 2(ℓ), (52) after choosing ε1 = ξτ −1 
+
+> 2
+
+. Hence, we arrive at the final estimate: 
+
+≺ A −
+
+ ξ
+
+2τ + τ α 2
+
+ξ
+
+| {z }
+
+> mα
+
+!
+
+Y, Y ≻ ⩽ − ξτ −1
+
+4
+
+Z 10
+
+u2(x, 1) dx − κv 2(ℓ) ⩽ 0, (53) where mα = ξ 
+
+> 2τ
+
++ τ α 2 
+
+> ξ
+
+> 0. Thus, A − mαI is dissipative on H .To complete the proof that the operator A − mαI generates a C0-semigroup via the Lümer-Phillips Theorem, it remains to establish its maximality. Depending on the values of the coefficient α, we distinguish the following two cases: Case 1: α ⩾ 0. We prove that the operator λI − A is surjective for any λ > 0.This consists in showing that for every F = ( f, g, h ) ∈ H , the resolvent equation 
+
+(λI − A)Y = F admits a solution in D(A). Explicitly, this equation reads: 
+
+
+
+λy − v = f, λv + y(4) − T y ′′ + αu (·, 1) = g, λu (·, s ) + τ −1us(·, s ) = h(·, s ), s ∈ (0 , 1) .
+
+(54) The relations (54) 1 and (54) 3 give: 
+
+
+
+v = λy − f, u(·, s ) = 
+
+
+
+λy − f
+
+
+
+e−λτ s + τ
+
+Z s
+
+> 0
+
+h(·, ω )e−λτ (s−ω) dω s ∈ (0 , 1) . (55) Substituting the expressions for v and u into (55) yields: 
+
+y(4) − T y ′′ +
+
+
+
+λ2 + αλe −τ λ 
+
+| {z } 
+
+> q1
+> α,τ (λ)
+
+
+
+y = g +
+
+
+
+λ + αe −τ λ 
+
+| {z } 
+
+> q2
+> α,τ (λ)
+
+
+
+f
+
++   −ατ e −τ λ 
+
+| {z } 
+
+> q3
+> α,τ (λ)
+
+ Z 10
+
+eλτ ω h(·, ω ) dω. 
+
+(56) 10 BEN BAKARY JUNIOR SIRIKI AND ADAMA COULIBALY 
+
+We observe that qiα,τ > 0, i = 1 , 2 and q3 
+
+> α,τ
+
+⩽ 0. Hence, finding the solution Y
+
+reduces to solving the following system for y:
+
+
+
+y(4) − T y ′′ + q1 
+
+> α,τ
+
+(λ)y = ψ f, g, h ,y(0) = y′(0) = y′′ (ℓ) = 0 ,y(3) (ℓ) − T y ′(ℓ) − λκy (ℓ) = −κf (ℓ),
+
+(57) where the function ψ f, g, h  is defined by: 
+
+ψ f, g, h  = g + q2 
+
+> α,τ
+
+(λ)f + q3 
+
+> α,τ
+
+(λ)
+
+Z 10
+
+eλτ ω h(·, ω ) dω. (58) For any test function φ ∈ H2 
+
+> E
+
+(0 , ℓ ), the following identity holds: 
+
+Z ℓ
+
+> 0
+
+
+
+y(4) (x) − T y ′′ (x) + q1 
+
+> α,τ
+
+(λ)y(x)
+
+
+
+φ(x) dx =
+
+Z ℓ
+
+> 0
+
+ψ f, g, h (x)φ(x) dx. (59) Integrating by parts and applying the boundary condition (57) 2, we obtain: 
+
+Z ℓ
+
+> 0
+
+y(4) (x)φ(x) dx =
+
+h
+
+y(3) (x)φ(x) − y′′ (x)φ′(x)
+
+iℓ
+
+> 0
+
++
+
+Z ℓ
+
+> 0
+
+y′′ (x)φ′′ (x) dx 
+
+= y(3) (ℓ)φ(ℓ) + 
+
+Z ℓ
+
+> 0
+
+y′′ (x)φ′′ (x) dx 
+
+(60) 
+
+Z ℓ
+
+> 0
+
+y′′ (x)φ(x) dx =
+
+h
+
+y′(x)φ(x)
+
+iℓ
+
+> 0
+
+−
+
+Z ℓ
+
+> 0
+
+y′(x)φ′(x) dx 
+
+= y′(ℓ)φ(ℓ) −
+
+Z ℓ
+
+> 0
+
+y′(x)φ′(x) dx. 
+
+(61) Combining the boundary condition (57) 3 with the identities (60) and (61), the relation (59) reduces to: 
+
+Z ℓ
+
+> 0
+
+y′′ (x)φ′′ (x) dx + T
+
+Z ℓ
+
+> 0
+
+y′(x)φ′(x) dx + q1 
+
+> α,τ
+
+(λ)
+
+Z ℓ
+
+> 0
+
+y(x)φ(x) dx 
+
++
+
+
+
+y(3) (ℓ) − T y ′(ℓ)
+
+
+
+φ(ℓ) = 
+
+Z ℓ
+
+> 0
+
+ψ f, g, h (x)φ(x) dx 
+
+Z ℓ
+
+> 0
+
+y′′ (x)φ′′ (x) dx + T
+
+Z ℓ
+
+> 0
+
+y′(x)φ′(x) dx + q1 
+
+> α,τ
+
+(λ)
+
+Z ℓ
+
+> 0
+
+y(x)φ(x) dx 
+
++ λκy (ℓ)φ(ℓ) = 
+
+Z ℓ
+
+> 0
+
+ψ f, g, h (x)φ(x) dx + κf (ℓ)φ(ℓ).
+
+(62) Thus, the variational problem amounts to finding y ∈ H2 
+
+> E
+
+(0 , ℓ ) such that: 
+
+L(y, φ ) = J (φ) (63) for all φ ∈ H2 
+
+> E
+
+(0 , ℓ ), where the bilinear form L : H2 
+
+> E
+
+(0 , ℓ ) × H2 
+
+> E
+
+(0 , ℓ ) → R and the linear form J : H2 
+
+> E
+
+(0 , ℓ ) → R are respectively defined by: 
+
+L(y, φ ) := 
+
+Z ℓ
+
+> 0
+
+y′′ φ′′ dx + T
+
+Z ℓ
+
+> 0
+
+y′φ′ dx + q1 
+
+> α,τ
+
+(λ)
+
+Z ℓ
+
+> 0
+
+yφ dx + λκy (ℓ)φ(ℓ) (64) 
+
+J (φ) := 
+
+Z ℓ
+
+> 0
+
+ψ f, g, h φ dx + κf (ℓ)φ(ℓ). (65) Furthermore, the bilinear form L is coercive. Indeed, for any y ∈ H2 
+
+> E
+
+(0 , ℓ ), we have: 
+
+L(φ, φ ) ⩾
+
+Z ℓ
+
+> 0
+
+
+
+φ′′ (x)2 + T φ ′(x)2 + q1 
+
+> α,τ
+
+(λ)φ2(x)
+
+
+
+dx 
+
+L(φ, φ ) ⩾ min {1, T, q 1 
+
+> α,τ
+
+(λ)}∥ φ∥2 
+
+> H2
+> E(0 ,1)
+
+.
+
+(66) BOUNDARY STABILIZATION OF AN EBB WITH AXIAL FORCE AND INTERNAL DELAY 11 
+
+Next, we establish the continuity of the applications J and L. More precisely, we have: 
+
+L(y, φ ) ⩽
+
+sZ ℓ
+
+> 0
+
+y′′ (x)2 dx 
+
+Z ℓ
+
+> 0
+
+φ′′ (x)2 dx + T
+
+sZ ℓ
+
+> 0
+
+y′(x)2 dx 
+
+Z ℓ
+
+> 0
+
+φ′(x)2 dx 
+
++ q1 
+
+> α,τ
+
+(λ)
+
+sZ ℓ
+
+> 0
+
+y(x)2 dx 
+
+Z ℓ
+
+> 0
+
+φ(x)2 dx + λκ 
+
+Z ℓ
+
+> 0
+
+|y′(x)| dx 
+
+Z ℓ
+
+> 0
+
+|φ′(x)| dx 
+
+⩽
+
+sZ ℓ
+
+> 0
+
+y′′ (x)2 dx 
+
+Z ℓ
+
+> 0
+
+φ′′ (x)2 dx + ( λκℓ + T )
+
+sZ ℓ
+
+> 0
+
+y′(x)2 dx 
+
+Z ℓ
+
+> 0
+
+φ′(x)2 dx 
+
++ q1 
+
+> α,τ
+
+(λ)
+
+sZ ℓ
+
+> 0
+
+y(x)2 dx 
+
+Z ℓ
+
+> 0
+
+φ(x)2 dx 
+
+L(y, φ ) ⩽ 3 max 
+
+n
+
+1, λκℓ + T, q 1 
+
+> α,τ
+
+(λ)
+
+o
+
+∥y∥H2 
+
+> E(0 ,ℓ )
+
+∥φ∥H2 
+
+> E(0 ,ℓ )
+
+. (67) and 
+
+J (φ) ⩽ ∥ψ(f, g, h )∥L2(0 ,ℓ )∥φ∥L2(0 ,ℓ ) + κ
+
+Z ℓ
+
+> 0
+
+|f ′(x)| dx 
+
+Z ℓ
+
+> 0
+
+|φ′(x)| dx 
+
+⩽ ∥ψ(f, g, h )∥L2(0 ,ℓ )∥φ∥L2(0 ,ℓ ) + κℓ ∥f ′∥L2(0 ,ℓ )∥φ′∥L2(0 ,ℓ )
+
+J (φ) ⩽ 2
+
+
+
+∥ψ(f, g, h )∥L2(0 ,ℓ ) + κℓ ∥f ′∥L2(0 ,ℓ )
+
+
+
+∥φ∥H2(0 ,ℓ ). (68) As for the L2-norm of ψ(f, g, h ), it satisfies the following estimate: 
+
+∥ψ(f, g, h )∥L2(0 ,ℓ ) ⩽ ∥g∥L2(0 ,ℓ ) + q2 
+
+> α,τ
+
+(λ)∥f ∥L2(0 ,ℓ )
+
++ q3 
+
+> α,τ
+
+(λ)
+
+Z 10
+
+eλτ ω h(·, ω ) dω L2(0 ,ℓ )
+
+⩽ ∥g∥L2(0 ,ℓ ) + q2 
+
+> α,τ
+
+(λ)∥f ∥L2(0 ,ℓ )
+
++ q3 
+
+> α,τ
+
+(λ) eλτ 
+
+Z 10
+
+h(·, ω ) dω 
+
+> L2(0 ,ℓ )
+
+⩽ ∥g∥L2(0 ,ℓ ) + q2 
+
+> α,τ
+
+(λ)∥f ∥L2(0 ,ℓ ) + ατ 
+
+Z 10
+
+h(·, ω ) dω 
+
+> L2(0 ,ℓ )
+
+∥ψ(f, g, h )∥L2(0 ,ℓ ) ⩽ ∥g∥L2(0 ,ℓ ) + q2 
+
+> α,τ
+
+(λ)∥f ∥L2(0 ,ℓ ) + ατ ∥h∥L2((0 ,ℓ )×(0 ,1)) . (69) Inserting this bound into (68) yields the refined estimate: 
+
+J (φ) ⩽ 2
+
+
+
+∥g∥L2(0 ,ℓ ) + q2 
+
+> α,τ
+
+(λ)∥f ∥L2(0 ,ℓ ) + κℓ ∥f ′∥L2(0 ,ℓ )
+
++ ατ ∥h∥L2((0 ,ℓ )×(0 ,1)) 
+
+
+
+∥φ∥H2(0 ,ℓ )
+
+J (φ) ⩽ 2
+
+
+
+2 max 
+
+n
+
+κℓ, q 2 
+
+> α,τ
+
+(λ)
+
+o
+
+∥f ∥H2(0 ,ℓ ) + ∥g∥L2(0 ,ℓ )
+
++ ατ ∥h∥L2((0 ,ℓ )×(0 ,1)) 
+
+
+
+∥φ∥H2(0 ,ℓ ).
+
+Consequently, by virtue of the Lax-Milgram theorem, we conclude that the weak formulation (63) admits a unique solution y ∈ H2 
+
+> E
+
+(0 , ℓ ).12 BEN BAKARY JUNIOR SIRIKI AND ADAMA COULIBALY 
+
+Conversely, assuming y is a weak solution, performing successive integrations by parts yields: 
+
+Z ℓ
+
+> 0
+
+
+
+y(4) (x) − T y ′′ (x)
+
+
+
+φ(x) dx + q1 
+
+> α,τ
+
+(λ)
+
+Z ℓ
+
+> 0
+
+y(x)φ(x) dx 
+
++ T
+
+h
+
+y′(x)φ(x)
+
+iℓ
+
+> 0
+
++ λκy (ℓ)φ(ℓ) −
+
+h
+
+y(3) (x)φ(x) − y′′ (x)φ′(x)
+
+iℓ
+
+> 0
+
+=
+
+Z ℓ
+
+> 0
+
+ψ(f, g, h )( x)φ(x) dx + κf (ℓ)φ(ℓ),
+
+(70) for all φ ∈ H2 
+
+> E
+
+(0 , ℓ ). Selecting φ ∈ D (0 , ℓ ), we have: 
+
+Z ℓ
+
+> 0
+
+
+
+y(4) (x) − T y ′′ (x) + q1 
+
+> α,τ
+
+(λ)y(x)
+
+
+
+φ(x) dx =
+
+Z ℓ
+
+> 0
+
+ψ(f, g, h )( x)φ(x) dx. (71) Therefore, the identity y(4) − T y ′′ + q1 
+
+> α,τ
+
+(λ)y = ψ(f, g, h ) holds almost everywhere in (0 , ℓ ). Since D(0 , ℓ ) is dense in L2(0 , ℓ ), this relation extends to L2(0 , ℓ ), which immediately implies that y ∈ H4(0 , ℓ ). Consequently, we have v = λy −f ∈ H2 
+
+> E
+
+(0 , ℓ )
+
+and u ∈ L2(0 , ℓ ; H1(0 , 1)) . Coming back to H2 
+
+> E
+
+(0 , ℓ ), we obtain: 
+
+−
+
+h
+
+y(3) (x)φ(x) − y′′ (x)φ′(x)
+
+iℓ
+
+> 0
+
++ T
+
+h
+
+y′(x)φ(x)
+
+iℓ
+
+> 0
+
++ κ
+
+
+
+λy (ℓ) − f (ℓ)
+
+
+
+φ(ℓ) = 0 
+
+
+
+− y(3) (ℓ) + T y ′(ℓ) + κ λy (ℓ) − f (ℓ)
+
+φ(ℓ) + y′′ (ℓ)φ′(ℓ) = 0 . (72) As φ is arbitrary, the relations (57) 2 and (57) 3 are satisfied. Then y solves (57). Hence, y solves (57), which proves that the operator λI − A is surjective for all 
+
+λ > 0. Since λ + mα > 0, it follows that (λ + mα)I − A = λI − (A − mαI) is also surjective. Consequently, the Lümer–Phillips theorem ensures that A − mαI
+
+generates a contractive C0−semigroup on H . Finally, by invoking the bounded perturbation theorem (see [36, Theorem 1.1 p.76]), we conclude that A generates a strongly continuous semigroup on H .Case 2: α < 0.Since A − mαI is dissipative, then λI − A is dissipative for all λ > m α. It follows that, λI − A is injective for all λ > m α. In addition, by virtue of Lemmas 1 and 2, the following identity holds: 
+
+λI − A = −A I − λA−1, ∀λ > m α. (73) Due to the compactness of linear operator λA−1, the Fredholm alternative theorem ensures that I − λA−1 is surjective. This, in turn, implies the surjectivity of λI − A
+
+as a composition of surjective operators. By virtue of the Lümer–Phillips theorem, we deduce that A − mαI generates a contraction C0−semigroup on H . Finally, the bounded perturbation Theorem implies that A generates a C0−semigroup. □
+
+3. Exponential stability of the system: some sufficient geometric conditions 
+
+This section is devoted to the exponential stabilization of system (1). By con-structing an appropriate Lyapunov functional, we identify a region of exponential stability for the system. This region is characterized by specific geometric condi-tions arising from a system of inequalities. BOUNDARY STABILIZATION OF AN EBB WITH AXIAL FORCE AND INTERNAL DELAY 13 
+
+For any regular solution y of system (1), the associated energy is defined by: 
+
+E(t) := 12
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t ) dx +
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx + T
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx 
+
+!
+
++ ξ
+
+2
+
+Z ℓ
+
+> 0
+
+Z 10
+
+y2 
+
+> t
+
+(x, t − sτ ) ds dx, t ⩾ 0,
+
+(74) where ξ > 0 is a constant that will be fixed later. The following technical lemmas provide the necessary estimates for the time deriva-tives of the energy and additional auxiliary functionals to be introduced. 
+
+Lemma 3. Let E(t) be the energy functional defined by (74) . For any solution of system (1) , the time derivative of the energy satisfies the following estimate for all 
+
+t ⩾ 0:
+
+ddt E(t) ⩽ −κy 2 
+
+> t
+
+(ℓ, t ) + |α| + ξ
+
+2
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t ), dx + |α| − ξ
+
+2
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t − τ ), dx. (75) 
+
+Proof. We have: 
+
+dE (t)
+
+dt = ddt 
+
+"
+
+12
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t ) dx +
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx + T
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx 
+
+!# 
+
++ ξ
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t ) dx −
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t − τ ) dx 
+
+!
+
+.
+
+(76) First, we multiply the first equation of (1) by yt, which yields: 
+
+Z ℓ
+
+> 0
+
+
+
+ytt (x, t ) + yxxxx (x, t ) − T y xx (x, t ) + αy t(x, t − τ )
+
+
+
+yt(x, t ) dx = 0 . (77) We then rewrite the first integral term of the time derivative by isolating the time derivative operator: 
+
+Z ℓ
+
+> 0
+
+ytt (x, t ) yt(x, t ) dx = ddt 
+
+12
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t ) dx 
+
+!
+
+. (78) Next, performing integrations by parts over (0 , ℓ ) and incorporating the boundary condition (1) 2, we obtain: 
+
+Z ℓ
+
+> 0
+
+yxxxx (x, t ) yt(x, t ) dx =
+
+h
+
+yxxx (x, t ) yt(x, t ) − yxx (x, t ) ytx (x, t )
+
+ix=ℓx=0 
+
++
+
+Z ℓ
+
+> 0
+
+yxx (x, t ) ytxx (x, t ) dx 
+
+= yxxx (ℓ, t ) yt(ℓ, t ) + ddt 
+
+12
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx 
+
+!
+
+(79) 
+
+Z ℓ
+
+> 0
+
+yxx (x, t ) yt(x, t ) dx =
+
+h
+
+yx(x, t ) yt(x, t )
+
+ix=ℓx=0 
+
++
+
+Z ℓ
+
+> 0
+
+yx(x, t ) ytx (x, t ) dx 
+
+= yx(ℓ, t ) yt(ℓ, t ) − ddt 
+
+12
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx 
+
+!
+
+.
+
+(80) From identities (78)–(80) and using the boundary conditions (1) 3 − (1) 4, relation (77) becomes: 
+
+ddt 
+
+"
+
+12
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t )dx +
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx + T
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx 
+
+!# 14 BEN BAKARY JUNIOR SIRIKI AND ADAMA COULIBALY 
+
+= −α
+
+Z ℓ
+
+> 0
+
+yt(x, t − τ ) yt(x, t ) dx −
+
+
+
+yxxx (ℓ, t ) − T y x(ℓ, t )
+
+
+
+yt(ℓ, t )= −α
+
+Z ℓ
+
+> 0
+
+yt(x, t − τ ) yt(x, t ) dx − κy 2 
+
+> t
+
+(ℓ, t ). (81) Consequently, identity (76) becomes: 
+
+dE (t)
+
+dt = − ξ
+
+2
+
+Z ℓ
+
+> 0
+
+
+
+y2 
+
+> t
+
+(x, t − τ ) − y2 
+
+> t
+
+(x, t )
+
+
+
+dx 
+
+− α
+
+Z ℓ
+
+> 0
+
+yt(x, t − τ ) yt(x, t ) dx − κy 2 
+
+> t
+
+(ℓ, t ).
+
+(82) Finally, applying Young’s inequality to the cross-term −αy t(x, t − τ )yt(x, t ) yields: 
+
+−α
+
+Z ℓ
+
+> 0
+
+yt(x, t − τ ) yt(x, t ) dx ⩽ |α|
+
+2
+
+Z ℓ
+
+> 0
+
+
+
+y2 
+
+> t
+
+(x, t − τ ) + y2 
+
+> t
+
+(x, t )
+
+
+
+dx, (83) from which the estimate (75) follows directly. We can observe that the energy of system (1) is not non-increasing over time. □
+
+Furthermore, we define the following two functionals associated with any solution 
+
+y of problem (1): 
+
+I1(t) := 
+
+Z ℓ
+
+> 0
+
+xy x(x, t )yt(x, t ) dx (84) 
+
+I2(t) := 
+
+Z ℓ
+
+> 0
+
+Z tt−τ
+
+es−ty2 
+
+> t
+
+(x, s ) ds dx, (85) for all t ⩾ 0.
+
+Lemma 4. Let ε1, ε 2 > 0 be arbitrary constants. The time derivative of the func-tional I1(t) satisfies the following estimate for all t ⩾ 0:
+
+dI 1(t)
+
+dt ⩽ − 12
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t ) dx + −3 + T ℓ 2 + ε2ℓ
+
+2
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx 
+
++ ε1 − T
+
+2
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx +
+
+ αℓ 2
+
+2ε1
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t − τ ) dx 
+
++ ℓ
+
+2 +
+
+ κℓ 2
+
+2ε2
+
+!
+
+y2 
+
+> t
+
+(ℓ, t ).
+
+(86) 
+
+Proof. By definition, we have: 
+
+dI 1(t)
+
+dt =
+
+Z ℓ
+
+> 0
+
+x
+
+
+
+yxt (x, t )yt(x, t ) + yx(x, t )ytt (x, t )
+
+
+
+dx. (87) Integrating the first integral term by parts over (0 , ℓ ) and using the boundary condition (1) 2 lead to: 
+
+Z ℓ
+
+> 0
+
+xy xt (x, t )yt(x, t ) dx = 12
+
+h
+
+xy 2 
+
+> t
+
+(x, t )
+
+ix=ℓx=0 
+
+−
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t ) dx 
+
+!
+
+= 12 ℓy 2 
+
+> t
+
+(ℓ, t ) −
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t ) dx 
+
+!
+
+. (88) BOUNDARY STABILIZATION OF AN EBB WITH AXIAL FORCE AND INTERNAL DELAY 15 
+
+Similarly, substituting the governing equation (1) 1 into the second integral term of (87) yields: 
+
+Z ℓ
+
+> 0
+
+xy x(x, t )ytt (x, t ) dx 
+
+= −
+
+Z ℓ
+
+> 0
+
+xy x(x, t )
+
+
+
+yxxxx (x, t ) − T y xx (x, t ) + αy t(x, t − τ )
+
+
+
+dx. 
+
+(89) To evaluate this relation, we perform successive integrations by parts. First, the first integral term is rewritten as: 
+
+Z ℓ
+
+> 0
+
+xy x(x, t )yxxxx (x, t ) dx 
+
+=
+
+h
+
+xy x(x, t )yxxx (x, t )
+
+ix=ℓx=0 
+
+−
+
+Z ℓ
+
+> 0
+
+
+
+yx(x, t ) + xy xx (x, t )
+
+
+
+yxxx (x, t ) dx 
+
+= ℓy x(ℓ, t )yxxx (ℓ, t ) −
+
+Z ℓ
+
+> 0
+
+
+
+yx(x, t ) + xy xx (x, t )
+
+
+
+yxxx (x, t ) dx. (90) In particular, observing that: 
+
+Z ℓ
+
+> 0
+
+yx(x, t )yxxx (x, t ) dx =
+
+h
+
+yx(x, t )yxx (x, t )
+
+ix=ℓx=0 
+
+−
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx 
+
+Z ℓ
+
+> 0
+
+yx(x, t )yxxx (x, t ) dx = −
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx, (91) and 
+
+Z ℓ
+
+> 0
+
+xy xx (x, t )yxxx (x, t ) dx = 12
+
+h
+
+xy 2
+
+> xx
+
+(x, t )
+
+ix=ℓx=0 
+
+−
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx 
+
+!Z ℓ
+
+> 0
+
+xy xx (x, t )yxxx (x, t ) dx = − 12
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx, (92) after applying the boundary conditions (1) 2 and (1) 3. So, we obtain from identities (91) and (92): 
+
+Z ℓ
+
+> 0
+
+xy x(x, t )yxxxx (x, t ) dx = 32
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx + ℓy x(ℓ, t )yxxx (ℓ, t ). (93) Next, the following holds: 
+
+Z ℓ
+
+> 0
+
+xy x(x, t )yxx (x, t ) dx = 12
+
+h
+
+xy 2
+
+> x
+
+(x, t )
+
+ix=ℓx=0 
+
+−
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx 
+
+!
+
+= 12 ℓy 2
+
+> x
+
+(ℓ, t ) −
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx 
+
+!
+
+. (94) Therefore, exploiting relations (93) and (94), identity (89) reduces to: 
+
+Z ℓ
+
+> 0
+
+xy x(x, t )ytt (x, t ) dx 
+
+= − 32
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx − T
+
+2
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx 
+
+− α
+
+Z ℓ
+
+> 0
+
+xy t(x, t − τ )yx(x, t ) dx − ℓy x(ℓ, t )yxxx (ℓ, t ) + ℓT 
+
+2 y2
+
+> x
+
+(ℓ, t ). (95) 16 BEN BAKARY JUNIOR SIRIKI AND ADAMA COULIBALY 
+
+Consequently, inserting relations (88) and (95) into (87) yields: 
+
+dI 1(t)
+
+dt = − 12
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t ) dx − 32
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx − T
+
+2
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx 
+
+− α
+
+Z ℓ
+
+> 0
+
+xy t(x, t − τ )yx(x, t ) dx + ℓ
+
+2 y2 
+
+> t
+
+(ℓ, t ) + ℓT 
+
+2 y2
+
+> x
+
+(ℓ, t )
+
+− ℓy x(ℓ, t )yxxx (ℓ, t )
+
+dI 1(t)
+
+dt = − 12
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t ) dx − 32
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx − T
+
+2
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx 
+
+− α
+
+Z ℓ
+
+> 0
+
+xy t(x, t − τ )yx(x, t ) dx + ℓ
+
+2 y2 
+
+> t
+
+(ℓ, t ) − ℓT 
+
+2 y2
+
+> x
+
+(ℓ, t )
+
+− κℓy x(ℓ, t )yt(ℓ, t ).
+
+(96) Nevertheless, applying Young’s inequality, we have: 
+
+− α
+
+Z ℓ
+
+> 0
+
+xy t(x, t − τ )yx(x, t ) dx 
+
+⩽ ε1
+
+2
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx + α2
+
+2ε1
+
+Z ℓ
+
+> 0
+
+x2y2 
+
+> t
+
+(x, t − τ ) dx 
+
+⩽ ε1
+
+2
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx +
+
+ αℓ 2
+
+2ε1
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t − τ ) dx, 
+
+(97) 
+
+−κℓy x(ℓ, t )yt(ℓ, t ) ⩽ ε2
+
+2 y2
+
+> x
+
+(ℓ, t ) + 
+
+ κℓ 2
+
+2ε2
+
+y2 
+
+> t
+
+(ℓ, t ), (98) for all ε1, ε 2 > 0. Since, we have after application of Cauchy-Schwarz inequality: 
+
+y2
+
+> x
+
+(ℓ, t ) = 
+
+Z ℓ
+
+> 0
+
+yxx (x, t ) dx 
+
+!2
+
+⩽ ℓ
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx, (99) then the inequality (98) becomes: 
+
+−κℓy x(ℓ, t )yt(ℓ, t ) ⩽ ε2
+
+2 ℓ
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx +
+
+ κℓ 2
+
+2ε2
+
+y2 
+
+> t
+
+(ℓ, t ). (100) Finally, incorporating estimates (97) and (100) into (96) leads to the desired result. 
+
+□
+
+Lemma 5. The time derivative of the functional I2(t), defined by (85) , satisfies the following estimate: 
+
+dI 2(t)
+
+dt ⩽
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t ) dx − e−τ
+
+Z ℓ
+
+> 0
+
+Z tt−τ
+
+y2 
+
+> t
+
+(x, s ) ds dx 
+
+− e−τ
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t − τ ) dx. 
+
+(101) 
+
+Proof. We refer the reader to [23, 34] for a detailed proof of this result. □
+
+Finally, we introduce the Lyapunov functional V (t) defined by: 
+
+V (t) := E(t) + 
+
+> 2
+
+X
+
+> i=1
+
+δiIi(t), (102) where δ1, δ 2 > 0 are constants, and the functionals E(t), I1(t), and I2(t) are given in (74), (84), and (85). To establish the exponential stability of system (1), we first prove the equivalence between the energy E(t) and the Lyapunov functional V (t):BOUNDARY STABILIZATION OF AN EBB WITH AXIAL FORCE AND INTERNAL DELAY 17 
+
+Proposition 1. For a sufficiently small δ1 > 0, the functional V (t) is equivalent to the energy E(t). Specifically, there exist two positive constants γ1 and γ2 such that, for all t ⩾ 0,
+
+γ1E(t) ⩽ V (t) ⩽ γ2E(t). (103) 
+
+Proof. First, we estimate |I1(t)|. Applying ε-Young’s inequality on the integrand 
+
+xy xyt yields, for any ε3 > 0:
+
+|I1(t)| ⩽ ε3
+
+2
+
+Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t ) dx + ℓ2
+
+2ε3
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx 
+
+|I1(t)| ⩽ max 
+
+n
+
+ε3; ℓ2
+
+ε3T
+
+o
+
+E(t). (104) Setting ε3 := ℓ, we obtain: 
+
+|I1(t)| ⩽ max 
+
+n
+
+ℓ; ℓT
+
+o
+
+E(t). (105) Next, the functional I2(t) satisfies the following estimate: 
+
+I2 ⩽
+
+Z ℓ
+
+> 0
+
+Z tt−τ
+
+y2 
+
+> t
+
+(x, s ) ds dx ⩽ 2
+
+ξ E(t). (106) Consequently, by the triangle inequality, we obtain the following two-sided estimate: 
+
+− δ1 max 
+
+n
+
+ℓ; ℓT
+
+o
+
+E(t)+ δ2
+
+Z ℓ
+
+> 0
+
+Z tt−τ
+
+y2 
+
+> t
+
+(x, s ) ds dx 
+
+⩽
+
+> 2
+
+X
+
+> i=1
+
+δiIi(t) ⩽
+
+δ1 max 
+
+n
+
+ℓ; ℓT
+
+o
+
+E(t)+ δ2
+
+Z ℓ
+
+> 0
+
+Z tt−τ
+
+y2 
+
+> t
+
+(x, s ) ds dx 
+
+1 − δ1 max 
+
+n
+
+ℓ; ℓT
+
+o
+
++ 2δ2
+
+ξ
+
+!
+
+E(t) ⩽ V (t) ⩽ 1 + δ1 max 
+
+n
+
+ℓ; ℓT
+
+o
+
++ 2δ2
+
+ξ
+
+!
+
+E(t).
+
+(107) Hence, choosing δ1 small enough such that δ1 <
+
+
+
+max 
+
+n
+
+ℓ; ℓT
+
+o −1
+
+, the left-hand side coefficient 1 − δ1 max 
+
+n
+
+ℓ; ℓT
+
+o
+
+remains positive and the result (103) is thus established, with the positive constants γ1 and γ2 defined by: 
+
+γ1 := 1 − δ1 max 
+
+n
+
+ℓ; ℓT
+
+o
+
++ 2δ2
+
+ξ γ2 := 1 + δ1 max 
+
+n
+
+ℓ; ℓT
+
+o
+
++ 2δ2
+
+ξ . (108) 
+
+□
+
+With all the necessary ingredients in place, we are now ready to state the second main result regarding the exponential stability of system (1). 
+
+Theorem 2. Let κ > 0 and assume that T ∈ (0 , 3/ℓ 2). There exists a positive constant α0 such that, for any α satisfying |α| < α 0, system (1) is uniformly expo-nentially stable. Specifically, for any solution to (1) , there exist positive constants 
+
+ζ1 and ζ2, independent of the initial data, such that 
+
+E(t) ≤ ζ1E(0) e−ζ2t, ∀t ≥ 0. (109) 
+
+Proof. In view of Lemmas 3–5, the time derivative of the Lyapunov functional satisfies: 
+
+dV (t)
+
+dt = dE (t)
+
+dt +
+
+> 2
+
+X
+
+> i=1
+
+δi
+
+dI i(t)
+
+dt dV (t)
+
+dt ⩽
+
+
+
+− κ + δ1
+
+ ℓ
+
+2 + (κℓ )2
+
+2ε2
+
+  
+
+y2 
+
+> t
+
+(ℓ, t ) + 
+
+
+
+δ2 − 12 δ1 + |α| + ξ
+
+2
+
+ Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t ) dx 18 BEN BAKARY JUNIOR SIRIKI AND ADAMA COULIBALY 
+
++ −3 + T ℓ 2 + ℓε 2
+
+2 δ1
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx + ε1 − T
+
+2 δ1
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx 
+
++
+
+
+
+−e−τ δ2 + δ1
+
+(αℓ )2
+
+2ε1
+
++ |α| − ξ
+
+2
+
+ Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t − τ ) dx 
+
+− e−τ δ2
+
+Z ℓ
+
+> 0
+
+Z tt−τ
+
+y2 
+
+> t
+
+(x, s ) ds dx. 
+
+First, we set ε1 = T 
+
+> 2
+
+and ε2 = 3−T ℓ 2 
+
+> 2ℓ
+
+, with T ∈
+
+
+
+0; 3
+
+ℓ2
+
+
+
+. Next, we choose δi >
+
+0, i = 1 , 2 sufficiently small such that: 
+
+δ1 ⩽ κ
+
+ ℓ
+
+2 + κ2ℓ3
+
+3 − T ℓ 2
+
+−1
+
+, δ2 < δ1
+
+2 . (110) Under these choices, we obtain: 
+
+dV (t)
+
+dt ⩽
+
+
+
+− κ + δ1
+
+ ℓ
+
+2 + κ2ℓ3
+
+3 − T ℓ 2
+
+  
+
+y2 
+
+> t
+
+(ℓ, t )+
+
+
+
+δ2 − δ1
+
+2 + |α| + ξ
+
+2
+
+ Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t ) dx 
+
+− 3 − T ℓ 2
+
+4
+
+Z ℓ
+
+> 0
+
+y2
+
+> xx
+
+(x, t ) dx − T
+
+4 δ1
+
+Z ℓ
+
+> 0
+
+y2
+
+> x
+
+(x, t ) dx 
+
+−
+
+
+
+e−τ δ2 − δ1
+
+(αℓ )2
+
+T − |α| − ξ
+
+2
+
+ Z ℓ
+
+> 0
+
+y2 
+
+> t
+
+(x, t − τ ) dx 
+
+− e−τ δ2
+
+Z ℓ
+
+> 0
+
+Z tt−τ
+
+y2 
+
+> t
+
+(x, s ) ds dx. 
+
+(111) We denote by Σ the (α, ξ )−region of exponential stability associated with system (1), defined as: 
+
+Σ := 
+
+(α, ξ ) ∈ R × R∗ 
+
+> +
+
+:
+
+ξ < δ 1 − 2δ2 − | α|
+
+ξ ⩾ 2δ1ℓ2
+
+T α2 + |α| − 2e−τ δ2
+
+ . (112) For any pair (α, ξ ) ∈ Σ, there exists a constant ν > 0 such that: 
+
+dV (t)
+
+dt ⩽ −νE (t) ⩽ − νγ2
+
+V (t). (113) Specifically, ν is given by: 
+
+ν := 2 min 
+
+ T
+
+4 δ1; 3 − T ℓ 2
+
+4 ; e−τ ξ−1δ2; δ1
+
+2 − δ2 − |α| + ξ
+
+2
+
+
+
+. (114) Hence, combining (113) with the equivalence property (103) of Proposition 1 es-tablishes (109). □
+
+Remark 1.
+
+(i) As depicted in Figure 1, the exponential stability region Σ is non-empty for the considered system parameters. (ii) The stability region Σ is symmetric with respect to the ξ-axis, as its bound-aries are defined by even functions. Furthermore, since the right-hand side of the second inequality in (112) is quadratic with respect to α, it yields two symmetric roots α1, α 2 given by: 
+
+α1 = T
+
+4δ1ℓ2
+
+"
+
+−1 + 
+
+
+
+1 + 16 δ1δ2e−τ ℓ2
+
+T
+
+ 12
+
+#
+
+, α2 = −α1. (115) BOUNDARY STABILIZATION OF AN EBB WITH AXIAL FORCE AND INTERNAL DELAY 19 
+
+−δ1 + 2 δ2
+
+δ1 − 2δ2
+
+α2 α1
+
+δ1 − 2δ2
+
+−2δ2e−τ
+
+α
+
+ξ ξ = δ1 − 2δ2 − | α|
+
+ξ = 2δ1ℓ2 
+
+> T
+
+α2 + |α| − 2e−τ δ2
+
+Figure 1. The exponential stability region Σ
+
+(iii) Note that as κ → ∞ or κ → 0, the constants δ1 and δ2 vanish, which consequently implies that α tends to zero as well. 
+
+Remark 2. A relationship between α and κ can be obtained by fixing ξ and δi.Given that δ1 and δ2 must satisfy the conditions (110), we adopt the following choices: 
+
+δ1 = min 
+
+(
+
+max 
+
+n
+
+ℓ; ℓT
+
+o−1
+
+; κ
+
+ ℓ
+
+2 + κ2ℓ3
+
+3 − T ℓ 2
+
+−1)
+
+,δ2 = δ1
+
+4 and ξ = 2 |α|.
+
+(116) Consequently, the estimate (111) holds, and the stability region Σ becomes: 
+
+Σ := 
+
+ α, 2|α| : |α| < δ1
+
+6 , − 2δ1ℓ2
+
+T α2 + |α| + 12 e−τ δ1 ⩾ 0
+
+
+
+, α ∈ R∗. (117) Let Ψ( α) := − 2δ1ℓ2 
+
+> T
+
+α2 + |α| + 12 e−τ δ1, where the parameter δ1 is defined in (116). Since Ψ is an even function, the equation Ψ( α) = 0 yields two symmetric roots explicitly given by: 
+
+α∗ 
+
+> 1
+
+= T
+
+4δ1ℓ2
+
+
+
+1 + 
+
+
+
+1 + 4e−τ δ21 ℓ2
+
+T
+
+ 12 
+
+, α∗ 
+
+> 2
+
+= −α∗
+
+> 1
+
+. (118) The conditions (110) are satisfied for all |α| < α 0, with α0 defined as: 
+
+α0 = min 
+
+ δ1
+
+6 ; α∗
+
+> 1
+
+
+
+, (119) in which δ1 is given by (116). Therefore, α0 depends exclusively on the geometry of the beam, the internal time delay τ and the feedback gain κ.4. Conclusion 
+
+In this paper, we have established the exponential stabilization of an Euler-Bernoulli beam subjected to a constant axial force and a fixed internal time delay, whose coefficient is sign-indefinite, under the action of a boundary velocity control. Our approach first consisted in reformulating the system (1) as an abstract Cauchy problem within an appropriate Hilbert space, in order to prove its well-posedness via the Lümer-Phillips Theorem. Subsequently, we constructed a Lyapunov functional based on the system’s energy. Its decay along the trajectories yields an (α, ξ )-region of exponential stability for system (1), defined by the set Σ and symmetric with 20 BEN BAKARY JUNIOR SIRIKI AND ADAMA COULIBALY 
+
+respect to the ξ−axis. For future research, we intend to extend these results to the case of time-varying delays. We will also explore the incorporation of an internal damping mechanism within the model to further enhance its exponential stability. 
+
+References 
+
+[1] Yunxing Du, Peng Cheng, and Fen Zhou. Free vibration analysis of axial-loaded beams with variable cross sections and multiple concentrated elements. J. Vib. Control , 28(17-18):2197– 2211, 2022. [2] Bidisha Kundu and Ranjan Ganguli. Analysis of weak solution of Euler-Bernoulli beam with axial force. Appl. Math. Comput. , 298:247–260, 2017. [3] Animesh Chakravarthy, Katie A. Evans, and Johnny Evers. Sensitivities and functional gains for a flexible aircraft-inspired model. In Proceedings of the 2010 American Control Confer-ence , pages 4893–4898, 2010. [4] Joseph A. Turner and Joshua S. Wiehn. Sensitivity of flexural and torsional vibration modes of Atomic Force Microscope cantilevers to surface stiffness variations. Nanotechnology ,12(3):322–330, 2001. [5] Zheng-Hua Luo. Direct strain feedback control of flexible robot arms: new theoretical and experimental results. IEEE Trans. Automat. Contr. , 38(11):1610–1622, 1993. [6] A. V. Balakrishnan and Larry Taylor. The SCOLE design challenge. In NASA Technical Memorandum, editor, 3rd Annual NASA-SCOLE Workshop , volume 89075, pages 385–412, Hampton, VA, United States, 1986. NASA Langley Research Center. [7] Bao-Zhu Guo and Runyi Yu. The Riesz basis property of discrete operators and application to a Euler-Bernoulli beam equation with boundary linear feedback control. IMA Journal of Mathematical Control and Information , 18(2):241–251, 2001. [8] Mohsen Dadfarnia, Nader Jalili, Bin Xian, and Darren M. Dawson. Lyapunov-based vibration control of translational Euler-Bernoulli beams using the stabilizing effect of beam damping mechanisms. Journal of Vibration and Control , 10(7):933–961, 2004. [9] Jamel Ben Amara and Samih Ghnimi. Exponential stability of a non-uniform Euler-Bernoulli beam with axial force. Journal of Mathematical Analysis and Applications , 542(2):128870, 2025. [10] Jamel Ben Amara, Samih Ghnimi, and Samir Toumi. Exponential stability of a nonhomoge-neous Euler-Bernoulli Beam with axial force and a concentrated inertial mass. Boletín de la Sociedad Matemática Mexicana , 32(2), 2025. [11] Kouakou Kra Isaac Teya, Gossrin Jean-Marc Bomisso, Kidjegbo Augustin Touré, and Adama Coulibaly. Study of the stability properties for a general shape of damped Euler-Bernoulli beams under linear boundary conditions. Abstr. Appl. Anal. , 2023(1):9939530, 2023. [12] Serge Nicaise and Cristina Pignotti. Stability of the wave equation with localized Kelvin-Voigt damping and boundary delay feedback. DCDS-S , 9(3):791–813, 2016. [13] Han Wang and Gen-Qi Xu. Exponential stabilization of 1-d wave equation with input delay. 
+
+WSEAS Transactions on Mathematics , 12:1001–1013, 10 2013. [14] Ying-Feng Shang and Gen-Qi Xu. Stabilization of an Euler-Bernoulli beam with input delay in the boundary control. Systems and Control Letters , 61(11):1069–1078, 2012. [15] Mohammad Akil, Genni Fragnelli, and Amine Sbai. Exponential stability for a degener-ate/singular beam-type equation in non-divergence form. Axioms , 14(030159), 2025. [16] Billal Lekdim. Exponential stabilization of a Euler-Bernoulli beam under boundary control. 
+
+Journal of Innovative Applied Mathematics and Computational Sciences , 3(1):28–34, 2023. [17] Alessandro Camasta and Genni Fragnelli. New results on controllability and stability for degenerate Euler-Bernoulli type equations. DCDS , 44(8):2193–2231, 2024. [18] Ben Bakary Junior Siriki and Adama Coulibaly. Exponential stability of a degenerate Euler-Bernoulli beam with axial force and delayed boundary control, 2025. [19] Ben Bakary Junior Siriki and Adama Coulibaly. Boundary stabilization of a degenerate Euler-Bernoulli beam under axial force and time delay, 2025. [20] Zhiling Guo and Shugen Chai. Exponential stabilization of the transmission wave equation with dynamical boundary conditions and a delay term. Mathematical Methods in the Applied Sciences , 45(12):7794–7813, 2022. [21] Alessandro Camasta, Genni Fragnelli, and Cristina Pignotti. Stability for some classes of degenerate nonlinear hyperbolic equations with time delay. Nonlinear Analysis: Real World Applications , 81:104191, 2025. [22] Hugo Parada, Emmanuelle Crépeau, and Christophe Prieur. Delayed stabilization of the Korteweg-De Vries equation on a star-shaped network. Mathematical Methods in the Applied Sciences , 34:559–605, 2022. BOUNDARY STABILIZATION OF AN EBB WITH AXIAL FORCE AND INTERNAL DELAY 21 
+
+[23] Baowei Feng and Boumediene Chentouf. Exponential stabilization of a microbeam system with a boundary or distributed time delay. Mathematical Methods in the Applied Sciences ,44(14):11613–11630, 2021. [24] Peng-Cheng Han, Yan-Fang Li, Gen-Qi Xu, and Dan-Hong Liu. The exponential stability re-sult of an Euler-Bernoulli beam equation with interior delays and boundary damping. Journal of Difference Equations , 2016:237–257, 2016. [25] Boumediene Boukhari, Foued Mtiri, Ahmed Bchatnia, and Abderrahmane Beniani. Fractional derivative boundary control in coupled Euler-Bernoulli beams: stability and discrete energy decay. AIMS Mathematics , 9(11):32102–32123, 2024. [26] Djamila Benterki and Nasser-Eddine Tatar. Stabilization of a nonlinear Euler-Bernoulli beam. 
+
+Arabian Journal of Mathematics , 11:479–496, 2024. [27] Fei Wang and Jun-Min Wang. Stability of an interconnected system of Euler-Bernoulli beam and wave equation through boundary coupling. Systems and Control Letters , 138:104664, 2020. [28] Richard Datko. Two questions concerning the boundary control of certain elastic systems. 
+
+Journal of Differential Equations , 92(1):27–44, 1991. [29] Richard Datko. Two examples of ill-posedness with respect to small time delays in stabilized elastic systems. IEEE Trans. Automat. Contr. , 38(1):163–166, 1993. [30] Kun-Yi Yang and Jun-Min Wang. Pointwise feedback stabilization of an Euler-Bernoulli beam in observations with time delay. ESAIM: Control, Optimisation and Calculus of Variations ,25:4, 2019. [31] Jilong Wu and Yingfeng Shang. Exponential stability of the Euler-Bernoulli Beam Equation with external disturbance and output feedback time-delay. Journal of Systems Science and Complexity , 32(2):542–556, 2019. [32] Kun-Yi Yang, Jing-Jing Li, and Jie Zhang. Stabilization of Euler-Bernoulli beam equations with variable coefficients under delayed boundary output feedback. Electronic Journal of Differential Equations , 2015:1–15, 2015. [33] Mohammad Akil, Haidar Badawi, and Ali Wehbe. Stability results of a singular local inter-action elastic/viscoelastic coupled wave equations with time delay. Communications on Pure and Applied Analysis , 20(9):2991–3028, 2021. [34] Kaïs Ammari, Serge Nicaise, and Cristina Pignotti. Feedback boundary stabilization of wave equations with interior delay. Systems and Control Letters , 59(10):623–628, 2010. [35] Klaus-Jochen Engel and Rainer Nagel. One-Parameter Semigroups for Linear Evolution Equations , volume 194 of Graduate Texts in Mathematics . Springer, New York, 2000. [36] Amnon Pazy. Semigroups of linear operators and applications to partial differential equations ,volume 44 of Applied Mathematical Sciences . Springer-Verlag, New York, 1983. [37] Haïm Brézis. Analyse fonctionnelle: théorie et applications . Masson, Paris, 1983. 
+
+Universite Nangui Abrogoua, Abidjan, Côte d’Ivoire 
+
+Email address : benbjsiriki@gmail.com 
+
+Universite Félix Houphouët-Boigny, Abidjan, Côte d’Ivoire 
+
+Email address : couliba@yahoo.fr

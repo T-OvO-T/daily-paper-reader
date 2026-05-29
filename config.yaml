@@ -112,6 +112,39 @@ subscriptions:
           note: ''
       updated_at: '2026-05-28T08:34:59.379Z'
       paused: true
+    - tag: multi-agent
+      description: 请帮我查找“存在模型不确定性、涉及Lyapunov稳定性分析的多智能体系统”相关的论文
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: model uncertainty
+          keyword_cn: 模型不确定性
+          query: model uncertainty in multi-agent systems
+        - keyword: Lyapunov stability
+          keyword_cn: Lyapunov稳定性
+          query: Lyapunov stability analysis for multi-agent systems
+        - keyword: multi-agent systems
+          keyword_cn: 多智能体系统
+          query: multi-agent systems with uncertainty
+        - keyword: uncertain multi-agent
+          keyword_cn: 不确定多智能体
+          query: uncertain multi-agent systems Lyapunov
+        - keyword: nonlinear multi-agent
+          keyword_cn: 非线性多智能体
+          query: nonlinear multi-agent systems Lyapunov
+      intent_queries:
+        - query: multi agent system with model uncertainty and Lyapunov stability analysis
+          query_cn: 存在模型不确定性和Lyapunov稳定性分析的多智能体系统
+          enabled: true
+          source: manual
+          note: ''
+        - query: Lyapunov based stability analysis for uncertain multi agent systems
+          query_cn: 基于Lyapunov的不确定多智能体系统稳定性分析
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-05-29T05:53:05.852Z'
 source_backends:
   arxiv:
     papers_table: arxiv_papers
